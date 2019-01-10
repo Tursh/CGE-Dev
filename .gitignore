@@ -1,0 +1,8 @@
+#ignored files
+#cmake files
+cmake-build-debug
+cmake-build-release
+#binaries
+bin
+#IDE files
+.idea

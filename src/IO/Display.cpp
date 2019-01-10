@@ -1,0 +1,101 @@
+#include <GL/glew.h>	//glViewPort
+#include <GUI/GUIRenderer.h>
+#include <IO/Display.h>    //Display::
+#include <Utils/Log.h>        //logError
+#include <Utils/TimeUtils.h>
+#include <cstdlib>
+#include <initializer_list>
+#include <iostream>
+#include <map>
+#include <utility>
+
+namespace CGE
+{
+	namespace IO
+	{
+
+		unsigned int displayCreated = 0;
+		std::map<unsigned int, Display*> displays;
+
+		Display* getDisplay(unsigned int ID)
+		{
+#ifndef NDEBUG
+			//Check if the display exists
+			if (displays.find(ID) == displays.end())
+				logError("There is no display with the ID: " << ID);
+#endif
+			return displays[ID];
+		}
+
+		void windowResizeCallback(GLFWwindow* win, int width, int height)
+		{
+			glViewport(0, 0, width, height);
+			for(size_t i = 0; i < displays.size(); i++)
+			if(displays[i]->window == win)
+			{
+			        displays[i]->width = width;
+			        displays[i]->height = height;
+			}
+
+		}
+
+		/*Initialize GLFW, the window and GL context*/
+		Display::Display(const char* name, unsigned int width,
+				unsigned int height, bool resizable)
+				: width(width), height(height), ID(displayCreated++)
+		{
+			//Set if resizable
+			glfwWindowHint(GLFW_RESIZABLE, resizable);
+
+			//Create window
+			window = glfwCreateWindow(width, height, name, nullptr, nullptr);
+
+			//Check if the window exists
+			if (!window)
+			{
+				glfwTerminate();
+				logError("[ERROR] GLFW could not create a window");
+				exit(-1);
+			}
+
+			//Make the window context current
+			glfwMakeContextCurrent(window);
+			//Set the max fps to 60 (vsync)
+			glfwSwapInterval(1);
+			//set the color that the screen clear after draw
+			glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+			//Set the callback for when the user change the window size
+			glfwSetWindowSizeCallback(window, windowResizeCallback);
+			//Insert the new display created in the display list
+			displays.insert(std::make_pair(ID, this)); // @suppress("Invalid arguments")
+		}
+
+		void Display::update() const
+		{
+			//Swap the drawing buffers
+			glfwSwapBuffers(Display::window);
+			//Check for events
+			glfwPollEvents();
+			//Clear the frame
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			//Reset delta
+			Utils::resetDelta();
+			//Add to frame count
+			Utils::addFrame();
+		}
+
+		Display::~Display()
+		{
+			//Remove from the display list
+			displays.erase(displays.find(ID));
+			//Destroy the display
+			glfwDestroyWindow(window);
+		}
+
+	}
+}
+
+/*
+ TODO Optimisation
+ TODO Report error only if DEBUG == 1
+ */
