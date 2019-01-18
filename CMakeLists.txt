@@ -35,7 +35,6 @@ add_library(CrossGameEngine
         src/IO/Input.cpp
         src/Loaders/Loader.cpp
         src/Loaders/OBJLoader.cpp
-        src/Loaders/PNGDecoder.cpp
         src/Loaders/RessourceManager.cpp
         src/Loaders/Texture.cpp
         src/Shader/ShaderProgram.cpp
@@ -47,7 +46,7 @@ add_library(CrossGameEngine
         src/Utils/TimeUtils.cpp
         src/Engine.cpp
         src/Shader/ModelShader/BasicShader.cpp
-        src/extern/stb_image.c)
+        src/extern/stb_image.c src/View/Camera.cpp include/View/Camera.h src/Entities/Player.cpp include/Entities/Player.h src/Entities/Entity.cpp include/Entities/Entity.h)
 
 #Add the testing project
 add_subdirectory(Tester)

@@ -4,9 +4,6 @@
 #include <Loader/Texture.h>    //Texture
 #include <Utils/Log.h>        //logError
 #include <Utils/GLDebug.h>
-#include <iostream>
-#include <string>
-#include <vector>		//std::vector
 
 namespace CGE
 {
@@ -20,7 +17,7 @@ namespace CGE
 			stbi_set_flip_vertically_on_load(true);
 			unsigned char* buffer = stbi_load(filePath, &width, &height, &bpp, 4);
 
-			if (buffer == 0)
+			if (buffer == nullptr)
 				logError("Failed to load " << filePath);
 
 			unsigned int texture;
@@ -36,7 +33,7 @@ namespace CGE
 			return new Texture(texture, width, height, bpp);
 		}
 
-		Texture::Texture() {}
+		Texture::Texture() = default;
 
 		Texture::Texture(unsigned int &ID, unsigned int width, unsigned int height, unsigned int bpp)
 				: ID(ID), width(width), height(height), bpp(bpp) {}
@@ -53,14 +50,14 @@ namespace CGE
 
 		void Texture::changeWrapping(GLenum param)
 		{
-			GLCall(glBindTexture(GL_TEXTURE_2D, ID));
+			bind();
 			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, param));
 			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, param));
 		}
 
 		void Texture::changeFiltering(GLenum param)
 		{
-			GLCall(glBindTexture(GL_TEXTURE_2D, ID));
+			bind();
 			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, param));
 			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, param));
 		}

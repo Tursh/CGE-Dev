@@ -4,8 +4,6 @@
 
 #include <Shader/ModelShader/BasicShader.h>
 
-#include "Shader/ModelShader/BasicShader.h"
-
 namespace CGE
 {
     namespace Shader
@@ -23,7 +21,7 @@ uniform mat4 viewMatrix;
 
 void main()
 {
-	gl_Position = transformationMatrix * projectionMatrix * viewMatrix * position;
+	gl_Position = projectionMatrix * viewMatrix * transformationMatrix * position;
 	passTexCoords = texCoords;
 }
 )glsl";
@@ -45,6 +43,13 @@ void main()
                 : ShaderProgram(BASICVERTEXSHADER, BASICFRAGMENTSHADER, false)
         {
             getAllUniformLocation();
+            //Load blank matrices to not end with nothing on screen if a matrix is not set.
+            glm::mat4 defaultMatrix(1);
+            start();
+            loadMatrix(TRANSFORMATION, defaultMatrix);
+            loadMatrix(PROJECTION, defaultMatrix);
+            loadMatrix(VIEW, defaultMatrix);
+            stop();
         }
 
 

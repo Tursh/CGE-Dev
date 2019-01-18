@@ -7,22 +7,17 @@
 
 #include "States/PlayingState.h"
 #include <Engine.h>
-#include <GLFW/glfw3.h>
-#include <IO/Display.h>
 #include <IO/Input.h>
 #include <State/StateManager.h>
 #include <Text/TextRenderer.h>
 #include <Utils/TimeUtils.h>
-#include <glm/vec4.hpp>
-#include <glm/mat4x4.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <Utils/Log.h>
 
 //#include <Utils/Log.h>
 
 void init()
 {
-    CGE::initEngine("Game Engine Tester", 500, 625);
+    CGE::initEngine("Game Engine Tester", 1366, 768);
     CGE::Text::textRenderer::init("res/graphics/fonts/Archivo-Regular.ttf");
 }
 
