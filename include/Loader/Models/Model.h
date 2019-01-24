@@ -27,13 +27,13 @@ namespace CGE
 			Model(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount);
 
 			/*Delete model (VAO and VBOs too)*/
-			void destroy() const;
+            ~Model();
 
 			/*Bind model*/
 			void bind() const;
 
 			/*Render model*/
-			void render(bool textured) const;
+            void render(bool textured = true) const;
 		};
 
 	}

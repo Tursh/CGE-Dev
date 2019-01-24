@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <string>
 #include <glm/vec2.hpp>
+#include <Loader/Models/TexturedModel.h>
 
 #include "GUIComponent.h"
 #include "Panel.h"
@@ -14,12 +15,19 @@ namespace CGE
 
 		enum ButtonType
 		{
-			DEFAULT = 10000, DEFAULT_OVER = DEFAULT + 1, DEFAULT_PRESSED = DEFAULT + 2
-		};
+            DEFAULT = 10000
+        };
+
+        enum Mode
+        {
+            RELEASED = 0, OVER = 1, PRESSED = 2
+        };
 
 		class Button: public GUIComponent
 		{
+            Mode mode_;
 			ButtonType type_;
+            Loader::TexturedModel texModel_;
 			Panel* parent_;
 			glm::vec2 rawPosition_;
 			glm::vec2 rawDimension_;

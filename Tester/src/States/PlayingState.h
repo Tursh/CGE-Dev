@@ -9,11 +9,13 @@
 
 #include <State/State.h>
 #include <GUI/Button.h>
-#include <Entities/Player.h>
+#include <World/Entities/Player.h>
 #include <View/Camera.h>
+#include <World/World.h>
 
 class PlayingState : public CGE::State::State
 {
+    CGE::World::World world;
 	CGE::Entities::Player player_;
 	CGE::View::Camera camera_;
 public:

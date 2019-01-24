@@ -1,5 +1,5 @@
-#include <GL/glew.h>	//GL*
-#include <Loader/Model.h>
+#include <GL/glew.h>    //GL*
+#include <Loader/Models/Model.h>
 #include <extern/stb_image.h>    //decodePNG
 #include <Loader/Texture.h>    //Texture
 #include <Utils/Log.h>        //logError
@@ -7,80 +7,73 @@
 
 namespace CGE
 {
-	namespace Loader
-	{
+    namespace Loader
+    {
 
-		Texture *loadTexture(const char *filePath)
-		{
-			int width, height, bpp;
+        Texture *loadTextures(const char **filePaths, unsigned count)
+        {
+            Texture *textures = new Texture[count];
+            for (unsigned int i = 0; i < count; i++)
+            {
+                textures[i].loadTexture(filePaths[i]);
+            }
+            return textures;
+        }
 
-			stbi_set_flip_vertically_on_load(true);
-			unsigned char* buffer = stbi_load(filePath, &width, &height, &bpp, 4);
+        Texture::Texture()
+                : ID(0xffffffff)
+        {
+            logInfo("Texture Created");
+        };
 
-			if (buffer == nullptr)
-				logError("Failed to load " << filePath);
+        Texture::~Texture()
+        {
+            if (ID != 0xffffffff)
+            GLCall(glDeleteTextures(1, &ID));
+            logInfo("Texture Destroyed");
+        }
 
-			unsigned int texture;
-			GLCall(glGenTextures(1, &texture));
-			GLCall(glBindTexture(GL_TEXTURE_2D, texture));
-			GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer));
-			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
-			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
-			GLCall(glGenerateMipmap(GL_TEXTURE_2D));
+        void Texture::bind()
+        {
+            GLCall(glBindTexture(GL_TEXTURE_2D, ID));
+        }
 
-			return new Texture(texture, width, height, bpp);
-		}
+        void Texture::changeWrapping(GLenum param)
+        {
+            bind();
+            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, param));
+            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, param));
+        }
 
-		Texture::Texture() = default;
+        void Texture::changeFiltering(GLenum param)
+        {
+            bind();
+            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, param));
+            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, param));
+        }
 
-		Texture::Texture(unsigned int &ID, unsigned int width, unsigned int height, unsigned int bpp)
-				: ID(ID), width(width), height(height), bpp(bpp) {}
+        void Texture::loadTexture(const char *fileName)
+        {
+            std::string filePath(R"(res/graphics/textures/)");
+            filePath += fileName;
 
-		void Texture::destroy()
-		{
-			GLCall(glDeleteTextures(1, &ID));
-		}
+            stbi_set_flip_vertically_on_load(true);
+            unsigned char *buffer = stbi_load(filePath.data(), &width, &height, &bpp, 4);
 
-		void Texture::bind()
-		{
-			GLCall(glBindTexture(GL_TEXTURE_2D, ID));
-		}
+            if (buffer == nullptr)
+            logError("Failed to load " << filePath);
 
-		void Texture::changeWrapping(GLenum param)
-		{
-			bind();
-			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, param));
-			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, param));
-		}
+            GLCall(glGenTextures(1, &ID));
+            GLCall(glBindTexture(GL_TEXTURE_2D, ID));
+            GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer));
+            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
+            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
+            GLCall(glGenerateMipmap(GL_TEXTURE_2D));
 
-		void Texture::changeFiltering(GLenum param)
-		{
-			bind();
-			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, param));
-			GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, param));
-		}
+            logInfo("Texture Loaded filePath: " << filePath);
+        }
 
-		TexturedModel::TexturedModel(Model &model, Texture &texture)
-				: TEX(texture), MODEL(model) {}
-
-		void TexturedModel::render()
-		{
-			TEX.bind();
-			MODEL.render(true);
-		}
-
-		void TexturedModel::bind()
-		{
-			TEX.bind();
-			MODEL.bind();
-		}
-
-		const unsigned int &TexturedModel::indicesCount()
-		{
-			return MODEL.vertexCount;
-		}
-
-	}
+    }
 }

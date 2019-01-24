@@ -6,28 +6,24 @@
 
 #include <glm/ext/vector_float3.hpp>
 #include <glm/mat4x4.hpp>
-#include <Entities/Player.h>
+#include <World/Entities/Player.h>
 
 namespace CGE
 {
+    namespace Entities
+    {
+        class Player;
+    }
     namespace View
     {
         struct Camera
         {
         public:
-            Entities::Player &player_;
             bool firstPerson_;
 
-            glm::vec3 position_;
-            glm::vec3 rotation_;
+            explicit Camera(bool firstPerson = true);
 
-            explicit Camera(Entities::Player &player, bool firstPerson = true);
-
-            Camera(glm::vec3 position_, glm::vec3 rotation_, Entities::Player &player, bool firstPerson);
-
-            glm::mat4 toViewMatrix();
-
-            void move();
+            glm::mat4 toViewMatrix(Entities::Player *player);
         };
 
     }

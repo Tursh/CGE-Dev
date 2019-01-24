@@ -9,7 +9,6 @@
 #include "PlayingState.h"
 
 #include <IO/Input.h>
-#include <Loader/RessourceManager.h>
 #include <Shader/ModelShader/BasicShader.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <IO/Display.h>
@@ -23,23 +22,22 @@ namespace PlayingCallBacks
 
 CGE::Shader::BasicShader *basicShader;
 
+CGE::GUI::Button *button;
+
 PlayingState::PlayingState()
-        : player_(), camera_(player_)
+        : player_(1), world(&player_)
 {
     CGE::IO::input::setYourOwnKeyCallBack(PlayingCallBacks::KeyCallBack);
     CGE::IO::input::setYourOwnMouseButtonCallBack(PlayingCallBacks::MouseCallBack);
 
-    basicShader = new CGE::Shader::BasicShader;
+    glfwSetInputMode(CGE::IO::getDisplay()->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    CGE::IO::Display *display = CGE::IO::getDisplay();
-    basicShader->start();
-    //basicShader->loadMatrix(CGE::Shader::PROJECTION, glm::mat4(1));
-    basicShader->loadMatrix(CGE::Shader::PROJECTION,
-                            glm::perspective(45.0f, (float) display->width / display->height, 0.1f, 100.f));
-    basicShader->stop();
+    //world.addEntity(&player_);
+    //Add the horse
+    //world.addEntity(new CGE::Entities::Entity(1));
 
-    glfwSetInputMode(display->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
+    button = new CGE::GUI::Button(CGE::GUI::DEFAULT, glm::vec2(0.5f, 0.5f), glm::vec2(0.5f, 0.2f), "HELLO", []()
+    {});
 }
 
 PlayingState::~PlayingState()
@@ -52,38 +50,33 @@ PlayingState::~PlayingState()
 
 void PlayingState::tick(float delta)
 {
+    button->checkEvent();
 
-
-    if (glfwGetInputMode(CGE::IO::getDisplay()->window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
-    {
-        //Mouse input
-        glm::vec2 mouseShifting = CGE::IO::input::getCursorShifting();
-        player_.rotation_.y -= mouseShifting.x / 360;
-        player_.rotation_.x -= mouseShifting.y / 360;
-        if (-1.57f > player_.rotation_.x)
-            player_.rotation_.x = -1.57f;
-
-        if (player_.rotation_.x > 1.57)
-            player_.rotation_.x = 1.57f;
-    }
-    player_.move(0.1f);
-    camera_.move();
+    //if (glfwGetInputMode(CGE::IO::getDisplay()->window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
+    //{
+    //    //Mouse input
+    //    glm::vec2 mouseShifting = CGE::IO::input::getCursorShifting();
+    //    player_.rotation_.y -= mouseShifting.x / 360;
+    //    player_.rotation_.x -= mouseShifting.y / 360;
+    //    if (-1.57f > player_.rotation_.x)
+    //        player_.rotation_.x = -1.57f;
+//
+    //    if (player_.rotation_.x > 1.57)
+    //        player_.rotation_.x = 1.57f;
+    //}
+    //player_.move(0.1f);
+//
+    //world.getEntity(2)->position_.z += 0.05f;
 
     //logInfo("rotation: " << camera->rotation_.y << " x: " << camera->position_.x << " y: " << camera->position_.y << " z: " << camera->position_.z);
+
+
 }
 
 void PlayingState::draw()
 {
-
-    glEnable(GL_DEPTH_TEST);
-    basicShader->start();
-    transMatrix = glm::translate(transMatrix, glm::vec3(0.0f, 0.00f, 0.0f));
-    basicShader->loadMatrix(CGE::Shader::TRANSFORMATION, transMatrix);
-    basicShader->loadMatrix(CGE::Shader::VIEW, camera_.toViewMatrix());
-    CGE::Loader::resManagement::getTexModel(1).render();
-    basicShader->stop();
-    glDisable(GL_DEPTH_TEST);
-
+    button->draw();
+    world.render();
 }
 
 namespace PlayingCallBacks

@@ -5,7 +5,7 @@
 #include <IO/Input.h>
 #include <Loader/RessourceManager.h>
 #include <Utils/Log.h>
-#include <cstdlib>
+#include <Renderer/WorldRenderer.h>
 
 namespace CGE
 {
@@ -15,7 +15,7 @@ namespace CGE
     IO::Display *initEngine(const char *name, unsigned int width, unsigned int height, bool resizable = true)
     {
 
-        //Initialize GLFWfdf
+        //Initialize GLFW
         if (!glfwInit())
         {
             logError("GLFW could not init");
@@ -34,12 +34,13 @@ namespace CGE
 
         //init inputs
         IO::input::init();
-        //glfwSetInputMode(display->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-        //init ressource manager
+        //init resource manager
         Loader::resManagement::init();
 
         GUI::GUIRenderer::init();
+
+        Renderer::WorldRenderer::init();
 
 #ifndef NDEBUG
         logInfo("The Game Engine was initialized correctly");
@@ -54,6 +55,8 @@ namespace CGE
         glfwTerminate();
     }
 
-    //TODO change DEBUG reference to NDEBUG
+    //TODO: Animation
+    //TODO: Terrain
+    //TODO: Shadow
 
 }

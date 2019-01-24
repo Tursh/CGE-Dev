@@ -17,7 +17,7 @@ add_executable(CGETester
 target_link_libraries(CGETester CrossGameEngine)
 
 #target_link_libraries(GameEngineTester glm)
-target_link_libraries(CGETester glfw GL freetype)
+target_link_libraries(CGETester glfw GL freetype tinyxml2)
 
 add_custom_command(TARGET CGETester PRE_BUILD
         COMMAND ${CMAKE_COMMAND} -E create_symlink

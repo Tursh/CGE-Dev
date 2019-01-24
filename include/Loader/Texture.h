@@ -1,5 +1,6 @@
 #pragma once
 #include "Loader.h"
+#include <memory>
 
 namespace CGE
 {
@@ -10,13 +11,11 @@ namespace CGE
 		class Texture
 		{
 			unsigned int ID;
-			unsigned int width, height, bpp;
+			int width, height, bpp;
 		public:
-			/*Constructor for the maps*/
 			Texture();
 
-			/*Texture constructor*/
-			Texture(unsigned int &ID, unsigned int width, unsigned int height, unsigned int bpp);
+			~Texture();
 
 			/*Bind current texture to render*/
 			void bind();
@@ -27,29 +26,11 @@ namespace CGE
 			/*Change the filtering*/
 			void changeFiltering(unsigned int newFilter);
 
-			/*Delete texture*/
-			void destroy();
+			void loadTexture(const char *filePath);
 		};
 
 		/*Load texture from file*/
-		Texture *loadTexture(const char *filePath);
-
-		/*Textured model to render*/
-		class TexturedModel
-		{
-			/*Texture ID pointer*/
-			Texture &TEX;
-			/*Model*/
-			Model &MODEL;
-		public:
-			TexturedModel(Model &model, Texture &texture);
-
-			void render();
-
-			void bind();
-
-			const unsigned int &indicesCount();
-		};
+		Texture *loadTextures(const char **filePaths, unsigned count);
 
 	}
 }

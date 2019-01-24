@@ -42,7 +42,8 @@ void loop()
 
 void close()
 {
-
+    CGE::State::stateManager::setCurrentState(nullptr);
+    CGE::State::stateManager::getCurrentState();
 }
 
 int main()

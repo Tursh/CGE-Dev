@@ -18,12 +18,17 @@ namespace CGE
 
         class BasicShader : public ShaderProgram
         {
-            unsigned int transformationMatrixLocation = 0;
-            unsigned int projectionMatrixLocation = 0;
-            unsigned int viewMatrixLocation = 0;
+            glm::mat4 transformationMatrix_, viewMatrix_, projectionMatrix_;
+            unsigned int TVPMatrixLocation_ = 0;
+
             void getAllUniformLocation() override;
+
+        protected:
+            BasicShader(const char *vertexShader, const char *fragmentShader, bool isPath = true);
+
         public:
             BasicShader();
+
             void loadMatrix(MatrixType type, glm::mat4 matrix);
         };
 

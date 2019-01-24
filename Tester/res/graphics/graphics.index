@@ -1,19 +1,17 @@
 M 1 horse.obj
-T 1 horse.png 2048
+T 1 horse.png
 R 1 1 1
 M 2 box.obj
-T 2 box.png 2048
+T 2 box.png
 R 2 2 2
 M 3 cube.obj
-T 3 image.png 256
+T 3 image.png
 R 3 3 3
 M 4 horse-2.obj
-T 4 Hourse_Texture_UVW.png 1024
+T 4 Hourse_Texture_UVW.png
 R 4 4 4
 
-R 10000 0 10000
-R 10001 0 10001
-R 10002 0 10002
-T 10000 default-button.png 32
-T 10001 default-button-over.png 32
-T 10002 default-button-pressed.png 32
+T 10000 default-button.png
+T 10001 default-button-over.png
+T 10002 default-button-pressed.png
+D 10000 3 10000 10001 10002

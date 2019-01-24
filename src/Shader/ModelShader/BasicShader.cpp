@@ -15,13 +15,11 @@ layout(location = 0) in vec4 position;
 layout(location = 1) in vec2 texCoords;
 out vec2 passTexCoords;
 
-uniform mat4 transformationMatrix;
-uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
+uniform mat4 TVP;
 
 void main()
 {
-	gl_Position = projectionMatrix * viewMatrix * transformationMatrix * position;
+	gl_Position = TVP * position;
 	passTexCoords = texCoords;
 }
 )glsl";
@@ -40,24 +38,31 @@ void main()
 )glsl";
 
         BasicShader::BasicShader()
-                : ShaderProgram(BASICVERTEXSHADER, BASICFRAGMENTSHADER, false)
+                : ShaderProgram(BASICVERTEXSHADER, BASICFRAGMENTSHADER, false), transformationMatrix_(1),
+                  viewMatrix_(1), projectionMatrix_(1)
         {
             getAllUniformLocation();
             //Load blank matrices to not end with nothing on screen if a matrix is not set.
-            glm::mat4 defaultMatrix(1);
             start();
-            loadMatrix(TRANSFORMATION, defaultMatrix);
-            loadMatrix(PROJECTION, defaultMatrix);
-            loadMatrix(VIEW, defaultMatrix);
+            glm::mat4 MVP = projectionMatrix_ * viewMatrix_ * transformationMatrix_;
+            loadMat4(TVPMatrixLocation_, MVP);
             stop();
         }
 
+        BasicShader::BasicShader(const char *vertexShader, const char *fragmentShader, bool isPath) : ShaderProgram(
+                vertexShader, fragmentShader, isPath), transformationMatrix_(1), viewMatrix_(1), projectionMatrix_(1)
+        {
+            getAllUniformLocation();
+            //Load blank matrices to not end with nothing on screen if a matrix is not set.
+            start();
+            glm::mat4 MVP = projectionMatrix_ * viewMatrix_ * transformationMatrix_;
+            loadMat4(TVPMatrixLocation_, MVP);
+            stop();
+        }
 
         void BasicShader::getAllUniformLocation()
         {
-            transformationMatrixLocation = getUniformLocation("transformationMatrix");
-            projectionMatrixLocation = getUniformLocation("projectionMatrix");
-            viewMatrixLocation = getUniformLocation("viewMatrix");
+            TVPMatrixLocation_ = getUniformLocation("TVP");
         }
 
         void BasicShader::loadMatrix(CGE::Shader::MatrixType type, glm::mat4 matrix)
@@ -65,15 +70,18 @@ void main()
             switch (type)
             {
                 case TRANSFORMATION:
-                    loadMat4(transformationMatrixLocation, matrix);
-                    break;
-                case PROJECTION:
-                    loadMat4(projectionMatrixLocation, matrix);
+                    transformationMatrix_ = matrix;
                     break;
                 case VIEW:
-                    loadMat4(viewMatrixLocation, matrix);
+                    viewMatrix_ = matrix;
+                    break;
+                case PROJECTION:
+                    projectionMatrix_ = matrix;
                     break;
             }
+            glm::mat4 MVP = projectionMatrix_ * viewMatrix_ * transformationMatrix_;
+            loadMat4(TVPMatrixLocation_, MVP);
         }
+
     }
 }

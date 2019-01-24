@@ -4,8 +4,9 @@
 
 #include <glm/vec2.hpp>
 #include <cmath>
+#include <World/Entities/Player.h>
 
-#include "Entities/Player.h"
+
 #include "IO/Input.h"
 
 namespace CGE
@@ -57,6 +58,22 @@ namespace CGE
 
             position_.x += movement.z * s + movement.x * c;
             position_.z += movement.z * c - movement.x * s;
+        }
+
+        Player::Player(unsigned int texModelID) : Entity(texModelID, glm::vec3(0), glm::vec3(0), false),
+                                                  camera_(new View::Camera)
+        {
+
+        }
+
+        Player::Player(Loader::TexturedModel texModel) : Entity(texModel), camera_(new View::Camera)
+        {
+
+        }
+
+        glm::mat4 Player::getViewMatrix()
+        {
+            return camera_->toViewMatrix(this);
         }
     }
 }

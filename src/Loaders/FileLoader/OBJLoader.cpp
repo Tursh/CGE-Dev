@@ -8,8 +8,8 @@
 
 #include <string>						//std::string
 #include <vector>						//std::vector
-#include <cstdio>						//fscan_s
 #include <cstring>
+#include <memory>
 
 #include "Loader/Loader.h"                        //loadToVAO
 #include "Utils/Log.h"                        //logError
@@ -38,7 +38,7 @@ namespace CGE
 				std::vector<unsigned int> &indices, std::vector<glm::vec2> &texs,
 				std::vector<glm::vec3> &norms);
 
-		Model *loadOBJFile(const char *filePath)
+        std::shared_ptr<Model> loadOBJFile(const char *filePath)
 		{
 #if SHOWTIME
 			double time = glfwGetTime();
@@ -164,7 +164,7 @@ namespace CGE
 			const Data<float> normalsData(norm, (unsigned int) (vertices.size()) * 3);
 			const Data<unsigned int> indicesData(ind, (unsigned int) (indices.size()));
 			//Data objects -> VAO
-			Model *model = DataToVAO(positionsData, textureCoordsData, normalsData, indicesData);
+            std::shared_ptr<Model> model = DataToVAO(positionsData, textureCoordsData, normalsData, indicesData);
 			//Delete loading arrays
 			delete[] pos;
 			delete[] tex;
