@@ -16,7 +16,7 @@ namespace CGE
         struct Entity
         {
             unsigned int ID;
-            Loader::TexturedModel texModel_;
+            Loader::TexturedModel *texModel_;
             glm::vec3 position_;
             glm::vec3 rotation_;
             bool visible_;
@@ -24,8 +24,10 @@ namespace CGE
             explicit Entity(unsigned int texModelID, glm::vec3 position = glm::vec3(0),
                             glm::vec3 rotation = glm::vec3(0), bool visible = true);
 
-            explicit Entity(Loader::TexturedModel texModel, glm::vec3 position = glm::vec3(0),
+            explicit Entity(Loader::TexturedModel *Model, glm::vec3 position = glm::vec3(0),
                             glm::vec3 rotation = glm::vec3(0), bool visible = true);
+
+            ~Entity();
 
             glm::mat4 getTransformationMatrix();
 

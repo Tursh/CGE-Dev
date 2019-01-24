@@ -59,7 +59,15 @@ add_library(CrossGameEngine
         src/Utils/TimeUtils.cpp
         src/Engine.cpp
         src/Shader/ModelShader/BasicShader.cpp
-        src/extern/stb_image.c src/View/Camera.cpp include/View/Camera.h src/Entities/Player.cpp include/World/Entities/Player.h src/Entities/Entity.cpp include/World/Entities/Entity.h src/World/World.cpp include/World/World.h src/Renderer/WorldRenderer.cpp include/Renderer/WorldRenderer.h src/Loaders/FileLoader/DAELoader.cpp src/Loaders/Models/AnimatedModel.cpp include/Loader/Models/AnimatedModel.h src/Loaders/Models/Model.cpp src/Loaders/Models/TexturedModel.cpp include/Loader/Models/TexturedModel.h)
+        src/extern/stb_image.c
+        src/View/Camera.cpp
+        src/World/Entities/Player.cpp
+        src/World/Entities/Entity.cpp
+        src/World/World.cpp
+        src/Renderer/WorldRenderer.cpp
+        src/Loaders/FileLoader/DAELoader.cpp
+        src/Loaders/Models/Model.cpp
+        src/Loaders/Models/TexturedModel.cpp src/Animation/TextureAnimation.cpp include/Animation/TextureAnimation.h src/Animation/ModelAnimation.cpp include/Animation/ModelAnimation.h src/Loaders/Models/TwoDAnimatedModel.cpp include/Loader/Models/TwoDAnimatedModel.h include/Animation/Animator.h src/Animation/Animator.cpp include/Animation/Animation.h include/Utils/XMLElementArrayLoader.h src/Utils/XMLElementArrayLoader.cpp)
 
 #Add the testing project
 add_subdirectory(Tester)

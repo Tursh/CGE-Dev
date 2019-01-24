@@ -2,6 +2,7 @@
 #include <string>
 #include <glm/vec2.hpp>
 #include <Loader/Models/TexturedModel.h>
+#include <Loader/Models/TwoDAnimatedModel.h>
 
 #include "GUIComponent.h"
 #include "Panel.h"
@@ -27,7 +28,7 @@ namespace CGE
 		{
             Mode mode_;
 			ButtonType type_;
-            Loader::TexturedModel texModel_;
+            Loader::TwoDAnimatedModel texModel_;
 			Panel* parent_;
 			glm::vec2 rawPosition_;
 			glm::vec2 rawDimension_;

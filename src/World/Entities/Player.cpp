@@ -66,7 +66,7 @@ namespace CGE
 
         }
 
-        Player::Player(Loader::TexturedModel texModel) : Entity(texModel), camera_(new View::Camera)
+        Player::Player(Loader::TexturedModel *texModel) : Entity(texModel), camera_(new View::Camera)
         {
 
         }

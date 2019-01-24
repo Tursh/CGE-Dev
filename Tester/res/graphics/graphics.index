@@ -10,8 +10,21 @@ R 3 3 3
 M 4 horse-2.obj
 T 4 Hourse_Texture_UVW.png
 R 4 4 4
-
+#Buttons
 T 10000 default-button.png
 T 10001 default-button-over.png
 T 10002 default-button-pressed.png
 D 10000 3 10000 10001 10002
+#Animation Test
+T 10 0.png
+T 11 1.png
+T 12 2.png
+T 13 3.png
+T 14 4.png
+T 15 5.png
+T 16 6.png
+T 17 7.png
+T 18 8.png
+T 19 9.png
+D 1 10 10 11 12 13 14 15 16 17 18 19
+A 1 test.anim

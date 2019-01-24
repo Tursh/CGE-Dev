@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Animations name="test">
+    <Offsets count="4">
+        0 2 3 9
+    </Offsets>
+    <FrameDuration count="10">
+        30 30 30 30 30 30 30 30 30 30
+    </FrameDuration>
+</Animations>

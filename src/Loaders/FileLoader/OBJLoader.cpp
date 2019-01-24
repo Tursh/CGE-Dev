@@ -14,9 +14,9 @@
 #include "Loader/Loader.h"                        //loadToVAO
 #include "Utils/Log.h"                        //logError
 
-#define SHOWTIME false
+//#define SHOWTIME
 
-#if SHOWTIME
+#ifdef SHOWTIME
 #include <GLFW/glfw3.h>
 #endif // SHOWTIME == 1
 
@@ -24,6 +24,8 @@ namespace CGE
 {
 	namespace Loader
 	{
+
+#define MODEL_PATH "res/graphics/models/"
 
 		struct Vertex
 		{
@@ -40,9 +42,13 @@ namespace CGE
 
         std::shared_ptr<Model> loadOBJFile(const char *filePath)
 		{
-#if SHOWTIME
+#ifdef SHOWTIME
 			double time = glfwGetTime();
 #endif // SHOWTIME == 1
+
+            //Construct filePath
+            std::string path(MODEL_PATH);
+            path + filePath;
 
 			//Open obj file
 			std::FILE *file;
@@ -175,7 +181,7 @@ namespace CGE
 			in_norm.clear();
 			indices.clear();
 
-#if SHOWTIME == 1
+#ifdef SHOWTIME
 			//Show how mush time it took
 			std::cout << "Finished to load " << filePath << " in " << glfwGetTime() - time << " seconds." << std::endl;
 #endif // SHOWTIME

@@ -1,7 +1,5 @@
 #include "Loader/RessourceManager.h"
 
-#include "Utils/Log.h"
-
 #include <map>
 
 
@@ -19,6 +17,8 @@ namespace CGE
         std::map<unsigned int, char *> texIndex;
         // <ID, std::vector<texID>
         std::map<unsigned int, std::vector<unsigned int>> twoDAniIndex;
+
+        std::map<unsigned int, char *> animationIndex;
 
         const Data<float> *SQUARE_POSITION;
         const Data<float> *SQUARE_TEX_COORDS;
@@ -115,9 +115,17 @@ namespace CGE
                         texIDs.push_back(texID);
                     }
                     twoDAniIndex[ID] = texIDs;
-                    char restOfTheLine[10];
-                    fgets(restOfTheLine, 10, file);
-                } else
+                }
+                    //Load Animation info
+                else if (head == 'A')
+                {
+                    unsigned int ID;
+                    char *path = new char[64];
+                    fscanf(file, "%u %s \n", &ID, path);
+                    animationIndex[ID] = path;
+                }
+                    //Unknown Head
+                else
                 {
                     logWarning("There is an unknown head at line " << lineCount << " in " << FILEPATH);
                     //Skip the line
@@ -143,11 +151,11 @@ namespace CGE
 
         //Buffers <ID, Model/Texture>
         std::map<unsigned int, std::weak_ptr<Model>> modelBuf;
-        std::map<unsigned int, std::weak_ptr<Texture>> texBuf;
-        std::map<unsigned int, std::weak_ptr<Texture>> twoDAniBuf;
+        std::map<unsigned int, std::weak_ptr<Texture[]>> texBuf;
+        std::map<unsigned int, std::weak_ptr<Texture[]>> twoDAniBuf;
 
         //Check if textured model got already loaded and return it
-        TexturedModel resManagement::getTexModel(unsigned int ID)
+        TexturedModel *resManagement::getTexModel(unsigned int ID)
         {
 #ifndef NDEBUG
             if (texModelIndex.find(ID) == texModelIndex.end())
@@ -158,7 +166,7 @@ namespace CGE
             std::pair<unsigned int, unsigned int> &pair = texModelIndex[ID];
 
             //Get Model and Texture and return them in a textured model
-            return TexturedModel(getModel(pair.first), getTexture(pair.second));
+            return new TexturedModel(getModel(pair.first), getTexture(pair.second));
         }
 
         //Check if model got already loaded and return it
@@ -196,9 +204,9 @@ namespace CGE
         }
 
         //Check if texture got already loaded and return it
-        std::shared_ptr<Texture> resManagement::getTexture(unsigned int ID)
+        std::shared_ptr<Texture[]> resManagement::getTexture(unsigned int ID)
         {
-            std::shared_ptr<Texture> tex;
+            std::shared_ptr<Texture[]> tex;
             start:
             if (texBuf.find(ID) == texBuf.end())
             {
@@ -210,8 +218,8 @@ namespace CGE
                 }
 #endif
                 //If it fail load it from png file
-                tex = std::make_shared<Texture>();
-                tex->loadTexture(texIndex[ID]);
+                tex = std::shared_ptr<Texture[]>(new Texture[1]);
+                tex[0].loadTexture(texIndex[ID]);
                 texBuf[ID] = tex;
             } else
             {
@@ -226,14 +234,15 @@ namespace CGE
             return tex;
         }
 
-        TexturedModel resManagement::getFlat2DAnimation(unsigned int ID)
+        TwoDAnimatedModel resManagement::getFlat2DAnimation(unsigned int ID)
         {
-            return TexturedModel(getModel(0), get2DAnimationTextures(ID));
+            return TwoDAnimatedModel(getModel(0), get2DAnimationTextures(ID), (unsigned int) twoDAniIndex[ID].size(),
+                                     new Animations::TextureAnimation(animationIndex[ID]));
         }
 
-        std::shared_ptr<Texture> resManagement::get2DAnimationTextures(unsigned int ID)
+        std::shared_ptr<Texture[]> resManagement::get2DAnimationTextures(unsigned int ID)
         {
-            std::shared_ptr<Texture> textures;
+            std::shared_ptr<Texture[]> textures;
             if (twoDAniBuf.find(ID) == twoDAniBuf.end())
             {
                 std::vector<unsigned int> textureIDs = twoDAniIndex[ID];
@@ -248,7 +257,7 @@ namespace CGE
                 for (auto texID : textureIDs)
                     texturePaths.push_back(texIndex[texID]);
 
-                textures = std::shared_ptr<Texture>(loadTextures(&texturePaths[0], count));
+                textures = std::shared_ptr<Texture[]>(loadTextures(&texturePaths[0], count));
             } else
                 textures = twoDAniBuf[ID].lock();
             return textures;

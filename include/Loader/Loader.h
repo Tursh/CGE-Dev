@@ -7,7 +7,6 @@ Author: Raphael Tremblay
 #pragma once
 
 #include <memory>
-#include <Loader/Models/AnimatedModel.h>
 #include "Loader/Models/Model.h"    //Model
 
 namespace CGE
@@ -91,6 +90,6 @@ namespace CGE
          * Load Collada files to 3D Model
          * filePath: path to the file from the project folder
          */
-        std::shared_ptr<AnimatedModel> loadDAEFile(const char *filePath);
+        //std::shared_ptr<AnimatedModel> loadDAEFile(const char *filePath);
     }
 }

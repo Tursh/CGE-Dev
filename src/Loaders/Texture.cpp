@@ -30,7 +30,7 @@ namespace CGE
         {
             if (ID != 0xffffffff)
             GLCall(glDeleteTextures(1, &ID));
-            logInfo("Texture Destroyed");
+            logInfo("Texture Destroyed ID: " << ID);
         }
 
         void Texture::bind()
@@ -72,7 +72,7 @@ namespace CGE
             GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
             GLCall(glGenerateMipmap(GL_TEXTURE_2D));
 
-            logInfo("Texture Loaded filePath: " << filePath);
+            logInfo("Texture Loaded filePath: " << filePath << " ID: " << ID);
         }
 
     }

@@ -15,6 +15,7 @@
 
 class PlayingState : public CGE::State::State
 {
+    CGE::Loader::TwoDAnimatedModel model;
     CGE::World::World world;
 	CGE::Entities::Player player_;
 	CGE::View::Camera camera_;

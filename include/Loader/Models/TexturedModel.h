@@ -5,23 +5,25 @@
 #pragma once
 
 #include <Loader/Texture.h>
+#include <memory>
+#include "Model.h"
 
 namespace CGE
 {
     namespace Loader
     {
 
-
         class TexturedModel
         {
+        protected:
             /*Texture ID pointer*/
-            std::shared_ptr<Texture> texture_;
+            std::shared_ptr<Texture[]> texture_;
             /*Model*/
             std::shared_ptr<Model> model_;
         public:
-            TexturedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture> texture);
+            TexturedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture[]> texture);
 
-            void render(unsigned int offset = 0);
+            virtual void render();
 
             void bind();
 

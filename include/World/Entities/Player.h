@@ -21,7 +21,7 @@ namespace CGE
         public:
             Player(unsigned int texModelID);
 
-            Player(Loader::TexturedModel texModel);
+            Player(Loader::TexturedModel *texModel);
             void move(float speed);
 
             glm::mat4 getViewMatrix();

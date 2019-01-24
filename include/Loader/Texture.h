@@ -1,6 +1,4 @@
 #pragma once
-#include "Loader.h"
-#include <memory>
 
 namespace CGE
 {

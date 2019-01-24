@@ -1,3 +1,5 @@
+#include <utility>
+
 //
 // Created by tursh on 1/24/19.
 //
@@ -8,18 +10,18 @@ namespace CGE
 {
     namespace Loader
     {
-        TexturedModel::TexturedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture> texture)
-                : model_(model), texture_(texture) {}
+        TexturedModel::TexturedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture[]> texture)
+                : model_(std::move(model)), texture_(std::move(texture)) {}
 
-        void TexturedModel::render(unsigned int offset)
+        void TexturedModel::render()
         {
-            texture_.get()[offset].bind();
+            texture_[0].bind();
             model_->render();
         }
 
         void TexturedModel::bind()
         {
-            texture_->bind();
+            texture_[0].bind();
             model_->bind();
         }
 

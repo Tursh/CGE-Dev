@@ -16,7 +16,7 @@ namespace CGE
         void Entity::render()
         {
             if (visible_)
-                texModel_.render();
+                texModel_->render();
         }
 
         Entity::Entity(unsigned int texModelID, glm::vec3 position, glm::vec3 rotation, bool visible)
@@ -26,7 +26,7 @@ namespace CGE
             futurID++;
         }
 
-        Entity::Entity(Loader::TexturedModel texModel, glm::vec3 position, glm::vec3 rotation, bool visible)
+        Entity::Entity(Loader::TexturedModel *texModel, glm::vec3 position, glm::vec3 rotation, bool visible)
                 : texModel_(texModel), ID(futurID), position_(position), rotation_(rotation), visible_(visible)
         {
             futurID++;
@@ -41,6 +41,11 @@ namespace CGE
             matrix = glm::rotate(matrix, rotation_.z, {0, 0, 1});
 
             return matrix;
+        }
+
+        Entity::~Entity()
+        {
+            delete (texModel_);
         }
     }
 }
