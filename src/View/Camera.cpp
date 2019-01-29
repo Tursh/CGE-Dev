@@ -11,9 +11,10 @@ namespace CGE
     namespace View
     {
 
-        glm::mat4 Camera::toViewMatrix(Entities::Player *player)
+        glm::mat4 Camera::toViewMatrix(Entities::Entity *player)
         {
-            if (!player->isTwoD())
+            //Is 3D?
+            if (player->texModel_->getType() != Loader::Animated2DModel)
             {
                 if (firstPerson_)
                 {

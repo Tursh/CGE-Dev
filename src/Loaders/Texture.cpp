@@ -24,14 +24,12 @@ namespace CGE
         Texture::Texture()
                 : ID(0xffffffff)
         {
-            logInfo("Texture Created");
         };
 
         Texture::~Texture()
         {
             if (ID != 0xffffffff)
             GLCall(glDeleteTextures(1, &ID));
-            logInfo("Texture Destroyed ID: " << ID);
         }
 
         void Texture::bind()

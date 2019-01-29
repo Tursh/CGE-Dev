@@ -5,7 +5,6 @@
 #include <IO/Input.h>
 #include <Loader/RessourceManager.h>
 #include <Utils/Log.h>
-#include <Renderer/WorldRenderer.h>
 
 namespace CGE
 {
@@ -39,8 +38,6 @@ namespace CGE
         Loader::resManagement::init();
 
         GUI::GUIRenderer::init();
-
-        Renderer::WorldRenderer::init();
 
 #ifndef NDEBUG
         logInfo("The Game Engine was initialized correctly");

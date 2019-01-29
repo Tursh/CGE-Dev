@@ -15,10 +15,16 @@ namespace CGE
 		void destroyChrono(unsigned int chronoID);
 
 		void resetDelta();
-		float getDelta();
+
+        //Return the time since last tick (update)
+        float getDelta();
 
 		void addFrame();
 		float getFPS();
+
+        float getTPS();
+
+        bool shouldTick();
 
 	}
 }

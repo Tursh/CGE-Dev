@@ -33,7 +33,7 @@ PlayingState::PlayingState()
 
     //world.addEntity(&player_);
     //Add the horse
-    //world.addEntity(new CGE::Entities::Entity(1));
+    //world.addEntity(new CGE::Entities::Entities(1));
 
     button = new CGE::GUI::Button(CGE::GUI::DEFAULT, glm::vec2(0.0f, 0.0f), glm::vec2(0.5f, 0.2f), "HELLO", []()
     {});

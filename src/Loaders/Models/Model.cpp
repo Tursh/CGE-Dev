@@ -18,15 +18,11 @@ namespace CGE
         vertexCount: number of indices
         */
         Model::Model(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount)
-                : VAO(VAO), VBOs(VBOs), vertexCount(vertexCount)
-        {
-            logInfo("VAO ID: " << VAO);
-        }
+                : VAO(VAO), VBOs(VBOs), vertexCount(vertexCount) {}
 
         /*Delete model (VAO and VBOs too)*/
         Model::~Model()
         {
-            logInfo("Model with ID: " << VAO << " got deleted");
             //Delete VAO
             GLCall(glDeleteVertexArrays(1, &VAO));
 

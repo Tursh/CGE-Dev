@@ -5,8 +5,6 @@ cmake_minimum_required(VERSION 3.13)
 
 project(CrossGameEngine)
 
-option(2D_ONLY "Only compile the 2D stuff" ON)
-
 set(CMAKE_CXX_STANDARD 17)
 #Set preprossessor definitions
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_DEBUG} -DNDEBUG")
@@ -61,13 +59,15 @@ add_library(CrossGameEngine
         src/Shader/ModelShader/BasicShader.cpp
         src/extern/stb_image.c
         src/View/Camera.cpp
-        src/World/Entities/Player.cpp
-        src/World/Entities/Entity.cpp
-        src/World/World.cpp
-        src/Renderer/WorldRenderer.cpp
         src/Loaders/FileLoader/DAELoader.cpp
         src/Loaders/Models/Model.cpp
-        src/Loaders/Models/TexturedModel.cpp src/Animation/TextureAnimation.cpp include/Animation/TextureAnimation.h src/Animation/ModelAnimation.cpp include/Animation/ModelAnimation.h src/Loaders/Models/TwoDAnimatedModel.cpp include/Loader/Models/TwoDAnimatedModel.h include/Animation/Animator.h src/Animation/Animator.cpp include/Animation/Animation.h include/Utils/XMLElementArrayLoader.h src/Utils/XMLElementArrayLoader.cpp src/World/Terrain/Terrain.cpp include/World/Terrain/Terrain.h include/World/Terrain/TwoDTerrain.cpp include/World/Terrain/TwoDTerrain.h)
+        src/Loaders/Models/TexturedModel.cpp
+        src/Animation/TextureAnimation.cpp
+        src/Animation/ModelAnimation.cpp
+        src/Loaders/Models/TwoDAnimatedModel.cpp
+        src/Animation/Animator.cpp
+        src/Utils/XMLElementArrayLoader.cpp
+        src/Entities/Entity.cpp)
 
 #Add the testing project
 #add_subdirectory(Tester)

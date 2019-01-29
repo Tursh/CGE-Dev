@@ -8,7 +8,7 @@ namespace CGE
 		class State
 		{
 		public:
-			virtual void tick(float delta) = 0;
+            virtual void tick() = 0;
 
 			virtual void draw() = 0;
 

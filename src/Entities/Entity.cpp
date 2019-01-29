@@ -3,7 +3,7 @@
 //
 
 #include <Loader/RessourceManager.h>
-#include <World/Entities/Entity.h>
+#include <Entities/Entity.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 

@@ -8,7 +8,6 @@
 #include <iostream>
 #include <map>
 #include <utility>
-#include <Renderer/WorldRenderer.h>
 
 namespace CGE
 {
@@ -39,7 +38,7 @@ namespace CGE
 			        displays[i]->width = static_cast<unsigned int>(width);
 			        displays[i]->height = static_cast<unsigned int>(height);
 			}
-			Renderer::WorldRenderer::genNewProjectionMatrix();
+            //TODO: set resize callback support | Renderer::WorldRenderer::genNewProjectionMatrix();
 
 		}
 

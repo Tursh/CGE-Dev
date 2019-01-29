@@ -1,5 +1,4 @@
 #include <map>            //map
-#include <string>        //to_string
 #include <iomanip>        //setprecision
 
 #include <GLFW/glfw3.h>
@@ -7,7 +6,6 @@
 #include <Utils/TimeUtils.h>
 
 
-#include "Utils/TimeUtils.h"
 #include "Utils/Log.h"
 
 #define SECOND_PER_MINUTES 60
@@ -144,7 +142,7 @@ namespace CGE
                 chronos.erase(chronos.find(chronoID));
         }
 
-        float lastTime;
+        static float lastTime = 0.0f;
 
         void resetDelta()
         {
@@ -156,15 +154,15 @@ namespace CGE
             return static_cast<float>(glfwGetTime()) - lastTime;
         }
 
-        double time = glfwGetTime();
-        int frameCount = 0;
-        float lastFPS = 0.0f;
+        static double time = glfwGetTime();
+        static int frameCount = 0;
+        static float lastFPS = 0.0f;
 
         void addFrame()
         {
             double currentTime = glfwGetTime();
             frameCount++;
-            if(currentTime - time >= 1.0f)
+            if (currentTime - time >= 1.0f)
             {
                 lastFPS = frameCount;
                 frameCount = 0;
@@ -177,6 +175,40 @@ namespace CGE
             return lastFPS;
         }
 
+        static double TPSTime = glfwGetTime();
+        static int tickCount = 0;
+        static float lastTPS = 0.0f;
+
+        void addTick()
+        {
+            tickCount++;
+            if (glfwGetTime() - TPSTime >= 1.0f)
+            {
+                lastTPS = tickCount;
+                tickCount = 0;
+                TPSTime += 1.0f;
+            }
+        }
+
+        float getTPS()
+        {
+            return lastTPS;
+        }
+
+        static double lastTick = glfwGetTime();
+        static const double tickCooldown = 1.0 / 60.0;
+
+        bool shouldTick()
+        {
+            bool shouldTick = glfwGetTime() - lastTick >= tickCooldown;
+            if (shouldTick)
+            {
+                lastTick += tickCooldown;
+                addTick();
+                resetDelta();
+            }
+            return shouldTick;
+        }
 
     }
 }
