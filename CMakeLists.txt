@@ -67,7 +67,7 @@ add_library(CrossGameEngine
         src/Renderer/WorldRenderer.cpp
         src/Loaders/FileLoader/DAELoader.cpp
         src/Loaders/Models/Model.cpp
-        src/Loaders/Models/TexturedModel.cpp src/Animation/TextureAnimation.cpp include/Animation/TextureAnimation.h src/Animation/ModelAnimation.cpp include/Animation/ModelAnimation.h src/Loaders/Models/TwoDAnimatedModel.cpp include/Loader/Models/TwoDAnimatedModel.h include/Animation/Animator.h src/Animation/Animator.cpp include/Animation/Animation.h include/Utils/XMLElementArrayLoader.h src/Utils/XMLElementArrayLoader.cpp)
+        src/Loaders/Models/TexturedModel.cpp src/Animation/TextureAnimation.cpp include/Animation/TextureAnimation.h src/Animation/ModelAnimation.cpp include/Animation/ModelAnimation.h src/Loaders/Models/TwoDAnimatedModel.cpp include/Loader/Models/TwoDAnimatedModel.h include/Animation/Animator.h src/Animation/Animator.cpp include/Animation/Animation.h include/Utils/XMLElementArrayLoader.h src/Utils/XMLElementArrayLoader.cpp src/World/Terrain/Terrain.cpp include/World/Terrain/Terrain.h include/World/Terrain/TwoDTerrain.cpp include/World/Terrain/TwoDTerrain.h)
 
 #Add the testing project
-add_subdirectory(Tester)
+#add_subdirectory(Tester)

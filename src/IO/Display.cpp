@@ -8,11 +8,14 @@
 #include <iostream>
 #include <map>
 #include <utility>
+#include <Renderer/WorldRenderer.h>
 
 namespace CGE
 {
 	namespace IO
 	{
+
+		const unsigned int DEFAULT_WIDTH = 1280, DEFAULT_HEIGHT = 720;
 
 		unsigned int displayCreated = 0;
 		std::map<unsigned int, Display*> displays;
@@ -33,9 +36,10 @@ namespace CGE
 			for(size_t i = 0; i < displays.size(); i++)
 			if(displays[i]->window == win)
 			{
-			        displays[i]->width = width;
-			        displays[i]->height = height;
+			        displays[i]->width = static_cast<unsigned int>(width);
+			        displays[i]->height = static_cast<unsigned int>(height);
 			}
+			Renderer::WorldRenderer::genNewProjectionMatrix();
 
 		}
 

@@ -16,7 +16,8 @@ namespace CGE
 			static bool* keys;
 			static bool* mouse;
 			/*Last mouse position*/
-			static glm::vec2 lastMousePos;
+			static glm::vec2 lastMousePos(0);
+			static glm::vec2 lastScroll(0);
 
 			void (*customKeyCallBack)(GLFWwindow* window, int key, int action);
 			void (*customMouseButtonCallBack)(GLFWwindow* window, int button, int action);
@@ -33,6 +34,7 @@ namespace CGE
 					mouse[i] = false;
 				glfwSetKeyCallback(window, CallBacks::keyCallback);
 				glfwSetMouseButtonCallback(window, CallBacks::mouseButtonCallback);
+				glfwSetScrollCallback(window, CallBacks::mouseScrollCallback);
 			}
 
 			namespace CallBacks
@@ -57,6 +59,11 @@ namespace CGE
 					mouse[button] = action;
 					if (customMouseButtonCallBack != nullptr)
 						customMouseButtonCallBack(window, button, action);
+				}
+
+				void mouseScrollCallback(GLFWwindow *window, double xoffset, double yoffset)
+				{
+					lastScroll += glm::vec2(xoffset, yoffset);
 				}
 			}
 			/*
@@ -115,6 +122,13 @@ namespace CGE
 				double x, y;
 				glfwGetCursorPos(window, &x, &y);
 				return glm::vec2((float) x, (float) y);
+			}
+
+			glm::vec2 getMouseScroll()
+			{
+				glm::vec2 scroll = lastScroll;
+				lastScroll = glm::vec2(0);
+				return scroll;
 			}
 		}
 	}

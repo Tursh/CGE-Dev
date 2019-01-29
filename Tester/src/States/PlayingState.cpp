@@ -24,7 +24,7 @@ namespace PlayingCallBacks
 CGE::GUI::Button *button;
 
 PlayingState::PlayingState()
-        : player_(1), world(&player_), model(CGE::Loader::resManagement::getFlat2DAnimation(1))
+        : player_(1, true), world(&player_), model(CGE::Loader::resManagement::getFlat2DAnimation(1))
 {
     CGE::IO::input::setYourOwnKeyCallBack(PlayingCallBacks::KeyCallBack);
     CGE::IO::input::setYourOwnMouseButtonCallBack(PlayingCallBacks::MouseCallBack);

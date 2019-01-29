@@ -15,23 +15,30 @@ namespace CGE
     {
         class World
         {
+            bool twoD;
 
-            std::map<unsigned int, Entities::Entity *> entities_;
+            std::map<unsigned int, std::shared_ptr<Entities::Entity>> entities_;
 
         public:
             World(Entities::Player *player);
 
             Entities::Player *player;
 
+            Terrain::Terrain *terrain;
+
             void render();
 
-            void addEntity(Entities::Entity *entity);
+            void addEntity(std::shared_ptr<Entities::Entity> entity);
 
-            Entities::Entity *getEntity(unsigned int ID);
+            std::shared_ptr<Entities::Entity> getEntity(unsigned int ID);
 
-            const std::map<unsigned int, Entities::Entity *> &getEntities() const;
+            const std::map<unsigned int, std::shared_ptr<Entities::Entity>> &getEntities() const;
+
+            void tick();
 
             void removeEntity(unsigned int ID);
+
+            bool isTwoD() const;
 
         };
     }

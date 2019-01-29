@@ -19,9 +19,11 @@ namespace CGE
         struct Camera
         {
         public:
+            glm::vec3 position_;
+            glm::vec3 rotation_;
             bool firstPerson_;
 
-            explicit Camera(bool firstPerson = true);
+            explicit Camera(glm::vec3 position = glm::vec3(0), glm::vec3 rotation = glm::vec3(0), bool firstPerson = true);
 
             glm::mat4 toViewMatrix(Entities::Player *player);
         };

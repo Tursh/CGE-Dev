@@ -25,6 +25,11 @@ namespace CGE
             setTextPosAndSize();
         }
 
+        Button::~Button()
+        {
+            delete texModel_;
+        }
+
         void Button::draw()
         {
             if (visible_)
@@ -40,7 +45,7 @@ namespace CGE
                         dimension_.x, dimension_.y, 1));
                 shader->setTransformationMatrix(transMatrix);
                 //Render the button
-                texModel_.render(mode_);
+                texModel_->render(mode_);
                 shader->stop();
                 //dimension_.x -= 0.001f;
                 //setDimension(dimension_);

@@ -6,6 +6,7 @@
 
 #include <View/Camera.h>
 #include <World/Entities/Entity.h>
+#include <World/Terrain/Terrain.h>
 
 namespace CGE
 {
@@ -17,14 +18,18 @@ namespace CGE
     {
         class Player : public Entity
         {
+            bool twoD_;
+
             View::Camera *camera_;
         public:
-            Player(unsigned int texModelID);
+            explicit Player(unsigned int texModelID, Loader::TexturedModelType type, bool twoD = false);
 
-            Player(Loader::TexturedModel *texModel);
-            void move(float speed);
+            explicit Player(Loader::TexturedModel *texModel, bool twoD = false);
+            void move(float speed, Terrain::Terrain *terrain);
 
-            glm::mat4 getViewMatrix();
+            View::Camera *getCamera();
+
+            bool isTwoD();
         };
 
     }

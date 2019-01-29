@@ -5,7 +5,9 @@
 namespace CGE
 {
 
-    IO::Display *initEngine(const char *name, unsigned int width, unsigned int height, bool resizable = true);
+    IO::Display *
+    initEngine(const char *name, unsigned int width = IO::DEFAULT_WIDTH, unsigned int height = IO::DEFAULT_HEIGHT,
+               bool resizable = true);
 
     void stopEngine();
 

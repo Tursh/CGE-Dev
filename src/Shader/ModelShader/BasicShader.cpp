@@ -33,7 +33,11 @@ uniform sampler2D tex;
 
 void main()
 {
-	color = texture(tex, passTexCoords);
+    vec4 texColor = texture(tex, passTexCoords);
+    //If the alpha is under 0.1 don't draw anything
+    if(texColor.a < 0.1)
+        discard;
+	color = texColor;
 }
 )glsl";
 

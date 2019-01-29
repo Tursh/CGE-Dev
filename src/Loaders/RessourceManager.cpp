@@ -15,9 +15,9 @@ namespace CGE
         std::map<unsigned int, char *> modelIndex;
         // <ID, path>
         std::map<unsigned int, char *> texIndex;
-        // <ID, std::vector<texID>
-        std::map<unsigned int, std::vector<unsigned int>> twoDAniIndex;
-
+        // <ID, pair<std::vector<texID>, size>
+        std::map<unsigned int, std::pair<std::vector<unsigned int>, float>> twoDAniIndex;
+        // <ID, .anim path>
         std::map<unsigned int, char *> animationIndex;
 
         const Data<float> *SQUARE_POSITION;
@@ -114,14 +114,16 @@ namespace CGE
                         fscanf(file, "%u ", &texID);
                         texIDs.push_back(texID);
                     }
-                    twoDAniIndex[ID] = texIDs;
+                    float scale;
+                    fscanf(file, "%f\n", &scale);
+                    twoDAniIndex[ID] = std::make_pair(texIDs, scale);
                 }
                     //Load Animation info
                 else if (head == 'A')
                 {
                     unsigned int ID;
                     char *path = new char[64];
-                    fscanf(file, "%u %s \n", &ID, path);
+                    fscanf(file, "%u %s\n", &ID, path);
                     animationIndex[ID] = path;
                 }
                     //Unknown Head
@@ -137,7 +139,7 @@ namespace CGE
             //Check of the 2D animation has all the textures
 #ifndef NDEBUG
             for (const auto animation : twoDAniIndex)
-                for (const auto texture : animation.second)
+                for (const auto texture : animation.second.first)
                     if (texIndex.find(texture) == texIndex.end())
                     logError("Texture with ID: " << texture << "does not exist.");
 #endif
@@ -166,7 +168,7 @@ namespace CGE
             std::pair<unsigned int, unsigned int> &pair = texModelIndex[ID];
 
             //Get Model and Texture and return them in a textured model
-            return new TexturedModel(getModel(pair.first), getTexture(pair.second));
+            return new TexturedModel(getModel(pair.first), getTexture(pair.second), BasicTexturedModel);
         }
 
         //Check if model got already loaded and return it
@@ -234,10 +236,13 @@ namespace CGE
             return tex;
         }
 
-        TwoDAnimatedModel resManagement::getFlat2DAnimation(unsigned int ID)
+        TwoDAnimatedModel *resManagement::getFlat2DAnimation(unsigned int ID)
         {
-            return TwoDAnimatedModel(getModel(0), get2DAnimationTextures(ID), (unsigned int) twoDAniIndex[ID].size(),
-                                     new Animations::TextureAnimation(animationIndex[ID]));
+            return new TwoDAnimatedModel(getModel(0),
+                                         get2DAnimationTextures(ID),
+                                         (unsigned int) twoDAniIndex[ID].first.size(),
+                                         twoDAniIndex[ID].second,
+                                         new Animations::TextureAnimation(animationIndex[ID]));
         }
 
         std::shared_ptr<Texture[]> resManagement::get2DAnimationTextures(unsigned int ID)
@@ -245,7 +250,7 @@ namespace CGE
             std::shared_ptr<Texture[]> textures;
             if (twoDAniBuf.find(ID) == twoDAniBuf.end())
             {
-                std::vector<unsigned int> textureIDs = twoDAniIndex[ID];
+                std::vector<unsigned int> textureIDs = twoDAniIndex[ID].first;
                 auto count = (unsigned int) textureIDs.size();
 #ifndef NDEBUG
                 if (count == 0)

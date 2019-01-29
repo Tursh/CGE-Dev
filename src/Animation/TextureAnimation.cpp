@@ -17,7 +17,7 @@ namespace CGE
     {
 
         TextureAnimation::TextureAnimation(const char *filePath)
-                : currentAnimations(0), currentTexture(0), frameCountDown(0)
+                : currentAnimation(0), currentTexture(0), frameCountDown(0), idleAnimation(0)
         {
             if (filePath == nullptr)
                 return;
@@ -48,22 +48,25 @@ namespace CGE
             //Add to the animator to get updated for each ticks
             Animator::addAnimation(this);
         }
-
-        void TextureAnimation::setCurrentAnimation(unsigned int ID)
-        {
-            currentAnimations = ID;
-        }
-
         unsigned int TextureAnimation::getTextureToRender()
         {
             return currentTexture;
+        }
+
+        void TextureAnimation::returnToIdle()
+        {
+            if(currentAnimation != idleAnimation)
+            {
+                currentAnimation = idleAnimation;
+                tick();
+            }
         }
 
         void TextureAnimation::tick()
         {
 
             //logInfo(frameCountDown << " -> " << currentTexture);
-            auto &textureOffSet = textureOffSets[currentAnimations];
+            auto &textureOffSet = textureOffSets[currentAnimation];
             //Is the texture currently in the animation
             if (textureOffSet.first <= currentTexture && currentTexture <= textureOffSet.second)
             {
@@ -72,9 +75,9 @@ namespace CGE
                     //If is was on the last frame return to idle animation
                     if (currentTexture == textureOffSet.second)
                     {
-                        currentAnimations = 0;
-                        currentTexture = textureOffSets[0].first;
-                        frameCountDown = frameDuration[0];
+                        currentAnimation = idleAnimation;
+                        currentTexture = textureOffSets[idleAnimation].first;
+                        frameCountDown = frameDuration[currentTexture];
                     }
                         //Else go to the next frame if the frame count down is done
                     else
@@ -90,6 +93,5 @@ namespace CGE
                 currentTexture = textureOffSet.first;
 
         }
-
     }
 }

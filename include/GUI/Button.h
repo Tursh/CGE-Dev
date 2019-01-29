@@ -28,7 +28,7 @@ namespace CGE
 		{
             Mode mode_;
 			ButtonType type_;
-            Loader::TwoDAnimatedModel texModel_;
+            Loader::TwoDAnimatedModel *texModel_;
 			Panel* parent_;
 			glm::vec2 rawPosition_;
 			glm::vec2 rawDimension_;
@@ -45,6 +45,7 @@ namespace CGE
 		public:
 			Button(const ButtonType type, const glm::vec2 position, const glm::vec2 dimension,
 					std::string text, void (*funcWhenPressed)());
+			~Button();
 
 			void draw();
 			//Check if the mouse is not over or pressing it

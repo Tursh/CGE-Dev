@@ -4,6 +4,7 @@
 #include <Loader/Texture.h>    //Texture
 #include <Utils/Log.h>        //logError
 #include <Utils/GLDebug.h>
+#include <glm/vec2.hpp>
 
 namespace CGE
 {
@@ -66,13 +67,20 @@ namespace CGE
             GLCall(glGenTextures(1, &ID));
             GLCall(glBindTexture(GL_TEXTURE_2D, ID));
             GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer));
-            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
-            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+            //GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
+            //GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+            GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
             GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
             GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
             GLCall(glGenerateMipmap(GL_TEXTURE_2D));
 
             logInfo("Texture Loaded filePath: " << filePath << " ID: " << ID);
+        }
+
+        glm::vec2 Texture::getSize()
+        {
+            return {width, height};
         }
 
     }

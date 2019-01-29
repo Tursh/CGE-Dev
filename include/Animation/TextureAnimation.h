@@ -15,7 +15,6 @@ namespace CGE
 
         class TextureAnimation : public Animation
         {
-            unsigned int currentAnimations, currentTexture, frameCountDown;
             /*
              * Array of the start and finish animation offset.
              * For example, animation 1 would start at texture 2 and end at texture 8
@@ -27,13 +26,16 @@ namespace CGE
             //The duration of the on frame of the animation in ticks
             std::vector<unsigned int> frameDuration;
 
+            unsigned int currentTexture, frameCountDown;
         public:
-            //The .anim that contains the texture offsets
-            TextureAnimation(const char *filePath);
+            unsigned int currentAnimation, idleAnimation;
 
-            void setCurrentAnimation(unsigned int ID);
+            //The .anim that contains the texture offsets
+            explicit TextureAnimation(const char *filePath);
 
             unsigned int getTextureToRender();
+            //Stop current animation and start idle animation
+            void returnToIdle();
 
             void tick() override;
 

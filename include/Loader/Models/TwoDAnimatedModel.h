@@ -14,16 +14,25 @@ namespace CGE
 
         class TwoDAnimatedModel : public TexturedModel
         {
+            float sizeScale_;
             unsigned int textureCount_;
             Animations::TextureAnimation *animation_;
         public:
 
             TwoDAnimatedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture[]> textures,
-                              unsigned int textureCount, Animations::TextureAnimation *animation);
+                              unsigned int textureCount, float size, Animations::TextureAnimation *animation);
 
             ~TwoDAnimatedModel();
 
-            void startAnimation(unsigned int ID);
+            glm::vec2 getModelSize() override;
+
+            void setIdleAnimation(unsigned int ID);
+
+            void startAnimation(unsigned int ID) override;
+
+            void stopAnimation();
+
+            unsigned int getCurrentAnimation() override;
 
             void render(unsigned int offset);
 

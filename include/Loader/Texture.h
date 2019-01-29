@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm/vec2.hpp>
+
 namespace CGE
 {
 	namespace Loader
@@ -25,6 +27,8 @@ namespace CGE
 			void changeFiltering(unsigned int newFilter);
 
 			void loadTexture(const char *filePath);
+
+			glm::vec2 getSize();
 		};
 
 		/*Load texture from file*/

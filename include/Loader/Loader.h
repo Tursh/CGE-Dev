@@ -35,7 +35,6 @@ namespace CGE
             Data(const T *data, unsigned int size)
                     : data(data), size(size) {}
         };
-
 /*
         Load data to VAO and return a model that can be rendered
         positions: Data object containing float[] and size of array

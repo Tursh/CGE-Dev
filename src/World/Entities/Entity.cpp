@@ -19,10 +19,19 @@ namespace CGE
                 texModel_->render();
         }
 
-        Entity::Entity(unsigned int texModelID, glm::vec3 position, glm::vec3 rotation, bool visible)
-                : texModel_(CGE::Loader::resManagement::getTexModel(texModelID)), ID(futurID), position_(position),
-                  rotation_(rotation), visible_(visible)
+        Entity::Entity(unsigned int texModelID, Loader::TexturedModelType type, glm::vec3 position, glm::vec3 rotation,
+                       bool visible)
+                : ID(futurID), position_(position), rotation_(rotation), visible_(visible)
         {
+            switch (type)
+            {
+                case Loader::BasicTexturedModel:
+                    texModel_ = CGE::Loader::resManagement::getTexModel(texModelID);
+                    break;
+                case Loader::Animated2DModel:
+                    texModel_ = CGE::Loader::resManagement::getFlat2DAnimation(texModelID);
+                    break;
+            }
             futurID++;
         }
 
@@ -40,12 +49,23 @@ namespace CGE
             matrix = glm::rotate(matrix, rotation_.y, {0, 1, 0});
             matrix = glm::rotate(matrix, rotation_.z, {0, 0, 1});
 
+            if(texModel_->getType() == Loader::Animated2DModel)
+            {
+                glm::vec2 modelSize = texModel_->getModelSize();
+                matrix = glm::scale(matrix, glm::vec3(modelSize.x, modelSize.y, 0));
+            }
+
             return matrix;
         }
 
         Entity::~Entity()
         {
             delete (texModel_);
+        }
+
+        void Entity::startAnimation(unsigned int ID)
+        {
+            texModel_->startAnimation(ID);
         }
     }
 }

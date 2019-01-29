@@ -16,6 +16,8 @@ namespace CGE
         namespace WorldRenderer
         {
             void init();
+            //Call when the display is resized
+            void genNewProjectionMatrix();
 
             void render(const World::World &world);
         };
