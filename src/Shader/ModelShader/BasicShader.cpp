@@ -10,22 +10,22 @@ namespace CGE
     {
 
         const char *BASICVERTEXSHADER = R"glsl(
-#version 330 core
-layout(location = 0) in vec4 position;
-layout(location = 1) in vec2 texCoords;
+#version 130
+in vec4 in_position;
+in vec2 in_texCoords;
 out vec2 passTexCoords;
 
 uniform mat4 TVP;
 
 void main()
 {
-	gl_Position = TVP * position;
-	passTexCoords = texCoords;
+	gl_Position = TVP * in_position;
+	passTexCoords = in_texCoords;
 }
 )glsl";
 
         const char *BASICFRAGMENTSHADER = R"glsl(
-#version 330 core
+#version 130
 in vec2 passTexCoords;
 out vec4 color;
 

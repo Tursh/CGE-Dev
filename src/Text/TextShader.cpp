@@ -7,8 +7,8 @@ namespace CGE
     {
 
         const char *VERTEX_SHADER = R"glsl(
-#version 330 core
-layout(location = 0) in vec4 vertex; // <vec2 pos, vec2 tex>
+#version 130
+in vec4 vertex; // <vec2 pos, vec2 tex>
 out vec2 TexCoords;
 
 void main()
@@ -19,7 +19,7 @@ void main()
 )glsl";
 
         const char *FRAGMENT_SHADER = R"glsl(
-#version 330 core
+#version 130
 in vec2 TexCoords;
 out vec4 color;
 
