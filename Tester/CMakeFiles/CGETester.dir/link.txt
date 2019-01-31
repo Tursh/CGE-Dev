@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/CGETester.dir/src/Main.cpp.o CMakeFiles/CGETester.dir/src/States/PlayingState.cpp.o  -o ../bin/Debug/CGETester /usr/lib/libGLEW.so ../bin/Debug/libCrossGameEngine.a /usr/lib/libglfw.so.3.2 -lGL -lfreetype -ltinyxml2 

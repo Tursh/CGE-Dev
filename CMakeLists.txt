@@ -1,18 +1,12 @@
 cmake_minimum_required(VERSION 3.13)
 
-
-#set(2D_ONLY on)
-
 project(CrossGameEngine)
+
+option(CompileTest "Compile the test project" OFF)
 
 set(CMAKE_CXX_STANDARD 17)
 #Set preprossessor definitions
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_DEBUG} -DNDEBUG")
-
-if (2D_ONLY)
-    add_compile_definitions(NO_3D)
-    message("what")
-endif (2D_ONLY)
 
 #Check if all the needed package are there
 find_package(glfw3 3.2 REQUIRED)
@@ -21,9 +15,7 @@ find_package(glm REQUIRED)
 find_package(Freetype REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(Boost REQUIRED)
-if (NOT 2D_ONLY)
-    find_package(tinyxml2 REQUIRED)
-endif ()
+find_package(tinyxml2 REQUIRED)
 #include package include directory
 include_directories(${Boost_INCLUDE_DIR})
 #Add the include directory
@@ -69,5 +61,6 @@ add_library(CrossGameEngine
         src/Utils/XMLElementArrayLoader.cpp
         src/Entities/Entity.cpp)
 
-#Add the testing project
-#add_subdirectory(Tester)
+if (${CompileTest})
+    add_subdirectory(test)
+endif ()
