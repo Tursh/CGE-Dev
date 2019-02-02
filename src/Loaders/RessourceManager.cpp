@@ -48,7 +48,7 @@ namespace CGE
 #define FILEPATH "res/graphics/graphics.index"
             //Open index file
             std::FILE *file;
-#if __MINGW32__
+#if 0
             fopen_s(&file, filePath, "r");
 #else
             file = fopen(FILEPATH, "r");

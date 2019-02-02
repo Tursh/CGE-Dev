@@ -6,7 +6,7 @@ Author: unknown
 #pragma once
 #include <iostream>
 
-#if __WIN__
+#ifdef __MINGW32__
 
 #include <windows.h>	
 

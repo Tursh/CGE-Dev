@@ -52,7 +52,7 @@ namespace CGE
 
 			//Open obj file
 			std::FILE *file;
-#if __MINGW32__
+#if 0
 			fopen_s(&file, filePath, "r");
 #else
 			file = fopen(filePath, "r");
@@ -78,7 +78,7 @@ namespace CGE
 				//Create buffer for the head of the line
 				char head[3];
 				//Get the head
-#if __MINGW32__
+#if 0
 				const int res = fscanf_s(file, "%s", head, 3);
 #else
 				const int res = fscanf(file, "%s", head, 3);

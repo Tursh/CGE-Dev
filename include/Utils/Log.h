@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "DebugBreak.h"
+#include "ConsoleColor.h"
 
 namespace CGE
 {

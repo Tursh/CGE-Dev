@@ -1,7 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
-
-
-#set(2D_ONLY on)
+cmake_minimum_required(VERSION 3.10)
 
 project(CrossGameEngine)
 
@@ -9,21 +6,23 @@ set(CMAKE_CXX_STANDARD 17)
 #Set preprossessor definitions
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_DEBUG} -DNDEBUG")
 
-if (2D_ONLY)
-    add_compile_definitions(NO_3D)
-    message("what")
-endif (2D_ONLY)
-
 #Check if all the needed package are there
-find_package(glfw3 3.2 REQUIRED)
+find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(glm REQUIRED)
 find_package(Freetype REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(Boost REQUIRED)
-if (NOT 2D_ONLY)
-    find_package(tinyxml2 REQUIRED)
+find_package(tinyxml2 REQUIRED)
+
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
+
+if (WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGLEWSTATIC -DGLEW_BUILD -static")
+    link_libraries(glew32 glfw opengl32 freetype tinyxml2 bz2)
 endif ()
+
 #include package include directory
 include_directories(${Boost_INCLUDE_DIR})
 #Add the include directory
@@ -32,11 +31,11 @@ include_directories(include)
 include_directories("/usr/include/freetype2")
 #Set the output directory
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-add_library(CrossGameEngine
+add_library(CrossGameEngine STATIC
         src/GUI/Button.cpp
         src/GUI/GUIComponent.cpp
         src/GUI/GUIRenderer.cpp
