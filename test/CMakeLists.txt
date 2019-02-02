@@ -21,4 +21,4 @@ target_link_libraries(CGETester glfw GL freetype tinyxml2)
 
 add_custom_command(TARGET CGETester PRE_BUILD
         COMMAND ${CMAKE_COMMAND} -E create_symlink
-        ${CMAKE_SOURCE_DIR}/Tester/res $<TARGET_FILE_DIR:CGETester>/res)
+        ${CMAKE_SOURCE_DIR}/test/res $<TARGET_FILE_DIR:CGETester>/res)

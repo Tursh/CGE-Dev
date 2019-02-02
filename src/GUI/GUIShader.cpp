@@ -6,9 +6,9 @@ namespace CGE
 	{
 
 const char* VERTEX_SHADER = R"glsl(
-#version 330 core
-layout(location = 0) in vec4 positions;
-layout(location = 1) in vec2 TexCoords;
+#version 130
+in vec4 positions;
+in vec2 TexCoords;
 out vec2 pass_texCoords;
 
 uniform mat4 transformationMatrix;
@@ -21,7 +21,7 @@ void main()
 )glsl";
 
 const char* FRAGMENT_SHADER = R"glsl(
-#version 330 core
+#version 130
 in vec2 pass_texCoords;
 out vec4 color;
 
