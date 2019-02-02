@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-cmake_minimum_required(VERSION 3.10)
-=======
 cmake_minimum_required(VERSION 3.13)
->>>>>>> origin
 
 project(CrossGameEngine)
 
@@ -20,8 +16,6 @@ find_package(Freetype REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(Boost REQUIRED)
 find_package(tinyxml2 REQUIRED)
-<<<<<<< HEAD
-
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
 
@@ -30,8 +24,6 @@ if (WIN32)
     link_libraries(glew32 glfw opengl32 freetype tinyxml2 bz2)
 endif ()
 
-=======
->>>>>>> origin
 #include package include directory
 include_directories(${Boost_INCLUDE_DIR})
 #Add the include directory
@@ -77,11 +69,7 @@ add_library(CrossGameEngine STATIC
         src/Utils/XMLElementArrayLoader.cpp
         src/Entities/Entity.cpp)
 
-<<<<<<< HEAD
 #Add the testing project
-#add_subdirectory(Tester)
-=======
 if (${CompileTest})
     add_subdirectory(test)
 endif ()
->>>>>>> origin
