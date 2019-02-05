@@ -5,6 +5,8 @@
 #include <Loader/RessourceManager.h>
 #include <Entities/Entity.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <hdf5_hl.h>
+#include <Utils/TimeUtils.h>
 
 
 namespace CGE
@@ -12,12 +14,6 @@ namespace CGE
     namespace Entities
     {
         unsigned int futurID = 1;
-
-        void Entity::render()
-        {
-            if (visible_)
-                texModel_->render();
-        }
 
         Entity::Entity(unsigned int texModelID, Loader::TexturedModelType type, glm::vec3 position, glm::vec3 rotation,
                        bool visible)
@@ -41,13 +37,32 @@ namespace CGE
             futurID++;
         }
 
+        Entity::~Entity()
+        {
+            delete (texModel_);
+        }
+
+        void Entity::startAnimation(unsigned int ID)
+        {
+            texModel_->startAnimation(ID);
+        }
+
+        glm::vec3 Entity::getExactPosition()
+        {
+            return lastPosition_ + (position_- lastPosition_) * CGE::Utils::getDelta();
+        }
+
         glm::mat4 Entity::getTransformationMatrix()
         {
             glm::mat4 matrix(1);
-            matrix = glm::translate(matrix, position_);
-            matrix = glm::rotate(matrix, rotation_.x, {1, 0, 0});
-            matrix = glm::rotate(matrix, rotation_.y, {0, 1, 0});
-            matrix = glm::rotate(matrix, rotation_.z, {0, 0, 1});
+            float delta = Utils::getDelta();
+            //logInfo(((position_ - lastPosition_) / delta).x);
+            glm::vec3 position = lastPosition_ + (position_- lastPosition_) * delta;
+            glm::vec3 rotation = lastRotation_ + (rotation_ - lastRotation_) * delta;
+            matrix = glm::translate(matrix, position);
+            matrix = glm::rotate(matrix, rotation.x, {1, 0, 0});
+            matrix = glm::rotate(matrix, rotation.y, {0, 1, 0});
+            matrix = glm::rotate(matrix, rotation.z, {0, 0, 1});
 
             if(texModel_->getType() == Loader::Animated2DModel)
             {
@@ -58,14 +73,19 @@ namespace CGE
             return matrix;
         }
 
-        Entity::~Entity()
+        void Entity::move(glm::vec3 movement)
         {
-            delete (texModel_);
+            //Keep track of the older
+            lastPosition_ = position_;
+            lastRotation_ = rotation_;
+
+            position_ += movement;
         }
 
-        void Entity::startAnimation(unsigned int ID)
+        void Entity::render()
         {
-            texModel_->startAnimation(ID);
+            if (visible_)
+                texModel_->render();
         }
     }
 }

@@ -13,8 +13,11 @@ namespace CGE
 {
     namespace Entities
     {
-        struct Entity
+        class Entity
         {
+            glm::vec3 lastPosition_ = glm::vec3(0);
+            glm::vec3 lastRotation_ = glm::vec3(0);
+        public:
             unsigned int ID;
             Loader::TexturedModel *texModel_;
             glm::vec3 position_;
@@ -31,7 +34,11 @@ namespace CGE
 
             void startAnimation(unsigned int animationID);
 
+            glm::vec3 getExactPosition();
+
             glm::mat4 getTransformationMatrix();
+
+            void move(glm::vec3 movement);
 
             void render();
         };

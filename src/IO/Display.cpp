@@ -29,8 +29,22 @@ namespace CGE
 			return displays[ID];
 		}
 
+		void (*customWindowResizeCallback)(int, int);
+
+		void setYourOwnWindowResizeCallback(void (*windowResizeCallback)(int, int))
+		{
+			customWindowResizeCallback = windowResizeCallback;
+		}
+
+		void resetWindowResizeCallback()
+		{
+			customWindowResizeCallback = nullptr;
+		}
+
 		void windowResizeCallback(GLFWwindow* win, int width, int height)
 		{
+			if(customWindowResizeCallback != nullptr)
+				customWindowResizeCallback(width, height);
 			glViewport(0, 0, width, height);
 			for(size_t i = 0; i < displays.size(); i++)
 			if(displays[i]->window == win)
@@ -38,8 +52,6 @@ namespace CGE
 			        displays[i]->width = static_cast<unsigned int>(width);
 			        displays[i]->height = static_cast<unsigned int>(height);
 			}
-            //TODO: set resize callback support | Renderer::WorldRenderer::genNewProjectionMatrix();
-
 		}
 
 		/*Initialize GLFW, the window and GL context*/
@@ -81,8 +93,6 @@ namespace CGE
 			glfwPollEvents();
 			//Clear the frame
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			//Reset delta
-			Utils::resetDelta();
 			//Add to frame count
 			Utils::addFrame();
 		}

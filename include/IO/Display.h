@@ -29,5 +29,13 @@ namespace CGE
         //Get the display by ID (The first display ID is 0)
         Display *getDisplay(unsigned int ID = 0);
 
+        /*
+         Set your own MouseButton callback
+         */
+        void setYourOwnWindowResizeCallback(void(*windowResizeCallback)(int width, int height));
+
+
+        void resetWindowResizeCallback();
+
     }
 }

@@ -19,6 +19,9 @@ namespace CGE
     namespace Utils
     {
 
+        //Constantes
+        static const double tickCooldown = 1.0 / 60.0;
+
         std::string timeToString(double time, unsigned int microsecondPrecision, bool showHours)
         {
             //Find the number of second (+ microseconds)
@@ -142,16 +145,16 @@ namespace CGE
                 chronos.erase(chronos.find(chronoID));
         }
 
-        static float lastTime = 0.0f;
+        static double lastTime = 0.0f;
 
         void resetDelta()
         {
-            lastTime = static_cast<float>(glfwGetTime());
+            lastTime = glfwGetTime();
         }
 
         float getDelta()
         {
-            return static_cast<float>(glfwGetTime()) - lastTime;
+            return static_cast<float>((glfwGetTime() - lastTime) / tickCooldown);
         }
 
         static double time = glfwGetTime();
@@ -196,7 +199,6 @@ namespace CGE
         }
 
         static double lastTick = glfwGetTime();
-        static const double tickCooldown = 1.0 / 60.0;
 
         bool shouldTick()
         {

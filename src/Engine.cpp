@@ -52,8 +52,7 @@ namespace CGE
         glfwTerminate();
     }
 
-    //TODO: Animation
-    //TODO: Terrain
+    //TODO: 3D Animation
     //TODO: Shadow
 
 }

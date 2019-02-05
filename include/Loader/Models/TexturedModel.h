@@ -38,7 +38,7 @@ namespace CGE
             const unsigned int &indicesCount();
 
             //TODO: remove start animation and get current animation function from TexturedModel
-            virtual unsigned int getCurrentAnimation(){return 0;}
+            virtual unsigned int getCurrentAnimation() { return 0; }
 
             virtual void startAnimation(unsigned int ID) {}
 

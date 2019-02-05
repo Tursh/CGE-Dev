@@ -186,7 +186,7 @@ namespace CGE
                 logError("The model with the ID: " << ID << " does not exist.");
 #endif //NDEBUG
                 //If 0, we want the square model
-                logInfo("Model with ID: " << ID << "got loaded. ");
+                //logInfo("Model with ID: " << ID << "got loaded. ");
                 if (ID == 0)
                     model = DataToVAO(*SQUARE_POSITION, *SQUARE_TEX_COORDS, *SQUARE_INDICES, false);
                 else

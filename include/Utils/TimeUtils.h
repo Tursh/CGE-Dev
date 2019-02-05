@@ -14,9 +14,6 @@ namespace CGE
 		double getChronoTime(unsigned int chronoID);
 		void destroyChrono(unsigned int chronoID);
 
-		void resetDelta();
-
-        //Return the time since last tick (update)
         float getDelta();
 
 		void addFrame();

@@ -21,11 +21,6 @@ namespace CGE
 
         void TwoDAnimatedModel::startAnimation(unsigned int ID)
         {
-            //if(animation_->currentAnimation == animation_->idleAnimation)
-            //{
-            //    animation_->currentAnimation = ID;
-            //    animation_->tick();
-            //}
             animation_->currentAnimation = ID;
         }
 
@@ -39,8 +34,6 @@ namespace CGE
         void TwoDAnimatedModel::render()
         {
             texture_[animation_->getTextureToRender()].bind();
-            if(animation_->getTextureToRender() == 9)
-                logInfo(animation_->currentAnimation);
             model_->render();
         }
 

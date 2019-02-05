@@ -11,27 +11,8 @@ namespace CGE
     namespace View
     {
 
-        glm::mat4 Camera::toViewMatrix(Entities::Entity *player)
+        glm::mat4 Camera::toViewMatrix()
         {
-            //Is 3D?
-            if (player->texModel_->getType() != Loader::Animated2DModel)
-            {
-                if (firstPerson_)
-                {
-                    position_ = player->position_ + glm::vec3(0, 1, 0);
-                    rotation_ = player->rotation_;
-                } else
-                {
-                    //TODO: When we scroll, it goes to third person view
-                }
-            } else
-            {
-                float scrolling = IO::input::getMouseScroll().y;
-
-                position_.x = player->position_.x;
-                position_.y = player->position_.y;
-                position_.z -= scrolling * 0.05f;
-            }
             float cosPitch = cos(rotation_.x);
             float sinPitch = sin(rotation_.x);
             float cosYaw = cos(rotation_.y);
@@ -52,9 +33,8 @@ namespace CGE
             return viewMatrix;
         }
 
-        Camera::Camera(glm::vec3 position, glm::vec3 rotation, bool firstPerson)
-                : firstPerson_(firstPerson), position_(position), rotation_(rotation) {}
-
+        Camera::Camera(glm::vec3 position, glm::vec3 rotation)
+                : position_(position), rotation_(rotation) {}
 
 
     }
