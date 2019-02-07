@@ -60,9 +60,9 @@ namespace CGE
             glm::vec3 position = lastPosition_ + (position_- lastPosition_) * delta;
             glm::vec3 rotation = lastRotation_ + (rotation_ - lastRotation_) * delta;
             matrix = glm::translate(matrix, position);
+            matrix = glm::rotate(matrix, -rotation.z, {0, 0, 1});
             matrix = glm::rotate(matrix, rotation.x, {1, 0, 0});
             matrix = glm::rotate(matrix, rotation.y, {0, 1, 0});
-            matrix = glm::rotate(matrix, rotation.z, {0, 0, 1});
 
             if(texModel_->getType() == Loader::Animated2DModel)
             {

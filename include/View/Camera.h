@@ -10,10 +10,6 @@
 
 namespace CGE
 {
-    namespace Entities
-    {
-        class Player;
-    }
     namespace View
     {
         struct Camera
@@ -23,7 +19,9 @@ namespace CGE
 
             explicit Camera(glm::vec3 position = glm::vec3(0), glm::vec3 rotation = glm::vec3(0));
 
-            glm::mat4 toViewMatrix();
+            void followPlayer(glm::vec3 &playerPos);
+
+            glm::mat4 toViewMatrix(bool zAxis = true);
         };
 
     }
