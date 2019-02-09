@@ -28,7 +28,7 @@ line: Line where the error was produced (__LINE__)
 		{
 			while (const GLenum error = glGetError())
 			{
-				logWarning(" [OpenGL Error] (" << error << "): " << function <<
+				logWarning(" [OpenGL Error] (" << std::hex << error << "): " << function <<
 											   " " << file << ":" << line << '\n' << "Error message: "
 											   << glewGetErrorString(error));
 				return false;

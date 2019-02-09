@@ -4,6 +4,7 @@
 #include <freetype/ftimage.h>
 //#include <glm/detail/qualifier.hpp>
 #include <glm/detail/type_vec2.hpp>
+#include <glm/mat4x4.hpp>
 //#include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_int2.hpp>
@@ -18,6 +19,8 @@
 #include <map>
 #include <string>
 #include <utility>
+#include <Text/TextRenderer.h>
+
 
 namespace CGE
 {
@@ -180,9 +183,9 @@ namespace CGE
                 //Load the font
                 if (FT_New_Face(ft, fontToUse, 0, &font))
                 logError("FREETYPE: Could not load the font " << fontToUse);
-                //Set default font size to 48
-                setFontSize(48);
-                //TODO: load different font size to not get pixelized text
+                //Set default font size to 120
+                setFontSize(120);
+                //TODO: load different font size to not get pixelized text and keep performence
                 //Load the font
                 loadFont();
                 //Create shader
@@ -201,6 +204,13 @@ namespace CGE
                 //Terminate the library
                 FT_Done_Face(font);
                 FT_Done_FreeType(ft);
+            }
+
+            void loadProjectionMatrix(const glm::mat4 &matrix)
+            {
+                shader->start();
+                shader->setProjectionMatrix(matrix);
+                shader->stop();
             }
 
         }

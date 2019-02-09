@@ -8,19 +8,26 @@ namespace CGE
 {
 	namespace GUI
 		{
+			enum PanelType
+			{
+				PANEL_INVISIBLE, PANEL_DEFAULT = 20000
+			};
+
 			class Button;
 
 			class Panel : public GUIComponent
 			{
+				PanelType type_;
 				std::vector<Button*> buttons_;
+				Loader::TexturedModel *texModel_;
 
 			public:
 
-				Panel(glm::vec2 position, glm::vec2 dimension);
+				Panel(glm::vec2 position, glm::vec2 dimension, PanelType type);
 
 				~Panel();
 
-				void addButton(Button* newButton);
+				void addButton(Button *newButton);
 
 				void draw();
 

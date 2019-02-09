@@ -3,6 +3,7 @@
 #include <string>
 
 #include "glm/ext/vector_float3.hpp"
+#include <glm/mat4x4.hpp>
 
 namespace CGE
 {
@@ -15,6 +16,7 @@ namespace CGE
 			 */
 			void init(const char* fontToUse);
 			void clean();
+			void loadProjectionMatrix(const glm::mat4 &matrix);
 			/*
 			 * Render text to the screen
 			 * text: text to render

@@ -18,9 +18,12 @@ namespace CGE
 
         Button::Button(const ButtonType type, const glm::vec2 position, const glm::vec2 dimension,
                        std::string text, void (*funcWhenPressed)())
-                : GUIComponent(position, dimension), type_(type), rawPosition_(position), rawDimension_(
-                dimension), text_(std::move(text)), textPosition_(glm::vec2()), textSize_(
-                1), press(funcWhenPressed), texModel_(Loader::resManagement::getFlat2DAnimation(type_))
+                : GUIComponent(position, dimension),
+                type_(type), parent_(nullptr),
+                rawPosition_(position), rawDimension_(dimension),
+                text_(std::move(text)), textPosition_(glm::vec2()), textSize_(1),
+                press(funcWhenPressed),
+                texModel_(Loader::resManagement::getFlat2DAnimation(type_))
         {
             setTextPosAndSize();
         }
@@ -40,7 +43,7 @@ namespace CGE
                 //Load the transformation matrix
                 glm::mat4 transMatrix(1);
                 transMatrix = glm::translate(transMatrix, glm::vec3( // @suppress("Invalid arguments")
-                        position_.x, position_.y, 0));
+                        position_.x, position_.y, -0.9));
                 transMatrix = glm::scale(transMatrix, glm::vec3( // @suppress("Invalid arguments")
                         dimension_.x, dimension_.y, 1));
                 shader->setTransformationMatrix(transMatrix);
@@ -53,7 +56,6 @@ namespace CGE
                 CGE::Text::textRenderer::renderText(text_, textPosition_.x, textPosition_.y,
                                                     textSize_,
                                                     {1, 1, 1});
-                //GE::Text::textRenderer::renderText(text_, drawPosition.x - text_.size() * 12, drawPosition.y - 10, 0.75f, { 1, 1, 1 });
             }
         }
 
@@ -66,11 +68,15 @@ namespace CGE
                 //Change pixel position to opengl coordinate
                 mousePos.x = mousePos.x / display->width * 2 - 1;
                 mousePos.y = (IO::getDisplay()->height - mousePos.y) / display->height * 2 - 1;
+                //Apply the modification made by the projection matrix
+                const glm::mat4 &projectionMatrix = GUIRenderer::getGUIShader()->getProjectionMatrix();
+                glm::vec2 position = (glm::vec4(position_.x, position_.y, 0, 0) /0.9f) * projectionMatrix;
+                glm::vec2 dimension = (glm::vec4(dimension_.x, dimension_.y, 0, 0) / 0.9f) * projectionMatrix;
                 //Check if the mouse is on the button
-                if (position_.x - dimension_.x <= mousePos.x
-                    && mousePos.x <= position_.x + dimension_.x
-                    && position_.y - dimension_.y <= mousePos.y
-                    && mousePos.y <= position_.y + dimension_.y)
+                if (position.x - dimension.x <= mousePos.x
+                    && mousePos.x <= position.x + dimension.x
+                    && position.y - dimension.y <= mousePos.y
+                    && mousePos.y <= position.y + dimension.y)
                 {
                     if (IO::input::isButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
                     {
@@ -99,13 +105,14 @@ namespace CGE
         void Button::setTextPosAndSize()
         {
             IO::Display *display = IO::getDisplay();
+            glm::vec2 dimension = (glm::vec4(dimension_.x, dimension_.y, 0, 0) / 0.9f)
+                    * GUIRenderer::getGUIShader()->getProjectionMatrix();
             for (textSize_ = MIN_TEXT_SIZE;
-                 dimension_.x * 0.75f
-                 > static_cast<float>(Text::textRenderer::getStringLength(text_,
-                                                                          textSize_)) / display->width
-                 && dimension_.y * 0.6f > textSize_ * 40 / display->height; textSize_ +=
-                                                                                    0.01f);
-            textPosition_ = position_; // + glm::vec2(-1.0f * Text::textRenderer::getStringLength(text_, textSize_) / 2.0f, -textSize_ * 16);
+                 dimension.x * 0.5f >
+                 static_cast<float>(Text::textRenderer::getStringLength(text_, textSize_)) / display->width
+                 && dimension.y * 0.6f > textSize_ * 40 / display->height; textSize_ += 0.01f);
+            textPosition_ = position_;
+            textPosition_.y -= textSize_ / 10;
         }
 
         //Getters and Setters
@@ -126,8 +133,6 @@ namespace CGE
                 position_ = parent_->getPosition() + parent_->getDimension() * position;
             else
                 position_ = position;
-            position_.x = position_.x * 2 - 1;
-            position_.y = position_.y * 2 - 1;
             setTextPosAndSize();
         }
 

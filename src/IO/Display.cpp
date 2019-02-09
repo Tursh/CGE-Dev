@@ -8,6 +8,8 @@
 #include <iostream>
 #include <map>
 #include <utility>
+#include <glm/ext/matrix_clip_space.hpp>
+#include <Text/TextRenderer.h>
 
 namespace CGE
 {
@@ -45,6 +47,12 @@ namespace CGE
 		{
 			if(customWindowResizeCallback != nullptr)
 				customWindowResizeCallback(width, height);
+			glm::mat4 projectionMatrix = glm::perspective(45.0f, (float) width / height, 0.00001f, 100.f);
+            GUI::GUIShader *GUIshader = GUI::GUIRenderer::getGUIShader();
+            GUIshader->start();
+            GUIshader->setProjectionMatrix(projectionMatrix);
+            GUIshader->stop();
+            Text::textRenderer::loadProjectionMatrix(projectionMatrix);
 			glViewport(0, 0, width, height);
 			for(size_t i = 0; i < displays.size(); i++)
 			if(displays[i]->window == win)

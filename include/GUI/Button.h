@@ -16,7 +16,7 @@ namespace CGE
 
 		enum ButtonType
 		{
-            DEFAULT = 10000
+            BUTTON_DEFAULT = 10000
         };
 
         enum Mode
