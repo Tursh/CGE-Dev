@@ -5,7 +5,6 @@
 #include <Loader/RessourceManager.h>
 #include <Entities/Entity.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <hdf5_hl.h>
 #include <Utils/TimeUtils.h>
 
 
