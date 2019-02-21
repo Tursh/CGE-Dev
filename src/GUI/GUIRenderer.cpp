@@ -1,5 +1,7 @@
 #include "GUI/GUIRenderer.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <GUI/GUIRenderer.h>
+
 #include "IO/Display.h"
 
 namespace CGE
@@ -22,7 +24,14 @@ namespace CGE
 				return shader;
 			}
 
-		}
+            void loadProjectionMatrix(glm::mat4 matrix)
+            {
+                shader->start();
+                shader->setProjectionMatrix(matrix);
+                shader->stop();
+            }
+
+        }
 
 	}
 }

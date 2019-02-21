@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
+#include <glm/mat4x4.hpp>
 
 namespace CGE
 {
@@ -13,6 +14,9 @@ namespace CGE
         struct Display
         {
             unsigned int width, height, ID;
+
+            glm::mat4 projectionMatrix;
+
             //The window pointer
             GLFWwindow *window;
 

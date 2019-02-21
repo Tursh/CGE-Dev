@@ -263,6 +263,8 @@ namespace CGE
                     texturePaths.push_back(texIndex[texID]);
 
                 textures = std::shared_ptr<Texture[]>(loadTextures(&texturePaths[0], count));
+
+                twoDAniBuf[ID] = textures;
             } else
                 textures = twoDAniBuf[ID].lock();
             return textures;

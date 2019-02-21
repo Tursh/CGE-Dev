@@ -3,6 +3,7 @@
 #include <glm/vec2.hpp>
 #include <Loader/Models/TexturedModel.h>
 #include <Loader/Models/TwoDAnimatedModel.h>
+#include <functional>
 
 #include "GUIComponent.h"
 #include "Panel.h"
@@ -16,7 +17,7 @@ namespace CGE
 
 		enum ButtonType
 		{
-            BUTTON_DEFAULT = 10000
+            BUTTON_DEFAULT = 10000, SLOT = 10001
         };
 
         enum Mode
@@ -36,15 +37,14 @@ namespace CGE
 			glm::vec2 textPosition_;
 			float textSize_;
 			bool pressing_ = false;
-
-			void (*press)();
-
 			//set the text size and position dynamicly so it is inside the button
 			void setTextPosAndSize();
 
+			std::function<void(void)> press;
+
 		public:
 			Button(const ButtonType type, const glm::vec2 position, const glm::vec2 dimension,
-					std::string text, void (*funcWhenPressed)());
+					std::string text, std::function<void(void)> funcWhenPressed);
 			~Button();
 
 			void draw();

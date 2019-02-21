@@ -117,10 +117,16 @@ namespace CGE
 			}
 
 			/*Get cursor position relative to the game window*/
-			glm::vec2 getCursorPos()
+			glm::vec2 getCursorPos(int displayID)
 			{
 				double x, y;
 				glfwGetCursorPos(window, &x, &y);
+				if(displayID >= 0)
+				{
+					Display *display = getDisplay(displayID);
+					x = x / display->width * 2 - 1;
+					y = - (y / display->height * 2 - 1);
+				}
 				return glm::vec2((float) x, (float) y);
 			}
 

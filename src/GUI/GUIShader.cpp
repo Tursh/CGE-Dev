@@ -19,7 +19,7 @@ uniform mat4 projectionMatrix;
 
 void main()
 {
-	gl_Position = projectionMatrix * transformationMatrix * positions;
+	gl_Position = (projectionMatrix * transformationMatrix) * positions;
 	pass_texCoords = TexCoords;
 }
 )glsl";
@@ -33,8 +33,11 @@ uniform sampler2D tex;
 
 void main()
 {
-	color = texture(tex, pass_texCoords);
-	//color = vec4(1.0, 1.0, 1.0, 1.0);
+	vec4 texColor = texture(tex, pass_texCoords);
+    //If the alpha is under 0.1 don't draw anything
+    if(texColor.a < 0.1)
+        discard;
+	color = texColor;
 }
 )glsl";
 

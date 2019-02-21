@@ -18,8 +18,9 @@ namespace CGE
 			class Panel : public GUIComponent
 			{
 				PanelType type_;
-				std::vector<Button*> buttons_;
 				Loader::TexturedModel *texModel_;
+			protected:
+				std::vector<Button*> buttons_;
 
 			public:
 

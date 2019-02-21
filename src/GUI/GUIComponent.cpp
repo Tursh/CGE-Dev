@@ -1,4 +1,5 @@
-﻿#include "GUI/GUIComponent.h"
+﻿#include <IO/Display.h>
+#include "GUI/GUIComponent.h"
 
 namespace CGE
 {
@@ -8,6 +9,9 @@ namespace CGE
 		GUIComponent::GUIComponent(const glm::vec2 &position, const glm::vec2 &dimension)
 				: position_(position), dimension_(dimension)
 		{
+			glm::vec4 projection = glm::vec4(1.1f) * CGE::IO::getDisplay()->projectionMatrix;
+
+			position_ /= (glm::vec2)projection;
 		}
 
 		const glm::vec2 &GUIComponent::getPosition() const

@@ -10,6 +10,7 @@ namespace CGE
 
 			void init();
 			GUIShader* getGUIShader();
+			void loadProjectionMatrix(glm::mat4 matrix);
 
 		}
 	}

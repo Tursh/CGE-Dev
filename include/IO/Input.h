@@ -42,7 +42,7 @@ namespace CGE
             void resetMouseButtonCallBack();
 
             /*Get cursor position*/
-            glm::vec2 getCursorPos();
+            glm::vec2 getCursorPos(int displayID = -1);
 
             /*Return the movement of the mouse since the last call*/
             glm::vec2 getCursorShifting();
