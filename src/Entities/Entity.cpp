@@ -15,12 +15,15 @@ namespace CGE
         unsigned int futurID = 1;
 
         Entity::Entity(unsigned int texModelID, Loader::TexturedModelType type, glm::vec3 position, glm::vec3 rotation,
-                       bool visible)
-                : ID(futurID), position_(position), rotation_(rotation), visible_(visible)
+                       bool visible, bool movable)
+                : ID(futurID), position_(position), rotation_(rotation), visible_(visible), movable_(movable)
         {
             switch (type)
             {
-                case Loader::BasicTexturedModel:
+                case Loader::Basic2DTexturedModel:
+                    texModel_ = CGE::Loader::resManagement::getTexModel(texModelID);
+                    break;
+                case Loader::Basic3DTexturedModel:
                     texModel_ = CGE::Loader::resManagement::getTexModel(texModelID);
                     break;
                 case Loader::Animated2DModel:
@@ -30,8 +33,10 @@ namespace CGE
             futurID++;
         }
 
-        Entity::Entity(Loader::TexturedModel *texModel, glm::vec3 position, glm::vec3 rotation, bool visible)
-                : texModel_(texModel), ID(futurID), position_(position), rotation_(rotation), visible_(visible)
+        Entity::Entity(Loader::TexturedModel *texModel, glm::vec3 position, glm::vec3 rotation, bool visible,
+                       bool movable)
+                : texModel_(texModel), ID(futurID), position_(position), rotation_(rotation), visible_(visible),
+                  movable_(movable)
         {
             futurID++;
         }
@@ -48,22 +53,30 @@ namespace CGE
 
         glm::vec3 Entity::getExactPosition()
         {
-            return lastPosition_ + (position_- lastPosition_) * CGE::Utils::getDelta();
+            return lastPosition_ + (position_ - lastPosition_) * CGE::Utils::getDelta();
         }
 
         glm::mat4 Entity::getTransformationMatrix()
         {
             glm::mat4 matrix(1);
-            float delta = Utils::getDelta();
-            //logInfo(((position_ - lastPosition_) / delta).x);
-            glm::vec3 position = lastPosition_ + (position_- lastPosition_) * delta;
-            glm::vec3 rotation = lastRotation_ + (rotation_ - lastRotation_) * delta;
+            glm::vec3 position;
+            glm::vec3 rotation;
+            if (movable_)
+            {
+                float delta = Utils::getDelta();
+                position = lastPosition_ + (position_ - lastPosition_) * delta;
+                rotation = lastRotation_ + (rotation_ - lastRotation_) * delta;
+            } else
+            {
+                position = position_;
+                rotation = rotation_;
+            }
             matrix = glm::translate(matrix, position);
             matrix = glm::rotate(matrix, -rotation.z, {0, 0, 1});
             matrix = glm::rotate(matrix, rotation.x, {1, 0, 0});
             matrix = glm::rotate(matrix, rotation.y, {0, 1, 0});
 
-            if(texModel_->getType() == Loader::Animated2DModel)
+            if (texModel_->getType() == Loader::Animated2DModel)
             {
                 glm::vec2 modelSize = texModel_->getModelSize();
                 matrix = glm::scale(matrix, glm::vec3(modelSize.x, modelSize.y, 0));

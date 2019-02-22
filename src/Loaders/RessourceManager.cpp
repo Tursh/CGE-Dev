@@ -168,7 +168,8 @@ namespace CGE
             std::pair<unsigned int, unsigned int> &pair = texModelIndex[ID];
 
             //Get Model and Texture and return them in a textured model
-            return new TexturedModel(getModel(pair.first), getTexture(pair.second), BasicTexturedModel);
+            return new TexturedModel(getModel(pair.first), getTexture(pair.second),
+                                     (pair.first) ? Basic3DTexturedModel : Basic2DTexturedModel);
         }
 
         //Check if model got already loaded and return it

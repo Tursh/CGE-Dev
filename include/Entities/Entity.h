@@ -15,6 +15,7 @@ namespace CGE
     {
         class Entity
         {
+            bool movable_;
             glm::vec3 lastPosition_ = glm::vec3(0);
             glm::vec3 lastRotation_ = glm::vec3(0);
         public:
@@ -25,10 +26,10 @@ namespace CGE
             bool visible_;
 
             explicit Entity(unsigned int texModelID, Loader::TexturedModelType type, glm::vec3 position = glm::vec3(0),
-                            glm::vec3 rotation = glm::vec3(0), bool visible = true);
+                            glm::vec3 rotation = glm::vec3(0), bool visible = true, bool movable = true);
 
             explicit Entity(Loader::TexturedModel *Model, glm::vec3 position = glm::vec3(0),
-                            glm::vec3 rotation = glm::vec3(0), bool visible = true);
+                            glm::vec3 rotation = glm::vec3(0), bool visible = true, bool movable = true);
 
             ~Entity();
 

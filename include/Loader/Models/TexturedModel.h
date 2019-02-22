@@ -15,7 +15,7 @@ namespace CGE
 
         enum TexturedModelType
         {
-            BasicTexturedModel, Animated3DModel, Animated2DModel
+            Basic2DTexturedModel, Basic3DTexturedModel, Animated3DModel, Animated2DModel
         };
 
         class TexturedModel
