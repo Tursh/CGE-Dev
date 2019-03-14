@@ -31,12 +31,13 @@ namespace CGE
                     break;
             }
             futurID++;
+            size_ = texModel_->getModelSize();
         }
 
         Entity::Entity(Loader::TexturedModel *texModel, glm::vec3 position, glm::vec3 rotation, bool visible,
                        bool movable)
                 : texModel_(texModel), ID(futurID), position_(position), rotation_(rotation), visible_(visible),
-                  movable_(movable)
+                  movable_(movable), size_(texModel_->getModelSize())
         {
             futurID++;
         }

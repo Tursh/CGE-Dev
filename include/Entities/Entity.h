@@ -24,6 +24,7 @@ namespace CGE
             glm::vec3 position_;
             glm::vec3 rotation_;
             bool visible_;
+            glm::vec2 size_;
 
             explicit Entity(unsigned int texModelID, Loader::TexturedModelType type, glm::vec3 position = glm::vec3(0),
                             glm::vec3 rotation = glm::vec3(0), bool visible = true, bool movable = true);
