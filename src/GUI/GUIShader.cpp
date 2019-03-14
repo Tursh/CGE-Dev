@@ -45,7 +45,7 @@ void main()
                 projectionMatrixLocation;
 
         GUIShader::GUIShader()
-                : Shader::ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER, false)
+                : Shader::ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER, false), projectionMatrix(1)
         {
             start();
             getAllUniformLocation();

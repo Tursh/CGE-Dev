@@ -2,6 +2,7 @@
 
 #include <GLFW/glfw3.h>                    //GLFW*
 #include <glm/ext/vector_float2.hpp>    //glm::vec2
+#include <GUI/Panel.h>
 
 namespace CGE
 {
@@ -24,6 +25,13 @@ namespace CGE
              button: button pressed (GLFW_BUTTON_MOUSE_<button>)
              */
             bool isButtonPressed(int button);
+
+            //Check if there is a visible panel
+            bool isPanelVisible();
+
+            void addPanel(GUI::Panel *newPanel);
+
+            void removePanel(GUI::Panel *panel);
 
             /*
              Set your own Key callback

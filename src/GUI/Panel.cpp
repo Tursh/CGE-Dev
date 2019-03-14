@@ -1,27 +1,33 @@
-﻿
+﻿#include <utility>
+
+
 #include <GUI/Panel.h>
 #include <GUI/GUIRenderer.h>
 #include <glm/ext/matrix_transform.hpp>
 #include <Loader/RessourceManager.h>
+#include <IO/Input.h>
 
 namespace CGE
 {
     namespace GUI
     {
 
-        Panel::Panel(const glm::vec2 position, const glm::vec2 dimension, PanelType type)
-                : GUIComponent(position, dimension), type_(type)
+        Panel::Panel(const glm::vec2 position, const glm::vec2 dimension, PanelType type,
+                     std::function<void(int key, int usage)> keyCallback)
+                : GUIComponent(position, dimension), type_(type), keyCallback(std::move(keyCallback))
         {
             if (type_ != PANEL_INVISIBLE)
                 texModel_ = Loader::resManagement::getTexModel(type);
+            IO::input::addPanel(this);
         }
 
         Panel::~Panel()
         {
             for (auto button : buttons_)
                 delete button;
-            if(type_ != PANEL_INVISIBLE)
+            if (type_ != PANEL_INVISIBLE)
                 delete texModel_;
+            IO::input::removePanel(this);
         }
 
         void Panel::addButton(Button *newButton)

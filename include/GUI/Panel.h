@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include <vector>
 
 #include "GUIComponent.h"
@@ -6,33 +7,35 @@
 
 namespace CGE
 {
-	namespace GUI
-		{
-			enum PanelType
-			{
-				PANEL_INVISIBLE, PANEL_DEFAULT = 20000
-			};
+    namespace GUI
+    {
+        enum PanelType
+        {
+            PANEL_INVISIBLE, PANEL_DEFAULT = 20000
+        };
 
-			class Button;
+        class Button;
 
-			class Panel : public GUIComponent
-			{
-				PanelType type_;
-				Loader::TexturedModel *texModel_;
-			protected:
-				std::vector<Button*> buttons_;
+        class Panel : public GUIComponent
+        {
+            PanelType type_;
+            Loader::TexturedModel *texModel_;
+        protected:
+            std::vector<Button *> buttons_;
 
-			public:
+        public:
+            std::function<void(int key, int usage)> keyCallback;
 
-				Panel(glm::vec2 position, glm::vec2 dimension, PanelType type);
+            Panel(glm::vec2 position, glm::vec2 dimension, PanelType type,
+                  std::function<void(int key, int usage)> keyCallback);
 
-				~Panel();
+            ~Panel();
 
-				void addButton(Button *newButton);
+            void addButton(Button *newButton);
 
-				void draw();
+            void draw();
 
-				void checkEvents();
-			};
-		}
+            void checkEvents();
+        };
+    }
 }

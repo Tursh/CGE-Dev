@@ -3,6 +3,7 @@
 #include <Utils/Log.h>                        //logError
 #include "IO/Input.h"
 #include <iostream>
+#include <GUI/Panel.h>
 
 namespace CGE
 {
@@ -18,6 +19,8 @@ namespace CGE
 			/*Last mouse position*/
 			static glm::vec2 lastMousePos(0);
 			static glm::vec2 lastScroll(0);
+
+			static std::vector<GUI::Panel *> currentPanels;
 
 			void (*customKeyCallBack)(GLFWwindow* window, int key, int action);
 			void (*customMouseButtonCallBack)(GLFWwindow* window, int button, int action);
@@ -49,15 +52,19 @@ namespace CGE
 					}
 					if (action != GLFW_REPEAT)
 						keys[key] = action;
-					if (customKeyCallBack != nullptr)
+					if (customKeyCallBack != nullptr && !isPanelVisible())
 						customKeyCallBack(window, key, action);
+                    else if(isPanelVisible())
+                        for(auto &panel : currentPanels)
+                            if(panel->getVisibility())
+                                panel->keyCallback(key, action);
 				}
 
 				/*Mouse callback fonction*/
 				void mouseButtonCallback(GLFWwindow* window, int button, int action, int mode)
 				{
 					mouse[button] = action;
-					if (customMouseButtonCallBack != nullptr)
+					if (customMouseButtonCallBack != nullptr && !isPanelVisible())
 						customMouseButtonCallBack(window, button, action);
 				}
 
@@ -82,6 +89,27 @@ namespace CGE
 			bool isButtonPressed(int button)
 			{
 				return mouse[button];
+			}
+
+            //Check if there is a visible panel
+            bool isPanelVisible()
+            {
+                for (auto &panel : currentPanels)
+                {
+                    if(panel->getVisibility())
+                        return true;
+                }
+                return false;
+            }
+
+			void addPanel(GUI::Panel *newPanel)
+			{
+				currentPanels.push_back(newPanel);
+			}
+
+			void removePanel(GUI::Panel *panel)
+			{
+				currentPanels.erase(std::remove(currentPanels.begin(), currentPanels.end(), panel), currentPanels.end());
 			}
 
 			void setYourOwnKeyCallBack(void (*keyCallBack)(GLFWwindow* window, int key, int action))
