@@ -13,12 +13,13 @@ namespace CGE
     {
 
         Panel::Panel(const glm::vec2 position, const glm::vec2 dimension, PanelType type,
-                     std::function<void(int key, int usage)> keyCallback)
-                : GUIComponent(position, dimension), type_(type), keyCallback(std::move(keyCallback))
+                     std::function<void(int key, int usage)> keyCallback, bool inGamePanel)
+                : GUIComponent(position, dimension,
+                               (type != PANEL_INVISIBLE) ? Loader::resManagement::getTexModel(type) : nullptr),
+                  type_(type),
+                  keyCallback(std::move(keyCallback))
         {
-            if (type_ != PANEL_INVISIBLE)
-                texModel_ = Loader::resManagement::getTexModel(type);
-            IO::input::addPanel(this);
+            if (!inGamePanel) IO::input::addPanel(this);
         }
 
         Panel::~Panel()
@@ -36,27 +37,12 @@ namespace CGE
             buttons_.push_back(newButton);
         }
 
-        void Panel::draw()
+        void Panel::render()
         {
             if (visible_)
             {
                 if (type_ != PANEL_INVISIBLE)
-                {
-                    //Get the shader
-                    GUIShader *shader = GUIRenderer::getGUIShader();
-                    shader->start();
-                    //Load the transformation matrix
-                    glm::mat4 transMatrix(1);
-                    transMatrix = glm::translate(transMatrix, glm::vec3( // @suppress("Invalid arguments")
-                            position_.x, position_.y, -1));
-                    transMatrix = glm::scale(transMatrix, glm::vec3( // @suppress("Invalid arguments")
-                            dimension_.x, dimension_.y, 1));
-                    shader->setTransformationMatrix(transMatrix);
-                    //Render the panel
-                    texModel_->render();
-                    shader->stop();
-                }
-
+                    GUIRenderer::render(this);
 
                 //Render buttons
                 for (auto button : buttons_)
@@ -71,6 +57,11 @@ namespace CGE
                 for (auto button : buttons_)
                     button->checkEvent();
             }
+        }
+
+        void Panel::draw()
+        {
+            texModel_->render();
         }
     }
 }

@@ -6,8 +6,8 @@ namespace CGE
 	namespace GUI
 	{
 
-		GUIComponent::GUIComponent(const glm::vec2 &position, const glm::vec2 &dimension)
-				: position_(position), dimension_(dimension)
+		GUIComponent::GUIComponent(const glm::vec2 &position, const glm::vec2 &dimension, Loader::TexturedModel *texModel)
+				: position_(position), dimension_(dimension), texModel_(texModel)
 		{
 			glm::vec4 projection = glm::vec4(1.1f) * CGE::IO::getDisplay()->projectionMatrix;
 
@@ -43,6 +43,5 @@ namespace CGE
 		{
 			this->visible_ = visibility;
 		}
-
 	}
 }

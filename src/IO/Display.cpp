@@ -43,16 +43,16 @@ namespace CGE
         {
             if (customWindowResizeCallback != nullptr)
                 customWindowResizeCallback(width, height);
-            glm::mat4 projectionMatrix = glm::perspective(45.0f, (float) width / height, 0.00001f, 100.f);
-            GUI::GUIRenderer::loadProjectionMatrix(projectionMatrix);
-            Text::textRenderer::loadProjectionMatrix(projectionMatrix);
+            glm::ivec2 newResolution(width, height);
+            GUI::GUIRenderer::resetDisplayResolution(newResolution);
+            Text::textRenderer::resetDisplayResolution(newResolution);
             glViewport(0, 0, width, height);
             for (size_t i = 0; i < displays.size(); i++)
                 if (displays[i]->window == win)
                 {
                     displays[i]->width = static_cast<unsigned int>(width);
                     displays[i]->height = static_cast<unsigned int>(height);
-                    displays[i]->projectionMatrix = projectionMatrix;
+                    displays[i]->projectionMatrix = glm::perspective(45.0f, (float) width / height, 0.00001f, 100.f);
                 }
         }
 

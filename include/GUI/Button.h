@@ -4,6 +4,7 @@
 #include <Loader/Models/TexturedModel.h>
 #include <Loader/Models/TwoDAnimatedModel.h>
 #include <functional>
+#include <ostream>
 
 #include "GUIComponent.h"
 #include "Panel.h"
@@ -29,7 +30,6 @@ namespace CGE
 		{
             Mode mode_;
 			ButtonType type_;
-            Loader::TwoDAnimatedModel *texModel_;
 			Panel* parent_;
 			glm::vec2 rawPosition_;
 			glm::vec2 rawDimension_;
@@ -43,13 +43,15 @@ namespace CGE
 			std::function<void(void)> press;
 
 		public:
-			Button(const ButtonType type, const glm::vec2 position, const glm::vec2 dimension,
+			Button(ButtonType type, glm::vec2 position, glm::vec2 dimension,
 					std::string text, std::function<void(void)> funcWhenPressed);
 			~Button();
 
-			void draw();
+			void render();
 			//Check if the mouse is not over or pressing it
 			void checkEvent();
+
+			virtual void draw() override;
 
 			//Getters and Setters
 			std::string getText() const;
@@ -58,8 +60,8 @@ namespace CGE
 			void setType(ButtonType type);
 			void setPosition(glm::vec2 position);
 			void setDimension(glm::vec2 dimension);
-			Panel* getParent() const;
 			void setParent(Panel* parent);
+			Panel* getParent() const;
 		};
 
 	}

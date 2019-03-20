@@ -18,7 +18,6 @@ namespace CGE
 
 			void setTextColor(glm::vec3 color);
 
-			void setProjectionMatrix(const glm::mat4 &matrix);
 		};
 
 	}

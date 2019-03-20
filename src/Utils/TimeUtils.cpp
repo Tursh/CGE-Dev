@@ -179,6 +179,7 @@ namespace CGE
         }
 
         static double TPSTime = glfwGetTime();
+        static int lastTickCount = 0;
         static int tickCount = 0;
         static float lastTPS = 0.0f;
 
@@ -187,8 +188,8 @@ namespace CGE
             tickCount++;
             if (glfwGetTime() - TPSTime >= 1.0f)
             {
-                lastTPS = tickCount;
-                tickCount = 0;
+                lastTPS = tickCount - lastTickCount;
+                lastTickCount = tickCount;
                 TPSTime += 1.0f;
             }
         }
@@ -196,6 +197,11 @@ namespace CGE
         float getTPS()
         {
             return lastTPS;
+        }
+
+        int getTickCount()
+        {
+            return tickCount;
         }
 
         static double lastTick = glfwGetTime();

@@ -16,7 +16,7 @@ namespace CGE
 			 */
 			void init(const char* fontToUse);
 			void clean();
-			void loadProjectionMatrix(const glm::mat4 &matrix);
+			void resetDisplayResolution(const glm::vec2 &newResolution);
 			/*
 			 * Render text to the screen
 			 * text: text to render
@@ -29,7 +29,7 @@ namespace CGE
 			/*
 			 * Get the string length in pixels
 			 */
-			unsigned int getStringLength(std::string string, float size);
+			float getStringLength(std::string string, float size);
 		}
 	}
 }

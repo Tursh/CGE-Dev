@@ -101,12 +101,14 @@ namespace CGE
                 GLCall(glBindVertexArray(0));
             }
 
-            unsigned int getStringLength(std::string string, float size)
+            static glm::vec2 displayScale = glm::vec2(1.0f, 1.0f);
+
+            float getStringLength(std::string string, float size)
             {
-                unsigned int length = 0;
+                float length = 0.0f;
                 for (std::string::const_iterator c = string.begin(); c != string.end(); c++)
                     length += (characters[*c].advance >> 6); // @suppress("Field cannot be resolved")
-                return length * size;
+                return length / CGE::IO::DEFAULT_WIDTH / displayScale.x * size;
             }
 
             void renderText(std::string text, float x, float y, float scale, glm::vec3 color,
@@ -124,25 +126,25 @@ namespace CGE
 
                 //Set the x position to center the text
                 if (centered)
-                    x -= static_cast<float>(getStringLength(text, scale)) / 720;
+                    x -= static_cast<float>(getStringLength(text, scale));
                 else
-                    y -= characters[*text.begin()].size.y / 480.0f * scale; // @suppress("Field cannot be resolved")
+                    y -= characters[*text.begin()].size.y / (float)CGE::IO::DEFAULT_HEIGHT / displayScale.y * scale; // @suppress("Field cannot be resolved")
 
 
                 for (std::string::const_iterator c = text.begin(); c != text.end(); ++c)
                 {
                     Character ch = characters[*c];
 
-                    const float xpos = x + (ch.bearing.x * scale) / 480 * 2;
+                    const float xpos = x + (ch.bearing.x * scale) / CGE::IO::DEFAULT_WIDTH / displayScale.x * 2;
                     /*
                      * We calculate the y position by centering the caracter position on the y axis and
                      * transforming the pixel coordinates to opengl coordinates.
                      * Base expression: yPos = y - scale * (bearing.y / 2 + size.y - bearing.y) / (display->height * 2)
                      */
-                    const float ypos = y - scale * (17 + ch.size.y - ch.bearing.y) / 480 * 2;
+                    const float ypos = y - scale * (17 + ch.size.y - ch.bearing.y) / CGE::IO::DEFAULT_HEIGHT / displayScale.y * 2;
 
-                    const float w = (ch.size.x * scale) / 720 * 2;
-                    const float h = (ch.size.y * scale) / 480 * 2;
+                    const float w = (ch.size.x * scale) / CGE::IO::DEFAULT_WIDTH / displayScale.x * 2;
+                    const float h = (ch.size.y * scale) / CGE::IO::DEFAULT_HEIGHT / displayScale.y * 2;
                     // Update VBO for each character
                     GLfloat vertices[6][4] =
                             {
@@ -162,7 +164,7 @@ namespace CGE
                     // Render quad
                     glDrawArrays(GL_TRIANGLES, 0, 6);
                     // Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-                    x += (ch.advance >> 6) * scale / 720 * 2; // Bitshift by 6 to get value in pixels (2^6 = 64)
+                    x += (ch.advance >> 6) * scale / displayScale.x / CGE::IO::DEFAULT_WIDTH * 2; // Bitshift by 6 to get value in pixels (2^6 = 64)
                 }
                 glBindVertexArray(0);
                 glBindTexture(GL_TEXTURE_2D, 0);
@@ -206,11 +208,9 @@ namespace CGE
                 FT_Done_FreeType(ft);
             }
 
-            void loadProjectionMatrix(const glm::mat4 &matrix)
+            void resetDisplayResolution(const glm::vec2 &newResolution)
             {
-                shader->start();
-                shader->setProjectionMatrix(matrix);
-                shader->stop();
+                displayScale = (glm::vec2)newResolution / glm::vec2(CGE::IO::DEFAULT_WIDTH, CGE::IO::DEFAULT_HEIGHT);
             }
 
         }

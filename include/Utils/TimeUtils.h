@@ -20,6 +20,7 @@ namespace CGE
 		float getFPS();
 
         float getTPS();
+		int getTickCount();
 
         bool shouldTick();
 

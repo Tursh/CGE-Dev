@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <glm/vec2.hpp>
+#include <Loader/Models/TexturedModel.h>
 
 namespace CGE
 {
@@ -12,8 +13,11 @@ namespace CGE
 			glm::vec2 position_;
 			glm::vec2 dimension_;
 			bool visible_ = true;
+			Loader::TexturedModel *texModel_;
 		public:
-			GUIComponent(const glm::vec2 &position, const glm::vec2 &dimension);
+			GUIComponent(const glm::vec2 &position, const glm::vec2 &dimension, Loader::TexturedModel *texModel);
+
+			virtual void draw() = 0;
 
 			//Getters setters
 			const glm::vec2 &getPosition() const;

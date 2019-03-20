@@ -19,7 +19,6 @@ namespace CGE
         class Panel : public GUIComponent
         {
             PanelType type_;
-            Loader::TexturedModel *texModel_;
         protected:
             std::vector<Button *> buttons_;
 
@@ -27,13 +26,15 @@ namespace CGE
             std::function<void(int key, int usage)> keyCallback;
 
             Panel(glm::vec2 position, glm::vec2 dimension, PanelType type,
-                  std::function<void(int key, int usage)> keyCallback);
+                  std::function<void(int key, int usage)> keyCallback, bool inGamePanel = false);
 
             ~Panel();
 
             void addButton(Button *newButton);
 
-            void draw();
+            virtual void draw() override;
+
+            void render();
 
             void checkEvents();
         };

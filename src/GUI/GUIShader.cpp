@@ -15,11 +15,10 @@ in vec2 TexCoords;
 out vec2 pass_texCoords;
 
 uniform mat4 transformationMatrix;
-uniform mat4 projectionMatrix;
 
 void main()
 {
-	gl_Position = (projectionMatrix * transformationMatrix) * positions;
+	gl_Position = transformationMatrix * positions;
 	pass_texCoords = TexCoords;
 }
 )glsl";
@@ -41,11 +40,10 @@ void main()
 }
 )glsl";
 
-        unsigned int transformationMatrixLocation,
-                projectionMatrixLocation;
+        unsigned int transformationMatrixLocation;
 
         GUIShader::GUIShader()
-                : Shader::ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER, false), projectionMatrix(1)
+                : Shader::ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER, false)
         {
             start();
             getAllUniformLocation();
@@ -55,25 +53,12 @@ void main()
         void GUIShader::getAllUniformLocation()
         {
             transformationMatrixLocation = getUniformLocation("transformationMatrix");
-            projectionMatrixLocation = getUniformLocation("projectionMatrix");
         }
 
         void GUIShader::setTransformationMatrix(glm::mat4 &matrix)
         {
             loadMat4(transformationMatrixLocation, matrix);
         }
-
-        void GUIShader::setProjectionMatrix(glm::mat4 &matrix)
-        {
-            loadMat4(projectionMatrixLocation, matrix);
-            projectionMatrix = matrix;
-        }
-
-        const glm::mat4 &GUIShader::getProjectionMatrix()
-        {
-            return projectionMatrix;
-        }
-
 
     }
 }

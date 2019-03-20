@@ -11,11 +11,9 @@ namespace CGE
 in vec4 vertex; // <vec2 pos, vec2 tex>
 out vec2 TexCoords;
 
-uniform mat4 projectionMatrix;
-
 void main()
 {
-	gl_Position = projectionMatrix * vec4(vertex.xy, -0.9, 1.0);
+	gl_Position = vec4(vertex.xy, -0.9, 1.0);
 	TexCoords = vertex.zw;
 }
 )glsl";
@@ -35,8 +33,7 @@ void main()
 }
 )glsl";
 
-        unsigned int textColorLocation,
-                projectionMatrix;
+        unsigned int textColorLocation;
 
         TextShader::TextShader()
                 : ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER, false)
@@ -49,17 +46,11 @@ void main()
         void TextShader::getAllUniformLocation()
         {
             textColorLocation = getUniformLocation("textColor");
-            projectionMatrix = getUniformLocation("projectionMatrix");
         }
 
         void TextShader::setTextColor(glm::vec3 color)
         {
             loadVec3(textColorLocation, color);
-        }
-
-        void TextShader::setProjectionMatrix(const glm::mat4 &matrix)
-        {
-            loadMat4(projectionMatrix, matrix);
         }
 
     }

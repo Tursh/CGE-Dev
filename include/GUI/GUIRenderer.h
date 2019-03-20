@@ -1,5 +1,6 @@
 #pragma once
-#include "GUIShader.h"
+#include <GUI/GUIShader.h>
+#include <GUI/GUIComponent.h>
 
 namespace CGE
 {
@@ -9,8 +10,8 @@ namespace CGE
 		{
 
 			void init();
-			GUIShader* getGUIShader();
-			void loadProjectionMatrix(glm::mat4 matrix);
+			void render(GUIComponent *component);
+			void resetDisplayResolution(const glm::vec2 &newResolution);
 
 		}
 	}
