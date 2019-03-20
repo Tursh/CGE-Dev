@@ -43,7 +43,7 @@ namespace CGE
 			std::function<void(void)> press;
 
 		public:
-			Button(ButtonType type, glm::vec2 position, glm::vec2 dimension,
+			Button(ButtonType type, char scalePosition, glm::vec2 position, glm::vec2 dimension,
 					std::string text, std::function<void(void)> funcWhenPressed);
 			~Button();
 

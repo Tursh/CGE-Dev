@@ -11,6 +11,7 @@ namespace CGE
 
 			void init();
 			void render(GUIComponent *component);
+			const glm::vec2 &getDisplayScale();
 			void resetDisplayResolution(const glm::vec2 &newResolution);
 
 		}

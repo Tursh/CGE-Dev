@@ -34,7 +34,7 @@ namespace CGE
 
             virtual void draw() override;
 
-            void render();
+            virtual void render();
 
             void checkEvents();
         };

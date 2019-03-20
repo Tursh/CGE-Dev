@@ -14,7 +14,7 @@ namespace CGE
 
         Panel::Panel(const glm::vec2 position, const glm::vec2 dimension, PanelType type,
                      std::function<void(int key, int usage)> keyCallback, bool inGamePanel)
-                : GUIComponent(position, dimension,
+                : GUIComponent(PANEL, false, position, dimension,
                                (type != PANEL_INVISIBLE) ? Loader::resManagement::getTexModel(type) : nullptr),
                   type_(type),
                   keyCallback(std::move(keyCallback))
@@ -46,7 +46,7 @@ namespace CGE
 
                 //Render buttons
                 for (auto button : buttons_)
-                    button->draw();
+                    button->render();
             }
         }
 

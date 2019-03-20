@@ -18,9 +18,9 @@ namespace CGE
     namespace GUI
     {
 
-        Button::Button(const ButtonType type, const glm::vec2 position, const glm::vec2 dimension,
+        Button::Button(const ButtonType type, char scalePosition, const glm::vec2 position, const glm::vec2 dimension,
                        std::string text, std::function<void(void)> funcWhenPressed)
-                : GUIComponent(position, dimension, Loader::resManagement::getFlat2DAnimation(type)),
+                : GUIComponent(BUTTON, scalePosition, position, dimension, Loader::resManagement::getFlat2DAnimation(type)),
                   type_(type), parent_(nullptr),
                   rawPosition_(position), rawDimension_(dimension),
                   text_(std::move(text)), textPosition_(glm::vec2()), textSize_(1),
@@ -56,16 +56,26 @@ namespace CGE
         {
             if (visible_)
             {
+                //Get button position and dimension
+                const glm::vec2 &displayScale = GUIRenderer::getDisplayScale();
+                char scalePosition = getScalePosition();
+                glm::vec2 position = position_;
+                if(scalePosition & 1)
+                    position.x /= displayScale.x;
+                if((scalePosition >> 1) & 1)
+                    position.y /= displayScale.y;
+                glm::vec2 dimension = dimension_ / displayScale;
+                //Get mouse position
                 glm::vec2 mousePos = IO::input::getCursorPos();
                 IO::Display *display = IO::getDisplay();
                 //Change pixel position to opengl coordinate
                 mousePos.x = mousePos.x / display->width * 2 - 1;
                 mousePos.y = (display->height - mousePos.y) / display->height * 2 - 1;
                 //Check if the mouse is on the button
-                if (position_.x - dimension_.x <= mousePos.x
-                    && mousePos.x <= position_.x + dimension_.x
-                    && position_.y - dimension_.y <= mousePos.y
-                    && mousePos.y <= position_.y + dimension_.y)
+                if (position.x - dimension.x <= mousePos.x
+                    && mousePos.x <= position.x + dimension.x
+                    && position.y - dimension.y <= mousePos.y
+                    && mousePos.y <= position.y + dimension.y)
                 {
                     if (IO::input::isButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
                     {

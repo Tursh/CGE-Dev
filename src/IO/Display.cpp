@@ -12,7 +12,7 @@ namespace CGE
     namespace IO
     {
 
-        const unsigned int DEFAULT_WIDTH = 1280, DEFAULT_HEIGHT = 720;
+        const unsigned int DEFAULT_WIDTH = 720, DEFAULT_HEIGHT = 720;
 
         unsigned int displayCreated = 0;
         std::map<unsigned int, Display *> displays;

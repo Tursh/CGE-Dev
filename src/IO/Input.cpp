@@ -1,6 +1,7 @@
 #include <glm/detail/type_vec2.hpp>
 #include <IO/Display.h>
 #include <Utils/Log.h>                        //logError
+#include <Utils/TimeUtils.h>
 #include "IO/Input.h"
 
 namespace CGE
@@ -15,8 +16,8 @@ namespace CGE
             static bool *keys;
             static bool *mouse;
             /*Last mouse position*/
-            static glm::vec2 lastMousePos(0);
-            static glm::vec2 lastScroll(0);
+            static glm::vec3 lastMousePos(0);
+            static glm::vec3 lastScroll(0);
 
             static std::vector<GUI::Panel *> currentPanels;
 
@@ -69,7 +70,7 @@ namespace CGE
 
                 void mouseScrollCallback(GLFWwindow *window, double xoffset, double yoffset)
                 {
-                    lastScroll += glm::vec2(xoffset, yoffset);
+                    lastScroll += glm::vec3(xoffset, yoffset, 0);
                 }
             }
 
@@ -135,17 +136,6 @@ namespace CGE
                 customMouseButtonCallBack = nullptr;
             }
 
-            /*Return the movement of the mouse since the last call*/
-            glm::vec2 getCursorShifting()
-            {
-                double x, y;
-                glfwGetCursorPos(window, &x, &y);
-                const glm::vec2 mousePos = glm::vec2((float) x, (float) y);
-                glm::vec2 delta = mousePos - lastMousePos;
-                lastMousePos = mousePos;
-                return delta;
-            }
-
             /*Get cursor position relative to the game window*/
             glm::vec2 getCursorPos(int displayID)
             {
@@ -160,10 +150,23 @@ namespace CGE
                 return glm::vec2((float) x, (float) y);
             }
 
+            /*Return the movement of the mouse since the last call*/
+            glm::vec2 getCursorShifting()
+            {
+                const glm::vec2 mousePos = getCursorPos(0);
+                glm::vec2 delta = mousePos - (glm::vec2)lastMousePos;
+                int tickCount = Utils::getTickCount();
+                if((int)lastMousePos.z != tickCount)
+                    lastMousePos = glm::vec3(mousePos.x, mousePos.y, tickCount);
+                return delta;
+            }
+
             glm::vec2 getMouseScroll()
             {
                 glm::vec2 scroll = lastScroll;
-                lastScroll = glm::vec2(0);
+                int tickCount = Utils::getTickCount();
+                if(tickCount != lastScroll.z)
+                    lastScroll = glm::vec3(0, 0, tickCount);
                 return scroll;
             }
         }

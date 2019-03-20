@@ -2,39 +2,50 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <GUI/GUIRenderer.h>
 #include <GUI/GUIComponent.h>
+#include <GUI/Button.h>
 
 #include "IO/Display.h"
 
 namespace CGE
 {
-	namespace GUI
-	{
+    namespace GUI
+    {
 
-		namespace GUIRenderer
-		{
+        namespace GUIRenderer
+        {
 
-			GUIShader* shader;
+            glm::vec2 displayScale = glm::vec2(1);
 
-			void init()
-			{
-				shader = new GUIShader;
-			}
+            GUIShader *shader;
 
-			GUIShader* getGUIShader()
-			{
-				return shader;
-			}
+            void init()
+            {
+                shader = new GUIShader;
+            }
+
+            GUIShader *getGUIShader()
+            {
+                return shader;
+            }
 
             void resetDisplayResolution(const glm::vec2 &newResolution)
-			{
-
-			}
+            {
+                displayScale = glm::vec2(newResolution.x / CGE::IO::DEFAULT_WIDTH,
+                                         newResolution.y / CGE::IO::DEFAULT_HEIGHT);
+            }
 
             void render(GUIComponent *component)
             {
                 shader->start();
-                const glm::vec2 &position = component->getPosition();
-                const glm::vec2 &dimension = component->getDimension();
+
+                glm::vec2 position = component->getPosition();
+                glm::vec2 dimension = component->getDimension() / displayScale;
+
+                const char &scalePosition = component->getScalePosition();
+                if(scalePosition & 1)
+                    position.x /= displayScale.x;
+                if((scalePosition >> 1) & 1)
+                    position.y /= displayScale.y;
                 //Load the transformation matrix
                 glm::mat4 transMatrix(1);
                 transMatrix = glm::translate(transMatrix, glm::vec3( // @suppress("Invalid arguments")
@@ -47,7 +58,12 @@ namespace CGE
                 shader->stop();
             }
 
+            const glm::vec2 &getDisplayScale()
+            {
+                return displayScale;
+            }
+
         }
 
-	}
+    }
 }
