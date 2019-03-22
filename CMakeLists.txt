@@ -39,7 +39,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 add_library(CrossGameEngine STATIC
         src/GUI/Button.cpp
         src/GUI/GUIComponent.cpp
-        src/GUI/GUIRenderer.cpp
         src/GUI/GUIShader.cpp
         src/GUI/Panel.cpp
         src/IO/Display.cpp
@@ -67,7 +66,7 @@ add_library(CrossGameEngine STATIC
         src/Loaders/Models/TwoDAnimatedModel.cpp
         src/Animation/Animator.cpp
         src/Utils/XMLElementArrayLoader.cpp
-        src/Entities/Entity.cpp)
+        src/Entities/Entity.cpp src/GUI/GUIManager.cpp include/GUI/GUIManager.h)
 
 #Add the testing project
 if (${CompileTest})

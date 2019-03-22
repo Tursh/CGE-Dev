@@ -1,10 +1,10 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <GUI/GUIRenderer.h>
 #include <IO/Display.h>
 #include <IO/Input.h>
 #include <Loader/RessourceManager.h>
 #include <Utils/Log.h>
+#include <GUI/GUIManager.h>
 
 namespace CGE
 {
@@ -37,7 +37,7 @@ namespace CGE
         //init resource manager
         Loader::resManagement::init();
 
-        GUI::GUIRenderer::init();
+        GUI::GUIManager::init();
 
 #ifndef NDEBUG
         logInfo("The Game Engine was initialized correctly");
@@ -48,6 +48,8 @@ namespace CGE
 
     void stopEngine()
     {
+
+        CGE::GUI::GUIManager::terminate();
         delete display;
         glfwTerminate();
     }

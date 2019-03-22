@@ -59,42 +59,37 @@ namespace CGE
         {
         public:
             Chronometer(unsigned int ID) // @suppress("Class members should be properly initialized")
-                    : ID(ID)
+                    : ID(ID), beg(0)
             {
                 time = 0;
             }
 
-            ~Chronometer()
-            {
-                delete beg;
-            }
-
             void start()
             {
-                if (beg == nullptr)
-                    beg = new double(glfwGetTime());
+                if (beg == 0)
+                    beg = glfwGetTime();
             }
 
             void stop()
             {
-                if (beg != nullptr)
-                    time += glfwGetTime() - *beg;
+                if (beg != 0)
+                    time += glfwGetTime() - beg;
                 else
                     logWarning("A chrono has been stop before being started. ID: " << ID);
-                delete beg;
+                beg = 0;
             }
 
             double getTime() const
             {
-                if (beg != nullptr)
-                    return time + glfwGetTime() - *beg;
+                if (beg != 0)
+                    return time + glfwGetTime() - beg;
                 else
                     return time;
             }
 
         private:
             unsigned int ID;
-            double *beg;
+            double beg;
             double time;
         };
 

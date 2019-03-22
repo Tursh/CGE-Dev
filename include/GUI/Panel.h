@@ -21,6 +21,7 @@ namespace CGE
             PanelType type_;
         protected:
             std::vector<Button *> buttons_;
+            std::vector<GUIComponent *> components_;
 
         public:
             std::function<void(int key, int usage)> keyCallback;
@@ -30,13 +31,13 @@ namespace CGE
 
             ~Panel();
 
-            void addButton(Button *newButton);
+            void addComponent(GUIComponent *newComponent);
 
-            virtual void draw() override;
-
-            virtual void render();
+            virtual void render(GUIShader *shader) override;
 
             void checkEvents();
+
+            void resetDisplayScale() override;
         };
     }
 }

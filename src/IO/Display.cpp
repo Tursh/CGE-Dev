@@ -1,7 +1,7 @@
 #include <GL/glew.h>    //glViewPort
-#include <GUI/GUIRenderer.h>
 #include <IO/Display.h>    //Display::
 #include <Utils/Log.h>        //logError
+#include <GUI/GUIManager.h>
 #include <Utils/TimeUtils.h>
 #include <map>
 #include <glm/ext/matrix_clip_space.hpp>
@@ -44,7 +44,7 @@ namespace CGE
             if (customWindowResizeCallback != nullptr)
                 customWindowResizeCallback(width, height);
             glm::ivec2 newResolution(width, height);
-            GUI::GUIRenderer::resetDisplayResolution(newResolution);
+            GUI::GUIManager::resetDisplayRes(newResolution);
             Text::textRenderer::resetDisplayResolution(newResolution);
             glViewport(0, 0, width, height);
             for (size_t i = 0; i < displays.size(); i++)
@@ -60,7 +60,7 @@ namespace CGE
         Display::Display(const char *name, unsigned int width,
                          unsigned int height, bool resizable)
                 : width(width), height(height), ID(displayCreated++),
-                projectionMatrix(glm::perspective(45.0f, (float) width / height, 0.00001f, 100.f))
+                  projectionMatrix(glm::perspective(45.0f, (float) width / height, 0.00001f, 100.f))
         {
             //Set if resizable
             glfwWindowHint(GLFW_RESIZABLE, resizable);

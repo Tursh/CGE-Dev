@@ -1,48 +1,58 @@
 ﻿#pragma once
+
 #include <glm/vec2.hpp>
 #include <Loader/Models/TexturedModel.h>
+#include "GUIShader.h"
 
 namespace CGE
 {
-	namespace GUI
-	{
-		enum ComponentType
-		{
-			IMAGE, PANEL, BUTTON
-		};
+    namespace GUI
+    {
+        enum ComponentType
+        {
+            IMAGE, PANEL, BUTTON
+        };
 
-		class GUIComponent
-		{
-			ComponentType type_;
-			//We use the 2 first bits as booleans
-			char scalePosition_;
-		protected:
-			glm::vec2 position_;
-			glm::vec2 dimension_;
-			bool visible_ = true;
-			Loader::TexturedModel *texModel_;
-		public:
-			GUIComponent(ComponentType type, char scalePosition, const glm::vec2 &position, const glm::vec2 &dimension, Loader::TexturedModel *texModel);
+        class GUIComponent
+        {
+            ComponentType type_;
+        protected:
+            GUIComponent *parent_;
+            glm::vec2 rawPosition_, rawDimension_;
+            glm::vec2 position_, dimension_;
+            bool visible_ = true;
+            char relativeToParent_;
+            Loader::TexturedModel *texModel_;
 
-			virtual void draw() = 0;
+            void prepareRender(GUIShader *shader);
 
-			//Getters setters
-			const ComponentType &getType_() const;
+        public:
+            GUIComponent(ComponentType type, const glm::vec2 &position, const glm::vec2 &dimension,
+                         Loader::TexturedModel *texModel, char relativeToParent = 3);
 
-			const glm::vec2 &getPosition() const;
+            virtual void render(GUIShader *shader);
 
-			void setPosition(const glm::vec2 &position);
+            virtual void resetDisplayScale();
 
-			const glm::vec2 &getDimension() const;
+            //Getters setters
+            const ComponentType &getType_() const;
 
-			void setDimension(const glm::vec2 &dimension);
+            const glm::vec2 &getPosition() const;
 
-			const bool &getVisibility() const;
+            virtual void setPosition(const glm::vec2 &position);
 
-			void setVisibility(const bool &visibility);
+            const glm::vec2 &getDimension() const;
 
-			const char &getScalePosition() const;
-		};
+            virtual void setDimension(const glm::vec2 &dimension);
 
-	}
+            const bool &getVisibility() const;
+
+            void setVisibility(const bool &visibility);
+
+            GUIComponent *getParent() const;
+
+            void setParent(GUIComponent *parent);
+        };
+
+    }
 }

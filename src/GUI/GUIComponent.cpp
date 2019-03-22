@@ -1,16 +1,22 @@
 ﻿#include <IO/Display.h>
-#include "GUI/GUIComponent.h"
+#include <GUI/GUIComponent.h>
+#include <GUI/GUIManager.h>
+#include <glm/ext/matrix_transform.hpp>
 
 namespace CGE
 {
     namespace GUI
     {
 
-        GUIComponent::GUIComponent(ComponentType type, char scalePosition, const glm::vec2 &position,
-                                   const glm::vec2 &dimension, Loader::TexturedModel *texModel)
-                : type_(type), scalePosition_(scalePosition), position_(position), dimension_(dimension),
-                  texModel_(texModel)
+        GUIComponent::GUIComponent(ComponentType type, const glm::vec2 &position,
+                                   const glm::vec2 &dimension, Loader::TexturedModel *texModel,
+                                   char relativeToParent)
+                : type_(type), parent_(nullptr), texModel_(texModel), rawPosition_(position),
+                  rawDimension_(dimension), relativeToParent_(relativeToParent)
         {
+            setPosition(position);
+            setDimension(dimension);
+            GUIManager::addComponent(this);
         }
 
         const glm::vec2 &GUIComponent::getPosition() const
@@ -20,7 +26,11 @@ namespace CGE
 
         void GUIComponent::setPosition(const glm::vec2 &position)
         {
-            this->position_ = position;
+            rawPosition_ = position;
+            if (parent_ != nullptr && relativeToParent_ & 1)
+                position_ = (parent_->getPosition() + parent_->getDimension() * position);
+            else
+                position_ = position;
         }
 
         const glm::vec2 &GUIComponent::getDimension() const
@@ -30,7 +40,11 @@ namespace CGE
 
         void GUIComponent::setDimension(const glm::vec2 &dimension)
         {
-            this->dimension_ = dimension;
+            rawDimension_ = dimension;
+            if (parent_ != nullptr && relativeToParent_ & 2)
+                dimension_ = parent_->getDimension() * dimension;
+            else
+                dimension_ = dimension / GUIManager::getDisplayScale();
         }
 
         const bool &GUIComponent::getVisibility() const
@@ -48,9 +62,44 @@ namespace CGE
             return type_;
         }
 
-        const char &GUIComponent::getScalePosition() const
+        void GUIComponent::resetDisplayScale()
         {
-            return scalePosition_;
+            setPosition(rawPosition_);
+            setDimension(rawDimension_);
+        }
+
+        void GUIComponent::render(GUIShader *shader)
+        {
+            if (!visible_)
+                return;
+            shader->start();
+            prepareRender(shader);
+            texModel_->render();
+            shader->stop();
+        }
+
+        void GUIComponent::prepareRender(GUIShader *shader)
+        {
+            //Load the transformation matrix
+            glm::mat4 transMatrix(1);
+            transMatrix = glm::translate(transMatrix, glm::vec3( // @suppress("Invalid arguments")
+                    position_.x, position_.y, 0.0f));
+            transMatrix = glm::scale(transMatrix, glm::vec3( // @suppress("Invalid arguments")
+                    dimension_.x, dimension_.y, 1.0f));
+            shader->setTransformationMatrix(transMatrix);
+        }
+
+        GUIComponent *GUIComponent::getParent() const
+        {
+            return parent_;
+        }
+
+        void GUIComponent::setParent(GUIComponent *parent)
+        {
+            parent_ = parent;
+            setPosition(rawPosition_);
+            setDimension(rawDimension_);
+            GUIManager::removeComponent(this);
         }
     }
 }

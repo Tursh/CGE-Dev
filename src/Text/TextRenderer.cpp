@@ -187,7 +187,7 @@ namespace CGE
                 logError("FREETYPE: Could not load the font " << fontToUse);
                 //Set default font size to 120
                 setFontSize(120);
-                //TODO: load different font size to not get pixelized text and keep performence
+                //TODO: load different font size to not get pixelized text and keep performance
                 //Load the font
                 loadFont();
                 //Create shader
@@ -201,6 +201,9 @@ namespace CGE
                 for (auto &character : characters)
                     //Delete all textures
                 GLCall(glDeleteTextures(0, &character.second.textureID));
+                //Delete VAO and VBO
+                GLCall(glDeleteVertexArrays(1, &VAO));
+                GLCall(glDeleteBuffers(1, &VBO));
                 //Destroy shader
                 shader->destroy();
                 //Terminate the library

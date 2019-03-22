@@ -2,10 +2,10 @@
 
 
 #include <GUI/Panel.h>
-#include <GUI/GUIRenderer.h>
 #include <glm/ext/matrix_transform.hpp>
 #include <Loader/RessourceManager.h>
 #include <IO/Input.h>
+#include <GUI/GUIManager.h>
 
 namespace CGE
 {
@@ -14,7 +14,7 @@ namespace CGE
 
         Panel::Panel(const glm::vec2 position, const glm::vec2 dimension, PanelType type,
                      std::function<void(int key, int usage)> keyCallback, bool inGamePanel)
-                : GUIComponent(PANEL, false, position, dimension,
+                : GUIComponent(PANEL, position, dimension,
                                (type != PANEL_INVISIBLE) ? Loader::resManagement::getTexModel(type) : nullptr),
                   type_(type),
                   keyCallback(std::move(keyCallback))
@@ -29,25 +29,37 @@ namespace CGE
             if (type_ != PANEL_INVISIBLE)
                 delete texModel_;
             IO::input::removePanel(this);
+            GUIManager::removeComponent(this);
         }
 
-        void Panel::addButton(Button *newButton)
+        void Panel::addComponent(GUIComponent *newComponent)
         {
-            newButton->setParent(this);
-            buttons_.push_back(newButton);
-        }
-
-        void Panel::render()
-        {
-            if (visible_)
+            switch(newComponent->getType_())
             {
-                if (type_ != PANEL_INVISIBLE)
-                    GUIRenderer::render(this);
-
-                //Render buttons
-                for (auto button : buttons_)
-                    button->render();
+                case BUTTON:
+                    newComponent->setParent(this);
+                    buttons_.push_back(((Button *)newComponent));
+                    break;
+                default:
+                    newComponent->setParent(this);
+                    components_.push_back(newComponent);
             }
+        }
+
+        void Panel::render(GUIShader *shader)
+        {
+            if (!visible_)
+                return;
+
+            //Render panel
+            if (type_ != PANEL_INVISIBLE)
+            {
+                GUIComponent::render(shader);
+            }
+
+            //Render buttons
+            for (auto button : buttons_)
+                button->render(shader);
         }
 
         void Panel::checkEvents()
@@ -59,9 +71,14 @@ namespace CGE
             }
         }
 
-        void Panel::draw()
+        void Panel::resetDisplayScale()
         {
-            texModel_->render();
+            GUIComponent::resetDisplayScale();
+            for (auto *button : buttons_)
+                button->resetDisplayScale();
+            for (auto *component : components_)
+                component->resetDisplayScale();
         }
+
     }
 }

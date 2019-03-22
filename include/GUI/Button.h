@@ -30,9 +30,6 @@ namespace CGE
 		{
             Mode mode_;
 			ButtonType type_;
-			Panel* parent_;
-			glm::vec2 rawPosition_;
-			glm::vec2 rawDimension_;
 			std::string text_;
 			glm::vec2 textPosition_;
 			float textSize_;
@@ -43,25 +40,21 @@ namespace CGE
 			std::function<void(void)> press;
 
 		public:
-			Button(ButtonType type, char scalePosition, glm::vec2 position, glm::vec2 dimension,
-					std::string text, std::function<void(void)> funcWhenPressed);
+			Button(ButtonType type, glm::vec2 position, glm::vec2 dimension,
+					std::string text, std::function<void(void)> funcWhenPressed, char relativeToParent = 3);
 			~Button();
 
-			void render();
+			void render(GUIShader *shader) override;
 			//Check if the mouse is not over or pressing it
 			void checkEvent();
-
-			virtual void draw() override;
 
 			//Getters and Setters
 			std::string getText() const;
 			void setText(std::string text);
 			ButtonType getType() const;
 			void setType(ButtonType type);
-			void setPosition(glm::vec2 position);
-			void setDimension(glm::vec2 dimension);
-			void setParent(Panel* parent);
-			Panel* getParent() const;
+			void setPosition(const glm::vec2 & position) override;
+			void setDimension(const glm::vec2 & dimension) override;
 		};
 
 	}
