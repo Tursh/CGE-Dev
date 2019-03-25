@@ -21,13 +21,13 @@ namespace CGE
             switch (type)
             {
                 case Loader::Basic2DTexturedModel:
-                    texModel_ = CGE::Loader::resManagement::getTexModel(texModelID);
+                    texModel_ = CGE::Loader::resManager::getTexModel(texModelID);
                     break;
                 case Loader::Basic3DTexturedModel:
-                    texModel_ = CGE::Loader::resManagement::getTexModel(texModelID);
+                    texModel_ = CGE::Loader::resManager::getTexModel(texModelID);
                     break;
                 case Loader::Animated2DModel:
-                    texModel_ = CGE::Loader::resManagement::getFlat2DAnimation(texModelID);
+                    texModel_ = CGE::Loader::resManager::getFlat2DAnimation(texModelID);
                     break;
             }
             futurID++;
@@ -43,9 +43,7 @@ namespace CGE
         }
 
         Entity::~Entity()
-        {
-            delete (texModel_);
-        }
+        {}
 
         void Entity::startAnimation(unsigned int ID)
         {

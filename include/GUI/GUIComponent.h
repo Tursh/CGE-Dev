@@ -22,13 +22,13 @@ namespace CGE
             glm::vec2 position_, dimension_;
             bool visible_ = true;
             char relativeToParent_;
-            Loader::TexturedModel *texModel_;
+            std::shared_ptr<Loader::TexturedModel> texModel_;
 
             void prepareRender(GUIShader *shader);
 
         public:
             GUIComponent(ComponentType type, const glm::vec2 &position, const glm::vec2 &dimension,
-                         Loader::TexturedModel *texModel, char relativeToParent = 3);
+                         std::shared_ptr<Loader::TexturedModel> texModel, char relativeToParent = 3);
 
             virtual void render(GUIShader *shader);
 

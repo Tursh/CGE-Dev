@@ -9,7 +9,7 @@ namespace CGE
     {
 
         GUIComponent::GUIComponent(ComponentType type, const glm::vec2 &position,
-                                   const glm::vec2 &dimension, Loader::TexturedModel *texModel,
+                                   const glm::vec2 &dimension, std::shared_ptr<Loader::TexturedModel> texModel,
                                    char relativeToParent)
                 : type_(type), parent_(nullptr), texModel_(texModel), rawPosition_(position),
                   rawDimension_(dimension), relativeToParent_(relativeToParent)

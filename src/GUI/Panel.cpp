@@ -15,7 +15,7 @@ namespace CGE
         Panel::Panel(const glm::vec2 position, const glm::vec2 dimension, PanelType type,
                      std::function<void(int key, int usage)> keyCallback, bool inGamePanel)
                 : GUIComponent(PANEL, position, dimension,
-                               (type != PANEL_INVISIBLE) ? Loader::resManagement::getTexModel(type) : nullptr),
+                               (type != PANEL_INVISIBLE) ? Loader::resManager::getTexModel(type) : nullptr),
                   type_(type),
                   keyCallback(std::move(keyCallback))
         {
@@ -26,8 +26,6 @@ namespace CGE
         {
             for (auto button : buttons_)
                 delete button;
-            if (type_ != PANEL_INVISIBLE)
-                delete texModel_;
             IO::input::removePanel(this);
             GUIManager::removeComponent(this);
         }

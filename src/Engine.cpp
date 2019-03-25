@@ -35,7 +35,7 @@ namespace CGE
         IO::input::init();
 
         //init resource manager
-        Loader::resManagement::init();
+        Loader::resManager::init();
 
         GUI::GUIManager::init();
 

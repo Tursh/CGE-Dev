@@ -20,7 +20,7 @@ namespace CGE
         Button::Button(const ButtonType type, const glm::vec2 position, const glm::vec2 dimension,
                        std::string text, std::function<void(void)> funcWhenPressed, char relativeToParent)
                 : GUIComponent(BUTTON, position, dimension,
-                               Loader::resManagement::getFlat2DAnimation(type), relativeToParent),
+                               Loader::resManager::getFlat2DAnimation(type), relativeToParent),
                   type_(type),
                   text_(std::move(text)), textPosition_(glm::vec2()), textSize_(1),
                   press(std::move(funcWhenPressed))
@@ -33,7 +33,6 @@ namespace CGE
 
         Button::~Button()
         {
-            delete texModel_;
             GUIManager::removeComponent(this);
         }
 
@@ -44,7 +43,7 @@ namespace CGE
             //Get button
             shader->start();
             prepareRender(shader);
-            ((Loader::TwoDAnimatedModel*)texModel_)->render(mode_);
+            ((Loader::TwoDAnimatedModel*)texModel_.get())->render(mode_);
             shader->stop();
             //Render text
             CGE::Text::textRenderer::renderText(text_, textPosition_.x, textPosition_.y,

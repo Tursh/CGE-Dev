@@ -20,7 +20,7 @@ namespace CGE
             glm::vec3 lastRotation_ = glm::vec3(0);
         public:
             unsigned int ID;
-            Loader::TexturedModel *texModel_;
+            std::shared_ptr<Loader::TexturedModel> texModel_;
             glm::vec3 position_;
             glm::vec3 rotation_;
             bool visible_;

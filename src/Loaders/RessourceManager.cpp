@@ -42,7 +42,7 @@ namespace CGE
         const unsigned int squareRawIndices[2 * 3] =
                 {3, 0, 1, 1, 2, 3};
 
-        void resManagement::init()
+        void resManager::init()
         {
             /*Load index information*/
 #define FILEPATH "res/graphics/graphics.index"
@@ -152,28 +152,43 @@ namespace CGE
         }
 
         //Buffers <ID, Model/Texture>
+        std::map<unsigned int, std::weak_ptr<TexturedModel>> texModelBuf;
         std::map<unsigned int, std::weak_ptr<Model>> modelBuf;
         std::map<unsigned int, std::weak_ptr<Texture[]>> texBuf;
+        std::map<unsigned int, std::weak_ptr<TwoDAnimatedModel>> twoDAniModelBuf;
         std::map<unsigned int, std::weak_ptr<Texture[]>> twoDAniBuf;
 
         //Check if textured model got already loaded and return it
-        TexturedModel *resManagement::getTexModel(unsigned int ID)
+        std::shared_ptr<TexturedModel> resManager::getTexModel(unsigned int ID)
         {
 #ifndef NDEBUG
             if (texModelIndex.find(ID) == texModelIndex.end())
             logError("The textured model: " << ID << " does not exist!");
 #endif
-
-            //Get Model and Texture IDs
-            std::pair<unsigned int, unsigned int> &pair = texModelIndex[ID];
-
-            //Get Model and Texture and return them in a textured model
-            return new TexturedModel(getModel(pair.first), getTexture(pair.second),
-                                     (pair.first) ? Basic3DTexturedModel : Basic2DTexturedModel);
+            std::shared_ptr<TexturedModel> texModel;
+            start:
+            if (texModelBuf.find(ID) == texModelBuf.end())
+            {
+                //Get Model and Texture IDs
+                std::pair<unsigned int, unsigned int> &pair = texModelIndex[ID];
+                texModel = std::make_shared<TexturedModel>(getModel(pair.first), getTexture(pair.second),
+                                                           (pair.first) ? Basic3DTexturedModel : Basic2DTexturedModel);
+                texModelBuf[ID] = texModel;
+            } else
+            {
+                std::weak_ptr buf = texModelBuf[ID];
+                if(buf.expired())
+                {
+                    texModelBuf.erase(ID);
+                    goto start;
+                }
+                texModel = buf.lock();
+            }
+            return texModel;
         }
 
         //Check if model got already loaded and return it
-        std::shared_ptr<Model> resManagement::getModel(unsigned int ID)
+        std::shared_ptr<Model> resManager::getModel(unsigned int ID)
         {
             std::shared_ptr<Model> model;
             start:
@@ -207,7 +222,7 @@ namespace CGE
         }
 
         //Check if texture got already loaded and return it
-        std::shared_ptr<Texture[]> resManagement::getTexture(unsigned int ID)
+        std::shared_ptr<Texture[]> resManager::getTexture(unsigned int ID)
         {
             std::shared_ptr<Texture[]> tex;
             start:
@@ -237,16 +252,34 @@ namespace CGE
             return tex;
         }
 
-        TwoDAnimatedModel *resManagement::getFlat2DAnimation(unsigned int ID)
+        std::shared_ptr<TwoDAnimatedModel> resManager::getFlat2DAnimation(unsigned int ID)
         {
-            return new TwoDAnimatedModel(getModel(0),
-                                         get2DAnimationTextures(ID),
-                                         (unsigned int) twoDAniIndex[ID].first.size(),
-                                         twoDAniIndex[ID].second,
-                                         new Animations::TextureAnimation(animationIndex[ID]));
+            std::shared_ptr<TwoDAnimatedModel> twoDAniModel;
+            start:
+            if (twoDAniModelBuf.find(ID) == twoDAniModelBuf.end())
+            {
+                //Get Model and Texture IDs
+                std::pair<std::vector<unsigned int>, float> &pair = twoDAniIndex[ID];
+                twoDAniModel = std::make_shared<TwoDAnimatedModel>(getModel(0),
+                                                                get2DAnimationTextures(ID),
+                                                                (unsigned int) pair.first.size(),
+                                                                pair.second,
+                                                                new Animations::TextureAnimation(animationIndex[ID]));
+                twoDAniModelBuf[ID] = twoDAniModel;
+            } else
+            {
+                std::weak_ptr buf = twoDAniModelBuf[ID];
+                if(buf.expired())
+                {
+                    twoDAniModelBuf.erase(ID);
+                    goto start;
+                }
+                twoDAniModel = buf.lock();
+            }
+            return twoDAniModel;
         }
 
-        std::shared_ptr<Texture[]> resManagement::get2DAnimationTextures(unsigned int ID)
+        std::shared_ptr<Texture[]> resManager::get2DAnimationTextures(unsigned int ID)
         {
             std::shared_ptr<Texture[]> textures;
             if (twoDAniBuf.find(ID) == twoDAniBuf.end())
