@@ -24,12 +24,13 @@ namespace CGE
         Texture::Texture()
                 : ID(0xffffffff)
         {
-        };
+        }
+
+        void trashTexture(unsigned int texture);
 
         Texture::~Texture()
         {
-            if (ID != 0xffffffff)
-            GLCall(glDeleteTextures(1, &ID));
+            trashTexture(ID);
         }
 
         void Texture::bind()

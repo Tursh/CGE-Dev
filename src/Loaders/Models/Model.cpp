@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 #include <Utils/GLDebug.h>
 #include <Utils/Log.h>
+#include <tuple>
 
 namespace CGE
 {
@@ -20,17 +21,12 @@ namespace CGE
         Model::Model(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount)
                 : VAO(VAO), VBOs(VBOs), vertexCount(vertexCount) {}
 
+        void trashModel(std::tuple<unsigned int, std::vector<unsigned int>> model);
+
         /*Delete model (VAO and VBOs too)*/
         Model::~Model()
         {
-            //Delete VAO
-            GLCall(glDeleteVertexArrays(1, &VAO));
-
-            //Delete VBOs
-            for (unsigned int VBO : VBOs)
-            {
-                GLCall(glDeleteBuffers(1, &VBO));
-            }
+            trashModel(std::make_tuple(VAO, VBOs));
         }
 
         /*Bind model*/

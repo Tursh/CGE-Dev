@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <cmath>
 #include <Utils/TimeUtils.h>
+#include <thread>
 
 
 #include "Utils/Log.h"
@@ -203,13 +204,17 @@ namespace CGE
 
         bool shouldTick()
         {
-            bool shouldTick = glfwGetTime() - lastTick >= tickCooldown;
+            double deltaTime = glfwGetTime() - lastTick;
+            bool shouldTick = deltaTime >= tickCooldown;
             if (shouldTick)
             {
                 lastTick += tickCooldown;
                 addTick();
                 resetDelta();
             }
+            if (deltaTime < tickCooldown / 10)
+                std::this_thread::__sleep_for(std::chrono::seconds(0),
+                                              std::chrono::milliseconds((int) (1000 * tickCooldown)));
             return shouldTick;
         }
 

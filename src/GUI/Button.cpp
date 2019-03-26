@@ -21,7 +21,7 @@ namespace CGE
                        std::string text, std::function<void(void)> funcWhenPressed, char relativeToParent)
                 : GUIComponent(BUTTON, position, dimension,
                                Loader::resManager::getFlat2DAnimation(type), relativeToParent),
-                  type_(type),
+                  type_(type), mode_(RELEASED),
                   text_(std::move(text)), textPosition_(glm::vec2()), textSize_(1),
                   press(std::move(funcWhenPressed))
         {

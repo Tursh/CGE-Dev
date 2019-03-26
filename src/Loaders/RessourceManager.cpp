@@ -1,6 +1,10 @@
 #include "Loader/RessourceManager.h"
 
 #include <map>
+#include <Loader/RessourceManager.h>
+#include <GL/glew.h>
+#include <GL/gl.h>
+#include <Utils/GLDebug.h>
 
 
 namespace CGE
@@ -304,6 +308,43 @@ namespace CGE
             return textures;
         }
 
+        std::vector<unsigned int> textureToClear;
+        std::vector<std::tuple<unsigned int, std::vector<unsigned int>>> modelToClear;
+
+        void resManager::clear()
+        {
+            for (auto &texture : textureToClear)
+            {
+                logInfo("delete texture ID: " << texture);
+                if (texture != 0xffffffff)
+                    GLCall(glDeleteTextures(1, &texture));
+            }
+            textureToClear.clear();
+            for(const auto &model : modelToClear)
+            {
+                auto &VAO = std::get<0>(model);
+                auto &VBOs = std::get<1>(model);
+                //Delete VAO
+                GLCall(glDeleteVertexArrays(1, &VAO));
+
+                //Delete VBOs
+                for (unsigned int VBO : VBOs)
+                {
+                    GLCall(glDeleteBuffers(1, &VBO));
+                }
+            }
+            modelToClear.clear();
+        }
+
+        void trashTexture(unsigned int texture)
+        {
+            textureToClear.push_back(texture);
+        }
+
+        void trashModel(std::tuple<unsigned int, std::vector<unsigned int>> model)
+        {
+            modelToClear.push_back(model);
+        }
 
     }
 }

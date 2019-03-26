@@ -6,6 +6,7 @@
 #include <map>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <Text/TextRenderer.h>
+#include <Loader/RessourceManager.h>
 
 namespace CGE
 {
@@ -98,6 +99,8 @@ namespace CGE
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             //Add to frame count
             Utils::addFrame();
+            //Check if some resources are to clear
+            Loader::resManager::clear();
         }
 
         Display::~Display()
