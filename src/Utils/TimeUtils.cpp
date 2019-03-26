@@ -214,7 +214,7 @@ namespace CGE
             }
             if (deltaTime < tickCooldown / 10)
                 std::this_thread::__sleep_for(std::chrono::seconds(0),
-                                              std::chrono::milliseconds((int) (1000 * tickCooldown)));
+                                              std::chrono::milliseconds((int) (100 * tickCooldown)));
             return shouldTick;
         }
 

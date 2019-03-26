@@ -89,17 +89,17 @@ namespace CGE
 
         }
 
-        const static float MIN_TEXT_SIZE = 0.01f;
+        const static float MIN_TEXT_SIZE = 0.001f;
 
         void Button::setTextPosAndSize()
         {
             CGE::IO::Display *display = CGE::IO::getDisplay();
             for (textSize_ = MIN_TEXT_SIZE;
-                 dimension_.x * 0.4f >
+                 dimension_.x * 2 >
                  static_cast<float>(Text::textRenderer::getStringLength(text_, textSize_))
-                 && dimension_.y * 0.5f > textSize_ * 120 / display->height; textSize_ += 0.001f);
+                 && dimension_.y > textSize_ * 120 / display->height; textSize_ += 0.001f);
             textPosition_ = position_;
-            textPosition_.y -= textSize_ / 10;
+            textPosition_.y -= textSize_ / 20;
         }
 
         //Getters and Setters
