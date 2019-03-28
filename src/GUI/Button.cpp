@@ -2,7 +2,6 @@
 
 #include <glm/detail/type_vec2.hpp>
 #include <glm/detail/type_vec3.hpp>
-#include <glm/ext/matrix_float4x4.hpp>
 #include <glm/ext/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
 #include <GUI/Button.h>
@@ -95,9 +94,9 @@ namespace CGE
         {
             CGE::IO::Display *display = CGE::IO::getDisplay();
             for (textSize_ = MIN_TEXT_SIZE;
-                 dimension_.x * 2 >
+                 dimension_.x * 0.75f >
                  static_cast<float>(Text::textRenderer::getStringLength(text_, textSize_))
-                 && dimension_.y > textSize_ * 120 / display->height; textSize_ += 0.001f);
+                 && dimension_.y * 0.85f > textSize_ * 120 / display->height; textSize_ += 0.001f);
             textPosition_ = position_;
             textPosition_.y -= textSize_ / 20;
         }
