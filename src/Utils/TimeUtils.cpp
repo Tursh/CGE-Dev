@@ -21,7 +21,7 @@ namespace CGE
     {
 
         //Constantes
-        static const double tickCooldown = 1.0 / 60.0;
+        static float tickCooldown = 1.0f / 60.0f;
 
         std::string timeToString(double time, unsigned int microsecondPrecision, bool showHours)
         {
@@ -188,6 +188,11 @@ namespace CGE
                 lastTickCount = tickCount;
                 TPSTime += 1.0f;
             }
+        }
+
+        void setTPS(float newTPS)
+        {
+            tickCooldown = 1.0 / newTPS;
         }
 
         float getTPS()

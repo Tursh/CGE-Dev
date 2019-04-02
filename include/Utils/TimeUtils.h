@@ -19,6 +19,7 @@ namespace CGE
 		void addFrame();
 		float getFPS();
 
+		void setTPS(float newTPS);
         float getTPS();
 		int getTickCount();
 
