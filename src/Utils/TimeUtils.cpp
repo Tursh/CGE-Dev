@@ -33,9 +33,10 @@ namespace CGE
             //If the seconds are lower than 10 add one digit to keep a symmetrical 2 digit number
             const std::string s_seconds = (seconds < 10) ?
                                           std::string("0") +
-                                          std::to_string(seconds).substr(0, 2 + microsecondPrecision)    //Add one digit
-                                                         : std::to_string(seconds).substr(0, 3 +
-                                                                                             microsecondPrecision);                    //Do nothing
+                                          std::to_string(seconds).substr(0, 2 + microsecondPrecision - ((microsecondPrecision) ? 0 : 1))    //Add one digit
+                                                         : std::to_string(seconds).substr(0, 3 - ((microsecondPrecision)
+                                                                                             ? 0 : 1) +
+                                                                                                   microsecondPrecision);                    //Do nothing
             //Find the number of minutes
             const unsigned int minutes = (static_cast<unsigned int>(time) / SECOND_PER_MINUTES) % MINUTES_PER_HOURS;
 

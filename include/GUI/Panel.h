@@ -9,16 +9,11 @@ namespace CGE
 {
     namespace GUI
     {
-        enum PanelType
-        {
-            PANEL_INVISIBLE, PANEL_DEFAULT = 20000
-        };
-
         class Button;
 
         class Panel : public GUIComponent
         {
-            PanelType type_;
+            unsigned int type_;
         protected:
             std::vector<Button *> buttons_;
             std::vector<GUIComponent *> components_;
@@ -26,7 +21,7 @@ namespace CGE
         public:
             std::function<void(int key, int usage)> keyCallback;
 
-            Panel(glm::vec2 position, glm::vec2 dimension, PanelType type,
+            Panel(glm::vec2 position, glm::vec2 dimension, unsigned int type,
                   std::function<void(int key, int usage)> keyCallback, bool inGamePanel = false);
 
             ~Panel();

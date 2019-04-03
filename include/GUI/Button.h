@@ -16,11 +16,6 @@ namespace CGE
 
 		class Panel;
 
-		enum ButtonType
-		{
-            BUTTON_DEFAULT = 10000, SLOT = 10001
-        };
-
         enum Mode
         {
             RELEASED = 0, OVER = 1, PRESSED = 2
@@ -29,7 +24,7 @@ namespace CGE
 		class Button: public GUIComponent
 		{
             Mode mode_;
-			ButtonType type_;
+			unsigned int type_;
 			std::string text_;
 			glm::vec2 textPosition_;
 			float textSize_;
@@ -40,7 +35,7 @@ namespace CGE
 			std::function<void(void)> press;
 
 		public:
-			Button(ButtonType type, glm::vec2 position, glm::vec2 dimension,
+			Button(unsigned int type, glm::vec2 position, glm::vec2 dimension,
 					std::string text, std::function<void(void)> funcWhenPressed, char relativeToParent = 3);
 			~Button();
 
@@ -51,8 +46,8 @@ namespace CGE
 			//Getters and Setters
 			std::string getText() const;
 			void setText(std::string text);
-			ButtonType getType() const;
-			void setType(ButtonType type);
+			unsigned int getType() const;
+			void setType(unsigned int type);
 			void setPosition(const glm::vec2 & position) override;
 			void setDimension(const glm::vec2 & dimension) override;
 		};

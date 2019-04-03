@@ -28,6 +28,8 @@ namespace CGE
             void renderGUI();
 
             const glm::vec2 &getDisplayScale();
+
+            void clear();
         }
     }
 }

@@ -39,26 +39,6 @@ namespace CGE
                     delete component;
             }
 
-            void addButton(Button *newButton)
-            {
-                buttons.push_back(newButton);
-            }
-
-            void addPanel(Panel *newPanel)
-            {
-                panels.push_back(newPanel);
-            }
-
-            void removePanel(Panel *panel)
-            {
-                if (initialized)panels.erase(remove(panels.begin(), panels.end(), panel), panels.end());
-            }
-
-            void removeButton(Button *button)
-            {
-                if (initialized)buttons.erase(remove(buttons.begin(), buttons.end(), button), buttons.end());
-            }
-
             void resetDisplayRes(const glm::ivec2 &newResolution)
             {
                 displayScale = glm::vec2((float)newResolution.x / CGE::IO::DEFAULT_WIDTH,
@@ -130,6 +110,22 @@ namespace CGE
                     default:
                         components.erase(remove(components.begin(), components.end(), component), components.end());
                 }
+            }
+
+            void clear()
+            {
+                initialized = false;
+                for (auto *panel : panels)
+                    delete panel;
+                for (auto *button : buttons)
+                    delete button;
+                for(auto *component : components)
+                    delete component;
+                initialized = true;
+
+                panels.clear();
+                buttons.clear();
+                components.clear();
             }
         }
     }

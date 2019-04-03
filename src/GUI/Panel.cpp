@@ -12,10 +12,10 @@ namespace CGE
     namespace GUI
     {
 
-        Panel::Panel(const glm::vec2 position, const glm::vec2 dimension, PanelType type,
+        Panel::Panel(const glm::vec2 position, const glm::vec2 dimension, unsigned int type,
                      std::function<void(int key, int usage)> keyCallback, bool inGamePanel)
                 : GUIComponent(PANEL, position, dimension,
-                               (type != PANEL_INVISIBLE) ? Loader::resManager::getTexModel(type) : nullptr),
+                               (type) ? Loader::resManager::getTexModel(type) : nullptr),
                   type_(type),
                   keyCallback(std::move(keyCallback))
         {
@@ -50,7 +50,7 @@ namespace CGE
                 return;
 
             //Render panel
-            if (type_ != PANEL_INVISIBLE)
+            if (type_)
             {
                 GUIComponent::render(shader);
             }
