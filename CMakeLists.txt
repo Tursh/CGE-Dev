@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 project(CrossGameEngine)
 
+option(SHARED_LIB "Compile CGE as a shared library" OFF)
 option(CompileTest "Compile the test project" OFF)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -17,10 +18,8 @@ find_package(GLEW REQUIRED)
 find_package(Boost REQUIRED)
 find_package(tinyxml2 REQUIRED)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
-
 if (WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGLEWSTATIC -DGLEW_BUILD -static")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGLEWSTATIC -DGLEW_BUILD")
     link_libraries(glew32 glfw opengl32 freetype tinyxml2 bz2)
 endif ()
 
@@ -30,13 +29,28 @@ include_directories(${Boost_INCLUDE_DIR})
 include_directories(include)
 #We have to set the freetype directory or else the compiler won't find some needed files
 include_directories("/usr/include/freetype2")
-#Set the output directory
-set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-add_library(CrossGameEngine STATIC
+if (SHARED_LIB)
+    set(LIBRARY_TYPE SHARED)
+
+    set(LIB32 "/usr/local/lib")
+    set(LIB64 "/usr/local/lib64")
+
+    link_libraries(
+            "${LIB64}/libglfw3.a"
+            "${LIB64}/libGLEW.a"
+            "${LIB64}/libfreetype.a"
+            "${LIB32}/libtinyxml2.a"
+            -pthread
+    )
+
+else ()
+    set(LIBRARY_TYPE STATIC)
+endif ()
+
+message("test")
+
+add_library(CrossGameEngine ${LIBRARY_TYPE}
         src/GUI/Button.cpp
         src/GUI/GUIComponent.cpp
         src/GUI/GUIShader.cpp
