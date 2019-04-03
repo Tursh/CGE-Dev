@@ -106,7 +106,7 @@ namespace CGE
         Display::~Display()
         {
             //Remove from the display list
-            displays.erase(displays.find(ID));
+            displays.erase(ID);
             //Destroy the display
             glfwDestroyWindow(window);
         }
