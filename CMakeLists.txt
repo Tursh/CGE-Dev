@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 project(CrossGameEngine)
 
-option(SHARED_LIB "Compile CGE as a shared library" OFF)
+option(BUILD_SHARED_LIBS "Compile CGE as a shared library" OFF)
 option(CompileTest "Compile the test project" OFF)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -15,40 +15,51 @@ find_package(OpenGL REQUIRED)
 find_package(glm REQUIRED)
 find_package(Freetype REQUIRED)
 find_package(GLEW REQUIRED)
-find_package(Boost REQUIRED)
 find_package(tinyxml2 REQUIRED)
+find_package(Boost REQUIRED)
+include_directories(${Boost_INCLUDE_DIR})
 
 if (WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGLEWSTATIC -DGLEW_BUILD")
-    link_libraries(glew32 glfw opengl32 freetype tinyxml2 bz2)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGLEWSTATIC -DGLEW_BUILD -static-libstdc++ -static-libgcc -static")
+    link_libraries(opengl32 bz2)
 endif ()
 
-#include package include directory
-include_directories(${Boost_INCLUDE_DIR})
 #Add the include directory
 include_directories(include)
 #We have to set the freetype directory or else the compiler won't find some needed files
 include_directories("/usr/include/freetype2")
 
-if (SHARED_LIB)
+if (BUILD_SHARED_LIBS)
     set(LIBRARY_TYPE SHARED)
 
-    set(LIB32 "/usr/local/lib")
-    set(LIB64 "/usr/local/lib64")
+    if (NOT WIN32)
+        set(LIBRARIES_LOCATION "/usr/local/lib64")
 
-    link_libraries(
-            "${LIB64}/libglfw3.a"
-            "${LIB64}/libGLEW.a"
-            "${LIB64}/libfreetype.a"
-            "${LIB32}/libtinyxml2.a"
-            -pthread
-    )
+        link_libraries(
+                "${LIBRARIES_LOCATION}/libglfw3.a"
+                "${LIBRARIES_LOCATION}/libGLEW.a"
+                "${LIBRARIES_LOCATION}/libfreetype.a"
+                "${LIBRARIES_LOCATION}/libtinyxml2.a"
+                pthread
+        )
+    else ()
+        set(LIBRARIES_LOCATION "/usr/i686-w64-mingw32/lib")
+
+        link_libraries(
+                "${LIBRARIES_LOCATION}/libglfw3.a"
+                "${LIBRARIES_LOCATION}/libglew32.a"
+                "${LIBRARIES_LOCATION}/libfreetype.a"
+                "${LIBRARIES_LOCATION}/libtinyxml2.a"
+                opengl32
+                png
+                z
+                pthread
+        )
+    endif ()
 
 else ()
     set(LIBRARY_TYPE STATIC)
 endif ()
-
-message("test")
 
 add_library(CrossGameEngine ${LIBRARY_TYPE}
         src/GUI/Button.cpp
