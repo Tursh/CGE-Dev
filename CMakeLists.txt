@@ -7,7 +7,7 @@ option(CompileTest "Compile the test project" OFF)
 
 set(CMAKE_CXX_STANDARD 17)
 #Set preprossessor definitions
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_DEBUG} -DNDEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
 
 #Check if all the needed package are there
 find_package(glfw3 REQUIRED)
@@ -43,18 +43,22 @@ if (BUILD_SHARED_LIBS)
                 pthread
         )
     else ()
-        set(LIBRARIES_LOCATION "/usr/i686-w64-mingw32/lib")
+        set(LIBRARIES_LOCATION "/usr/i686-w64-mingw32")
+
 
         link_libraries(
-                "${LIBRARIES_LOCATION}/libglfw3.a"
-                "${LIBRARIES_LOCATION}/libglew32.a"
-                "${LIBRARIES_LOCATION}/libfreetype.a"
-                "${LIBRARIES_LOCATION}/libtinyxml2.a"
-                opengl32
-                png
-                z
-                pthread
+                "${LIBRARIES_LOCATION}/lib/libglfw3.a"
+                "${LIBRARIES_LOCATION}/lib/libglew32.a"
+                "${LIBRARIES_LOCATION}/lib/libfreetype.a"
+                "${LIBRARIES_LOCATION}/bin/libbz2-1.dll"
+                "${LIBRARIES_LOCATION}/bin/libtinyxml2.dll"
+                "${LIBRARIES_LOCATION}/lib/libwinpthread.a"
+                "${LIBRARIES_LOCATION}/lib/libopengl32.a"
+                "${LIBRARIES_LOCATION}/lib/libpng.a"
+                "${LIBRARIES_LOCATION}/lib/libz.a"
+                "${LIBRARIES_LOCATION}/lib/libpthread.a"
         )
+        link_libraries()
     endif ()
 
 else ()
