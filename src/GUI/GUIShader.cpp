@@ -3,9 +3,7 @@
 
 #include "GUI/GUIShader.h"
 
-namespace CGE
-{
-    namespace GUI
+namespace CGE::GUI
     {
 
         const char *VERTEX_SHADER = R"glsl(
@@ -61,4 +59,3 @@ void main()
         }
 
     }
-}

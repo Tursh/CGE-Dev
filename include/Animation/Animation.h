@@ -6,9 +6,7 @@
 
 #include <Utils/Log.h>
 
-namespace CGE
-{
-    namespace Animations
+namespace CGE::Animations
     {
 #define ANIMATION_PATH "res/graphics/animations/"
 
@@ -23,4 +21,3 @@ namespace CGE
         };
 
     }
-}

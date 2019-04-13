@@ -8,9 +8,7 @@
 #include <Utils/TimeUtils.h>
 
 
-namespace CGE
-{
-    namespace Entities
+namespace CGE::Entities
     {
         unsigned int futurID = 1;
 
@@ -99,4 +97,3 @@ namespace CGE
                 texModel_->render();
         }
     }
-}

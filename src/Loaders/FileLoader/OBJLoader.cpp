@@ -20,9 +20,7 @@
 #include <GLFW/glfw3.h>
 #endif // SHOWTIME == 1
 
-namespace CGE
-{
-	namespace Loader
+namespace CGE::Loader
 	{
 
 #define MODEL_PATH "res/graphics/models/"
@@ -227,4 +225,3 @@ namespace CGE
 		}
 
 	}
-}

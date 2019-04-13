@@ -6,9 +6,7 @@
 #include <Utils/GLDebug.h>
 #include <glm/vec2.hpp>
 
-namespace CGE
-{
-    namespace Loader
+namespace CGE::Loader
     {
 
         Texture *loadTextures(const char **filePaths, unsigned count)
@@ -83,4 +81,3 @@ namespace CGE
         }
 
     }
-}

@@ -2,9 +2,7 @@
 // Created by tursh on 1/23/19.
 //
 
-namespace CGE
-{
-    namespace Loader
+namespace CGE::Loader
     {
         //std::shared_ptr<AnimatedModel> loadDAEFile(const char *filePath)
         //{
@@ -17,4 +15,3 @@ namespace CGE
 //
         //}
     }
-}

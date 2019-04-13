@@ -8,9 +8,7 @@
 #include <glm/vec2.hpp>
 #include <IO/Display.h>
 
-namespace CGE
-{
-    namespace Loader
+namespace CGE::Loader
     {
 
         TwoDAnimatedModel::TwoDAnimatedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture[]> textures,
@@ -66,7 +64,6 @@ namespace CGE
         }
 
     }
-}
 
 
 

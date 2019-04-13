@@ -7,9 +7,7 @@
 #include <Utils/GLDebug.h>
 
 
-namespace CGE
-{
-    namespace Loader
+namespace CGE::Loader
     {
 
         //Index (graphics.index)
@@ -286,6 +284,7 @@ namespace CGE
         std::shared_ptr<Texture[]> resManager::get2DAnimationTextures(unsigned int ID)
         {
             std::shared_ptr<Texture[]> textures;
+            start:
             if (twoDAniBuf.find(ID) == twoDAniBuf.end())
             {
                 std::vector<unsigned int> textureIDs = twoDAniIndex[ID].first;
@@ -304,7 +303,15 @@ namespace CGE
 
                 twoDAniBuf[ID] = textures;
             } else
+            {
+                std::weak_ptr buf = twoDAniBuf[ID];
+                if(buf.expired())
+                {
+                    twoDAniBuf.erase(ID);
+                    goto start;
+                }
                 textures = twoDAniBuf[ID].lock();
+            }
             return textures;
         }
 
@@ -347,4 +354,3 @@ namespace CGE
         }
 
     }
-}

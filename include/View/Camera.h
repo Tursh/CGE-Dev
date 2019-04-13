@@ -8,9 +8,7 @@
 #include <glm/mat4x4.hpp>
 #include <Entities/Entity.h>
 
-namespace CGE
-{
-    namespace View
+namespace CGE::View
     {
         struct Camera
         {
@@ -25,5 +23,4 @@ namespace CGE
         };
 
     }
-}
 

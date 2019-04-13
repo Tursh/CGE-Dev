@@ -6,12 +6,7 @@
 
 #include "Animation.h"
 
-namespace CGE
-{
-    namespace Animations
-    {
-        //Get track of animations and update them every tick
-        namespace Animator
+namespace CGE::Animations::Animator
         {
 
             void addAnimation(Animation *animation);
@@ -19,5 +14,3 @@ namespace CGE
             void updateAnimations();
 
         }
-    }
-}

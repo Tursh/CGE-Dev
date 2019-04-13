@@ -8,9 +8,7 @@
 #include <Text/TextRenderer.h>
 #include <Loader/RessourceManager.h>
 
-namespace CGE
-{
-    namespace IO
+namespace CGE::IO
     {
 
         const unsigned int DEFAULT_WIDTH = 720, DEFAULT_HEIGHT = 720;
@@ -112,7 +110,6 @@ namespace CGE
         }
 
     }
-}
 
 /*
  TODO Optimisation

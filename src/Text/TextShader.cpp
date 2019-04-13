@@ -1,9 +1,7 @@
 #include <Text/TextShader.h>
 
 
-namespace CGE
-{
-    namespace Text
+namespace CGE::Text
     {
 
         const char *VERTEX_SHADER = R"glsl(
@@ -54,4 +52,3 @@ void main()
         }
 
     }
-}

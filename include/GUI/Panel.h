@@ -5,34 +5,37 @@
 #include "GUIComponent.h"
 #include "Button.h"
 
-namespace CGE
+namespace CGE::GUI
 {
-    namespace GUI
+    class Button;
+
+    class Panel : public GUIComponent
     {
-        class Button;
+        unsigned int type_;
+    protected:
+        std::vector<std::shared_ptr<Button>> buttons_;
+        std::vector<std::shared_ptr<GUIComponent>> components_;
 
-        class Panel : public GUIComponent
+    public:
+        std::function<void(int key, int usage)> keyCallback;
+
+        Panel(glm::vec2 position, glm::vec2 dimension, unsigned int type,
+              std::function<void(int key, int usage)> keyCallback, bool inGamePanel = false);
+
+        ~Panel();
+
+        void addComponent(std::shared_ptr<GUIComponent> newComponent);
+
+        template<class T, typename ...paramType>
+        void createChildComponent(paramType ...params)
         {
-            unsigned int type_;
-        protected:
-            std::vector<Button *> buttons_;
-            std::vector<GUIComponent *> components_;
+            this->addComponent(std::dynamic_pointer_cast<GUIComponent>(std::make_shared<T>(params...)));
+        }
 
-        public:
-            std::function<void(int key, int usage)> keyCallback;
+        void render(GUIShader *shader) override;
 
-            Panel(glm::vec2 position, glm::vec2 dimension, unsigned int type,
-                  std::function<void(int key, int usage)> keyCallback, bool inGamePanel = false);
+        void checkEvents();
 
-            ~Panel();
-
-            void addComponent(GUIComponent *newComponent);
-
-            virtual void render(GUIShader *shader) override;
-
-            void checkEvents();
-
-            void resetDisplayScale() override;
-        };
-    }
+        void resetDisplayScale() override;
+    };
 }

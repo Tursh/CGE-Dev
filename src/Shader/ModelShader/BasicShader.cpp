@@ -4,9 +4,7 @@
 
 #include <Shader/ModelShader/BasicShader.h>
 
-namespace CGE
-{
-    namespace Shader
+namespace CGE::Shader
     {
 
         const char *BASICVERTEXSHADER = R"glsl(
@@ -88,4 +86,3 @@ void main()
         }
 
     }
-}

@@ -5,11 +5,7 @@
 #include <Animation/Animator.h>
 #include <vector>
 
-namespace CGE
-{
-    namespace Animations
-    {
-        namespace Animator
+namespace CGE::Animations::Animator
         {
             std::vector<Animation *> animations;
 
@@ -27,5 +23,3 @@ namespace CGE
             }
 
         }
-    }
-}

@@ -15,9 +15,7 @@
 #define SECOND_PER_HOURS 3600
 #define SECOND_PER_DAYS 86400
 
-namespace CGE
-{
-    namespace Utils
+namespace CGE::Utils
     {
 
         //Constantes
@@ -225,4 +223,3 @@ namespace CGE
         }
 
     }
-}

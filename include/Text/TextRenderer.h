@@ -5,11 +5,7 @@
 #include "glm/ext/vector_float3.hpp"
 #include <glm/mat4x4.hpp>
 
-namespace CGE
-{
-	namespace Text
-	{
-		namespace textRenderer
+namespace CGE::Text::textRenderer
 		{
 			/*
 			 * Initialize the renderer with the choosed font
@@ -31,5 +27,3 @@ namespace CGE
 			 */
 			float getStringLength(std::string string, float size);
 		}
-	}
-}

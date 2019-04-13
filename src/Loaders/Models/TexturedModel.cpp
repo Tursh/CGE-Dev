@@ -10,9 +10,7 @@
 
 #include "Loader/Models/TexturedModel.h"
 
-namespace CGE
-{
-    namespace Loader
+namespace CGE::Loader
     {
         TexturedModel::TexturedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture[]> texture, TexturedModelType type)
                 : model_(std::move(model)), texture_(std::move(texture)), type_(type) {}
@@ -47,4 +45,3 @@ namespace CGE
             return texSize;
         }
     }
-}

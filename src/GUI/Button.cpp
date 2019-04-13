@@ -11,9 +11,7 @@
 #include <Text/TextRenderer.h>
 #include <GUI/GUIManager.h>
 
-namespace CGE
-{
-    namespace GUI
+namespace CGE::GUI
     {
 
         Button::Button(const unsigned int type, const glm::vec2 position, const glm::vec2 dimension,
@@ -135,4 +133,3 @@ namespace CGE
             setTextPosAndSize();
         }
     }
-}

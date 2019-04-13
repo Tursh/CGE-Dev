@@ -4,11 +4,7 @@
 #include <glm/ext/vector_float2.hpp>    //glm::vec2
 #include <GUI/Panel.h>
 
-namespace CGE
-{
-    namespace IO
-    {
-        namespace input
+namespace CGE::IO::input
         {
 
             /*Initialize inputs*/
@@ -70,5 +66,3 @@ namespace CGE
 
             glm::vec2 getMouseScroll();
         }
-    }
-}

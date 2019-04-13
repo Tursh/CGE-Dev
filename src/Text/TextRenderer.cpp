@@ -22,12 +22,7 @@
 #include <Text/TextRenderer.h>
 
 
-namespace CGE
-{
-    namespace Text
-    {
-
-        namespace textRenderer
+namespace CGE::Text::textRenderer
         {
             //Set font size
 #define setFontSize(size) FT_Set_Pixel_Sizes(font, 0, size)
@@ -217,6 +212,3 @@ namespace CGE
             }
 
         }
-
-    }
-}

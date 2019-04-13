@@ -6,9 +6,7 @@
 
 #include <Shader/ShaderProgram.h>
 
-namespace CGE
-{
-    namespace Shader
+namespace CGE::Shader
     {
 
         enum MatrixType
@@ -34,5 +32,4 @@ namespace CGE
 
 
     }
-}
 

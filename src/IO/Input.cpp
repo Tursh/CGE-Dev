@@ -4,11 +4,7 @@
 #include <Utils/TimeUtils.h>
 #include "IO/Input.h"
 
-namespace CGE
-{
-    namespace IO
-    {
-        namespace input
+namespace CGE::IO::input
         {
 
             static GLFWwindow *window;
@@ -168,5 +164,3 @@ namespace CGE
                 return scroll;
             }
         }
-    }
-}

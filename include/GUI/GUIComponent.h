@@ -4,9 +4,7 @@
 #include <Loader/Models/TexturedModel.h>
 #include "GUIShader.h"
 
-namespace CGE
-{
-    namespace GUI
+namespace CGE::GUI
     {
         enum ComponentType
         {
@@ -55,4 +53,3 @@ namespace CGE
         };
 
     }
-}

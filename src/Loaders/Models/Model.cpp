@@ -8,9 +8,7 @@
 #include <Utils/Log.h>
 #include <tuple>
 
-namespace CGE
-{
-    namespace Loader
+namespace CGE::Loader
     {
         /*
         Model constructor
@@ -51,4 +49,3 @@ namespace CGE
 
 
     }
-}

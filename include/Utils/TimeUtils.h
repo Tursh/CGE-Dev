@@ -2,9 +2,7 @@
 
 #include <string>
 
-namespace CGE
-{
-	namespace Utils
+namespace CGE::Utils
 	{
 
 		std::string timeToString(double time, unsigned int microsecondPrecision,
@@ -26,4 +24,3 @@ namespace CGE
         bool shouldTick();
 
 	}
-}

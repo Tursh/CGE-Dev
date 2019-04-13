@@ -2,9 +2,7 @@
 // Created by tursh on 1/24/19.
 //
 
-namespace CGE
-{
-    namespace Utils
+namespace CGE::Utils
     {
         //template<class Type>
         //std::vector<Type> getArray(tinyxml2::XMLElement *element)
@@ -28,4 +26,3 @@ namespace CGE
         //    return array;
         //}
     }
-}

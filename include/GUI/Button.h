@@ -9,9 +9,7 @@
 #include "GUIComponent.h"
 #include "Panel.h"
 
-namespace CGE
-{
-	namespace GUI
+namespace CGE::GUI
 	{
 
 		class Panel;
@@ -53,4 +51,3 @@ namespace CGE
 		};
 
 	}
-}
