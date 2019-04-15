@@ -92,7 +92,7 @@ namespace CGE::Loader
                 {
                     unsigned int ID;
                     char *path = new char[64];
-                    fscanf(file, "%u %s\n", &ID, path, 64);
+                    fscanf(file, "%u %s\n", &ID, path);
                     modelIndex[ID] = path;
                 }
                     //Load Texture

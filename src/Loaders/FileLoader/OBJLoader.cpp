@@ -79,7 +79,7 @@ namespace CGE::Loader
 #if 0
 				const int res = fscanf_s(file, "%s", head, 3);
 #else
-				const int res = fscanf(file, "%s", head, 3);
+				const int res = fscanf(file, "%s", head);
 #endif
 				//Check if it's the end of file (EOF)
 				if (res == EOF)

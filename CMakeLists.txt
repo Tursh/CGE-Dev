@@ -7,7 +7,7 @@ option(CompileTest "Compile the test project" OFF)
 
 set(CMAKE_CXX_STANDARD 17)
 #Set preprossessor definitions
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG -Wl,-rpath,.")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
 
 #Check if all the needed package are there
 find_package(glfw3 REQUIRED)

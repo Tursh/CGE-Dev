@@ -11,7 +11,7 @@ namespace CGE::State::stateManager
 			void deleteCurrentState();
 
             template<typename T, typename... Types>
-            void createCurrentState(Types&&... args)
+            void createCurrentState(Types... args)
             {
                 deleteCurrentState();
                 setCurrentState(new T(args...));
