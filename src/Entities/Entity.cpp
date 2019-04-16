@@ -16,7 +16,8 @@ namespace CGE
 
         Entity::Entity(unsigned int texModelID, Loader::TexturedModelType type, glm::vec3 position, glm::vec3 rotation,
                        bool visible, bool movable)
-                : ID(futurID), position_(position), rotation_(rotation), visible_(visible), movable_(movable)
+                : ID(futurID), position_(position), rotation_(rotation), visible_(visible), movable_(movable),
+                lastPosition_(position), lastRotation_(rotation)
         {
             switch (type)
             {
