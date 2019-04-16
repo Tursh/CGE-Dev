@@ -4,11 +4,7 @@
 #include <Utils/TimeUtils.h>
 #include "IO/Input.h"
 
-namespace CGE
-{
-    namespace IO
-    {
-        namespace input
+namespace CGE::IO::input
         {
 
             static GLFWwindow *window;
@@ -21,9 +17,8 @@ namespace CGE
 
             static std::vector<GUI::Panel *> currentPanels;
 
-            void (*customKeyCallBack)(GLFWwindow *window, int key, int action);
-
-            void (*customMouseButtonCallBack)(GLFWwindow *window, int button, int action);
+            std::function<void(GLFWwindow*, int, int)> customKeyCallBack;
+            std::function<void(GLFWwindow*, int, int)> customMouseButtonCallBack;
 
             /*Initialize inputs*/
             void init()
@@ -115,9 +110,9 @@ namespace CGE
                                         currentPanels.end());
             }
 
-            void setYourOwnKeyCallBack(void (*keyCallBack)(GLFWwindow *window, int key, int action))
+            void setYourOwnKeyCallBack(std::function<void(GLFWwindow*, int, int)> keyCallBack)
             {
-                customKeyCallBack = keyCallBack;
+                customKeyCallBack = std::move(keyCallBack);
             }
 
             void resetKeyCallBack()
@@ -125,10 +120,9 @@ namespace CGE
                 customMouseButtonCallBack = nullptr;
             }
 
-            void setYourOwnMouseButtonCallBack(
-                    void (*mouseButtonCallBack)(GLFWwindow *window, int button, int action))
+            void setYourOwnMouseButtonCallBack(std::function<void(GLFWwindow*, int, int)> mouseButtonCallBack)
             {
-                customMouseButtonCallBack = mouseButtonCallBack;
+                customMouseButtonCallBack = std::move(mouseButtonCallBack);
             }
 
             void resetMouseButtonCallBack()
@@ -170,5 +164,3 @@ namespace CGE
                 return scroll;
             }
         }
-    }
-}

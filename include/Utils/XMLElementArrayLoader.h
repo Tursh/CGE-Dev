@@ -7,9 +7,7 @@
 #include <tinyxml2.h>
 #include <vector>
 
-namespace CGE
-{
-    namespace Utils
+namespace CGE::Utils
     {
 
         template<class Type>
@@ -35,4 +33,3 @@ namespace CGE
         }
 
     }
-}

@@ -8,9 +8,7 @@
 #include <vector>
 #include "Animation.h"
 
-namespace CGE
-{
-    namespace Animations
+namespace CGE::Animations
     {
 
         class TextureAnimation : public Animation
@@ -42,4 +40,3 @@ namespace CGE
         };
 
     }
-}

@@ -8,9 +8,7 @@
 #include <memory>
 #include "Model.h"
 
-namespace CGE
-{
-    namespace Loader
+namespace CGE::Loader
     {
 
         enum TexturedModelType
@@ -46,4 +44,3 @@ namespace CGE
         };
 
     }
-}

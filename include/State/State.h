@@ -1,8 +1,6 @@
 #pragma once
 
-namespace CGE
-{
-	namespace State
+namespace CGE::State
 	{
 
 		class State
@@ -16,4 +14,3 @@ namespace CGE
 		};
 
 	}
-}

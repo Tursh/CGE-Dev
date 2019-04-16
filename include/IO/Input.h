@@ -4,11 +4,7 @@
 #include <glm/ext/vector_float2.hpp>    //glm::vec2
 #include <GUI/Panel.h>
 
-namespace CGE
-{
-    namespace IO
-    {
-        namespace input
+namespace CGE::IO::input
         {
 
             /*Initialize inputs*/
@@ -37,14 +33,14 @@ namespace CGE
              Set your own Key callback
              Caution: if used, isKeyPressed is useless
              */
-            void setYourOwnKeyCallBack(void(*keyCallBack)(GLFWwindow *window, int key, int action));
+            void setYourOwnKeyCallBack(std::function<void(GLFWwindow*, int, int)> keyCallBack);
 
             void resetKeyCallBack();
 
             /*
              Set your own MouseButton callback
              */
-            void setYourOwnMouseButtonCallBack(void(*mouseButtonCallBack)(GLFWwindow *window, int button, int action));
+            void setYourOwnMouseButtonCallBack(std::function<void(GLFWwindow*, int, int)> mouseButtonCallBack);
 
 
             void resetMouseButtonCallBack();
@@ -70,5 +66,3 @@ namespace CGE
 
             glm::vec2 getMouseScroll();
         }
-    }
-}

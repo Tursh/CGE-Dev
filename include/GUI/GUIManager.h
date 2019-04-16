@@ -7,11 +7,7 @@
 #include <GUI/Panel.h>
 #include <GUI/Button.h>
 
-namespace CGE
-{
-    namespace GUI
-    {
-        namespace GUIManager
+namespace CGE::GUI::GUIManager
         {
             void init();
 
@@ -28,6 +24,6 @@ namespace CGE
             void renderGUI();
 
             const glm::vec2 &getDisplayScale();
+
+            void clear();
         }
-    }
-}

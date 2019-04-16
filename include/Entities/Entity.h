@@ -9,9 +9,7 @@
 #include <Loader/Texture.h>
 #include <Loader/Models/TexturedModel.h>
 
-namespace CGE
-{
-    namespace Entities
+namespace CGE::Entities
     {
         class Entity
         {
@@ -45,4 +43,3 @@ namespace CGE
             void render();
         };
     }
-}

@@ -6,11 +6,7 @@
 #include "Loader.h"
 #include "Texture.h"
 
-namespace CGE
-{
-	namespace Loader
-	{
-		namespace resManager
+namespace CGE::Loader::resManager
 		{
             //Initialize the resource manager
             void init();
@@ -34,5 +30,3 @@ namespace CGE
             void clear();
 
 		}
-	}
-}

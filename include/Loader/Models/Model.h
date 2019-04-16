@@ -2,9 +2,7 @@
 
 #include <vector>
 
-namespace CGE
-{
-	namespace Loader
+namespace CGE::Loader
 	{
 
 		/*
@@ -37,4 +35,3 @@ namespace CGE
 		};
 
 	}
-}

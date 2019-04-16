@@ -11,12 +11,10 @@
 #include <Text/TextRenderer.h>
 #include <GUI/GUIManager.h>
 
-namespace CGE
-{
-    namespace GUI
+namespace CGE::GUI
     {
 
-        Button::Button(const ButtonType type, const glm::vec2 position, const glm::vec2 dimension,
+        Button::Button(const unsigned int type, const glm::vec2 position, const glm::vec2 dimension,
                        std::string text, std::function<void(void)> funcWhenPressed, char relativeToParent)
                 : GUIComponent(BUTTON, position, dimension,
                                Loader::resManager::getFlat2DAnimation(type), relativeToParent),
@@ -102,12 +100,12 @@ namespace CGE
         }
 
         //Getters and Setters
-        ButtonType Button::getType() const
+        unsigned int Button::getType() const
         {
             return type_;
         }
 
-        void Button::setType(ButtonType type)
+        void Button::setType(unsigned int type)
         {
             type_ = type;
         }
@@ -135,4 +133,3 @@ namespace CGE
             setTextPosAndSize();
         }
     }
-}

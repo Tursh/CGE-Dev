@@ -6,9 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <IO/Input.h>
 
-namespace CGE
-{
-    namespace View
+namespace CGE::View
     {
 
         glm::mat4 Camera::toViewMatrix(bool zAxis)
@@ -52,4 +50,3 @@ namespace CGE
 
 
     }
-}

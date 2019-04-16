@@ -9,9 +9,7 @@
 #include "Utils/Log.h"                        //logError
 #include "Utils/FileManager.h"                //openWholeFile
 
-namespace CGE
-{
-    namespace Shader
+namespace CGE::Shader
     {
 
         ShaderProgram::ShaderProgram(const char *vertexShader, const char *fragmentShader, bool isPath)
@@ -115,4 +113,3 @@ namespace CGE
         }
 
     }
-}

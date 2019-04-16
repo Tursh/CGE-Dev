@@ -11,9 +11,7 @@
 #include <Utils/XMLElementArrayLoader.h>
 #include <Animation/Animator.h>
 
-namespace CGE
-{
-    namespace Animations
+namespace CGE::Animations
     {
 
         TextureAnimation::TextureAnimation(const char *filePath)
@@ -94,4 +92,3 @@ namespace CGE
 
         }
     }
-}

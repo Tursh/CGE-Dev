@@ -3,9 +3,7 @@
 
 #include "Shader/ShaderProgram.h"
 
-namespace CGE
-{
-	namespace GUI
+namespace CGE::GUI
 	{
 		class GUIShader : public Shader::ShaderProgram
 		{
@@ -15,4 +13,3 @@ namespace CGE
 			void setTransformationMatrix(glm::mat4& matrix);
 		};
 	}
-}

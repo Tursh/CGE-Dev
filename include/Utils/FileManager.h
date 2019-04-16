@@ -1,11 +1,8 @@
 #pragma once
 
-namespace CGE
-{
-    namespace Utils
+namespace CGE::Utils
     {
 
         const char *readWholeFile(const char *filePath);
 
     }
-}

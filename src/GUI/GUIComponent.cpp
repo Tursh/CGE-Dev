@@ -3,9 +3,7 @@
 #include <GUI/GUIManager.h>
 #include <glm/ext/matrix_transform.hpp>
 
-namespace CGE
-{
-    namespace GUI
+namespace CGE::GUI
     {
 
         GUIComponent::GUIComponent(ComponentType type, const glm::vec2 &position,
@@ -102,4 +100,3 @@ namespace CGE
             GUIManager::removeComponent(this);
         }
     }
-}

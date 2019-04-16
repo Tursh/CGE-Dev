@@ -4,9 +4,7 @@
 
 #include "Shader/ShaderProgram.h"
 
-namespace CGE
-{
-	namespace Text
+namespace CGE::Text
 	{
 
 		class TextShader : public Shader::ShaderProgram
@@ -21,4 +19,3 @@ namespace CGE
 		};
 
 	}
-}

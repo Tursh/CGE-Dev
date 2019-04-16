@@ -3,9 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/mat4x4.hpp>
 
-namespace CGE
-{
-    namespace IO
+namespace CGE::IO
     {
 
         extern const unsigned int DEFAULT_WIDTH, DEFAULT_HEIGHT;
@@ -42,4 +40,3 @@ namespace CGE
         void resetWindowResizeCallback();
 
     }
-}

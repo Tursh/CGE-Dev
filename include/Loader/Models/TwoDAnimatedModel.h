@@ -7,9 +7,7 @@
 #include <Animation/TextureAnimation.h>
 #include "TexturedModel.h"
 
-namespace CGE
-{
-    namespace Loader
+namespace CGE::Loader
     {
 
         class TwoDAnimatedModel : public TexturedModel
@@ -40,4 +38,3 @@ namespace CGE
         };
 
     }
-}

@@ -4,9 +4,7 @@
 
 #pragma once
 
-namespace CGE
-{
-    namespace Animations
+namespace CGE::Animations
     {
 
         class ModelAnimation

@@ -13,9 +13,7 @@ Author: Raphael Tremblay
 
 #include "Utils/GLDebug.h"    //GLCall
 
-namespace CGE
-{
-    namespace Loader
+namespace CGE::Loader
     {
 
         /*Create a temporary buffer list for VBOs*/
@@ -168,4 +166,3 @@ namespace CGE
         //}
 
     }
-}

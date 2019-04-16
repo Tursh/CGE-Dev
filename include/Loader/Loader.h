@@ -9,9 +9,7 @@ Author: Raphael Tremblay
 #include <memory>
 #include "Loader/Models/Model.h"    //Model
 
-namespace CGE
-{
-    namespace Loader
+namespace CGE::Loader
     {
 
         /*
@@ -91,4 +89,3 @@ namespace CGE
          */
         //std::shared_ptr<AnimatedModel> loadDAEFile(const char *filePath);
     }
-}

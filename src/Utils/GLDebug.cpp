@@ -7,9 +7,7 @@ Author: Raphael Tremblay
 
 #include "Utils/Log.h"        //logWarning
 
-namespace CGE
-{
-	namespace Utils
+namespace CGE::Utils
 	{
 
 //Clear error from openGL error buffer
@@ -37,4 +35,3 @@ line: Line where the error was produced (__LINE__)
 		}
 
 	}
-}

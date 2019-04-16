@@ -7,76 +7,77 @@
 #include <IO/Input.h>
 #include <GUI/GUIManager.h>
 
-namespace CGE
+namespace CGE::GUI
 {
-    namespace GUI
+    namespace GUIManager
     {
+        extern bool GUIGotCleared;
+    }
 
-        Panel::Panel(const glm::vec2 position, const glm::vec2 dimension, PanelType type,
-                     std::function<void(int key, int usage)> keyCallback, bool inGamePanel)
-                : GUIComponent(PANEL, position, dimension,
-                               (type != PANEL_INVISIBLE) ? Loader::resManager::getTexModel(type) : nullptr),
-                  type_(type),
-                  keyCallback(std::move(keyCallback))
+    Panel::Panel(const glm::vec2 position, const glm::vec2 dimension, unsigned int type,
+                 std::function<void(int key, int usage)> keyCallback, bool inGamePanel)
+            : GUIComponent(PANEL, position, dimension,
+                           (type) ? Loader::resManager::getTexModel(type) : nullptr),
+              type_(type),
+              keyCallback(std::move(keyCallback))
+    {
+        if (!inGamePanel) IO::input::addPanel(this);
+    }
+
+    Panel::~Panel()
+    {
+        IO::input::removePanel(this);
+        GUIManager::removeComponent(this);
+    }
+
+    void Panel::addComponent(std::shared_ptr<GUIComponent> newComponent)
+    {
+        switch (newComponent->getType_())
         {
-            if (!inGamePanel) IO::input::addPanel(this);
+            case BUTTON:
+                newComponent->setParent(this);
+                buttons_.push_back(std::dynamic_pointer_cast<Button>(newComponent));
+                break;
+            default:
+                newComponent->setParent(this);
+                components_.push_back(newComponent);
         }
+    }
 
-        Panel::~Panel()
-        {
-            for (auto button : buttons_)
-                delete button;
-            IO::input::removePanel(this);
-            GUIManager::removeComponent(this);
-        }
+    void Panel::render(GUIShader *shader)
+    {
+        if (!visible_)
+            return;
 
-        void Panel::addComponent(GUIComponent *newComponent)
+        //Render panel
+        //If type_ == 0, then it is an invisible panel
+        if (type_)
+            GUIComponent::render(shader);
+
+        //Render buttons
+        for (auto &button : buttons_)
+            button->render(shader);
+    }
+
+    void Panel::checkEvents()
+    {
+        if (visible_)
         {
-            switch(newComponent->getType_())
+            for (auto &button : buttons_)
             {
-                case BUTTON:
-                    newComponent->setParent(this);
-                    buttons_.push_back(((Button *)newComponent));
-                    break;
-                default:
-                    newComponent->setParent(this);
-                    components_.push_back(newComponent);
-            }
-        }
-
-        void Panel::render(GUIShader *shader)
-        {
-            if (!visible_)
-                return;
-
-            //Render panel
-            if (type_ != PANEL_INVISIBLE)
-            {
-                GUIComponent::render(shader);
-            }
-
-            //Render buttons
-            for (auto button : buttons_)
-                button->render(shader);
-        }
-
-        void Panel::checkEvents()
-        {
-            if (visible_)
-            {
-                for (auto button : buttons_)
+                if(!GUIManager::GUIGotCleared)
                     button->checkEvent();
             }
         }
-
-        void Panel::resetDisplayScale()
-        {
-            GUIComponent::resetDisplayScale();
-            for (auto *button : buttons_)
-                button->resetDisplayScale();
-            for (auto *component : components_)
-                component->resetDisplayScale();
-        }
-
     }
+
+    void Panel::resetDisplayScale()
+    {
+        GUIComponent::resetDisplayScale();
+        for (auto &button : buttons_)
+            button->resetDisplayScale();
+        for (auto &component : components_)
+            component->resetDisplayScale();
+    }
+
 }

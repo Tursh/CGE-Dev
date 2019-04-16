@@ -4,9 +4,7 @@
 #include "DebugBreak.h"
 #include "ConsoleColor.h"
 
-namespace CGE
-{
-    namespace Utils
+namespace CGE::Utils
     {
 
 // Print information on the console
@@ -35,4 +33,3 @@ namespace CGE
 #endif	//ifdef NDEBUG
 
     }
-}

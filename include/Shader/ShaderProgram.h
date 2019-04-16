@@ -4,9 +4,7 @@
 #include <glm/ext/vector_float4.hpp>	//glm::vec4
 #include <glm/ext/matrix_float4x4.hpp>	//glm::mat4
 
-namespace CGE
-{
-	namespace Shader
+namespace CGE::Shader
 	{
 
 		class ShaderProgram
@@ -43,4 +41,3 @@ namespace CGE
 		};
 
 	}
-}

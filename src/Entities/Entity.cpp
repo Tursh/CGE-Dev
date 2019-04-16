@@ -8,9 +8,7 @@
 #include <Utils/TimeUtils.h>
 
 
-namespace CGE
-{
-    namespace Entities
+namespace CGE::Entities
     {
         unsigned int futurID = 1;
 
@@ -30,6 +28,7 @@ namespace CGE
                 case Loader::Animated2DModel:
                     texModel_ = CGE::Loader::resManager::getFlat2DAnimation(texModelID);
                     break;
+                case Loader::Animated3DModel:break;
             }
             futurID++;
             size_ = texModel_->getModelSize();
@@ -100,4 +99,3 @@ namespace CGE
                 texModel_->render();
         }
     }
-}

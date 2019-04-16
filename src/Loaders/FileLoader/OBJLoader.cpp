@@ -20,9 +20,7 @@
 #include <GLFW/glfw3.h>
 #endif // SHOWTIME == 1
 
-namespace CGE
-{
-	namespace Loader
+namespace CGE::Loader
 	{
 
 #define MODEL_PATH "res/graphics/models/"
@@ -81,7 +79,7 @@ namespace CGE
 #if 0
 				const int res = fscanf_s(file, "%s", head, 3);
 #else
-				const int res = fscanf(file, "%s", head, 3);
+				const int res = fscanf(file, "%s", head);
 #endif
 				//Check if it's the end of file (EOF)
 				if (res == EOF)
@@ -227,4 +225,3 @@ namespace CGE
 		}
 
 	}
-}
