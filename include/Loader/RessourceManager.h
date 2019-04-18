@@ -11,6 +11,8 @@ namespace CGE::Loader::resManager
             //Initialize the resource manager
             void init();
 
+            void terminate();
+
             //Check if model and texture got already loaded and returns them
             std::shared_ptr<TexturedModel> getTexModel(unsigned int ID);
 
@@ -26,7 +28,6 @@ namespace CGE::Loader::resManager
             //Check if textures got already loaded and returns it
             std::shared_ptr<Texture[]> get2DAnimationTextures(unsigned int ID);
 
-            //Clear useless resources WARNING: MUST BE IN RENDER THREAD
-            void clear();
-
+            //Scrap useless resources WARNING: MUST BE IN RENDER THREAD
+            void scrap();
 		}

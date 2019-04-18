@@ -98,7 +98,7 @@ namespace CGE::IO
             //Add to frame count
             Utils::addFrame();
             //Check if some resources are to clear
-            Loader::resManager::clear();
+            Loader::resManager::scrap();
         }
 
         Display::~Display()

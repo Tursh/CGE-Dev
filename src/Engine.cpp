@@ -48,8 +48,8 @@ namespace CGE
 
     void stopEngine()
     {
-
         CGE::GUI::GUIManager::terminate();
+        Loader::resManager::terminate();
         delete display;
         glfwTerminate();
     }

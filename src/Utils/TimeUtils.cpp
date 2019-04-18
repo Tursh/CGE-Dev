@@ -139,6 +139,7 @@ namespace CGE::Utils
             logError("An inexisting chrono can't be stopped! ID: " << chronoID);
         } else
 #endif
+            delete chronos[chronoID];
             chronos.erase(chronos.find(chronoID));
     }
 
