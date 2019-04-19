@@ -4,39 +4,39 @@
 #include <glm/mat4x4.hpp>
 
 namespace CGE::IO
+{
+
+    extern const unsigned int DEFAULT_WIDTH, DEFAULT_HEIGHT;
+
+    //Create a dynamic window
+    struct Display
     {
+        unsigned int width, height, ID;
 
-        extern const unsigned int DEFAULT_WIDTH, DEFAULT_HEIGHT;
+        glm::mat4 projectionMatrix;
 
-        //Create a dynamic window
-        struct Display
-        {
-            unsigned int width, height, ID;
+        //The window pointer
+        GLFWwindow *window;
 
-            glm::mat4 projectionMatrix;
+        //Create the window taking the name, default width and height
+        Display(const char *name, unsigned int width, unsigned int, bool resizable = true);
 
-            //The window pointer
-            GLFWwindow *window;
+        //Look for inputs changes and swap the drawing buffer
+        void update() const;
 
-            //Create the window taking the name, default width and height
-            Display(const char *name, unsigned int width, unsigned int, bool resizable = true);
+        //Destroy the window
+        ~Display();
+    };
 
-            //Look for inputs changes and swap the drawing buffer
-            void update() const;
+    //Get the display by ID (The first display ID is 0)
+    Display *getDisplay(unsigned int ID = 0);
 
-            //Destroy the window
-            ~Display();
-        };
-
-        //Get the display by ID (The first display ID is 0)
-        Display *getDisplay(unsigned int ID = 0);
-
-        /*
-         Set your own MouseButton callback
-         */
-        void setYourOwnWindowResizeCallback(void(*windowResizeCallback)(int width, int height));
+    /*
+     Set your own MouseButton callback
+     */
+    void setYourOwnWindowResizeCallback(void(*windowResizeCallback)(int width, int height));
 
 
-        void resetWindowResizeCallback();
+    void resetWindowResizeCallback();
 
-    }
+}

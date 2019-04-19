@@ -8,22 +8,22 @@
 #include <GUI/Button.h>
 
 namespace CGE::GUI::GUIManager
-        {
-            void init();
+{
+    void init();
 
-            void terminate();
+    void terminate();
 
-            void addComponent(GUIComponent *newComponent);
+    void addComponent(GUIComponent *newComponent);
 
-            void removeComponent(GUIComponent *component);
+    void removeComponent(GUIComponent *component);
 
-            void resetDisplayRes(const glm::ivec2 &newResolution);
+    void resetDisplayRes(const glm::ivec2 &newResolution);
 
-            void checkEvents();
+    void checkEvents();
 
-            void renderGUI();
+    void renderGUI();
 
-            const glm::vec2 &getDisplayScale();
+    const glm::vec2 &getDisplayScale();
 
-            void clear();
-        }
+    void clear();
+}

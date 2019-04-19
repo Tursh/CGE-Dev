@@ -5,7 +5,7 @@
 #include "ConsoleColor.h"
 
 namespace CGE::Utils
-    {
+{
 
 // Print information on the console
 #define logInfo(msg) std::cout << "[INFO] " << msg << std::endl
@@ -19,10 +19,10 @@ namespace CGE::Utils
 #ifndef NDEBUG
 #ifdef __MINGW32__
 #define logError(msg) {std::cout << red << "[ERROR] " << msg << white << std::endl;\
-		DebugBreak();}
+        DebugBreak();}
 #else //ifndef __MINGW32__
 #define logError(msg) {std::cout << "\033[1;31m[ERROR] " << msg << "\033[0m" << std::endl;\
-		debugBreak();}
+        debugBreak();}
 #endif //ifndef __MINGW32__
 #else //ifdef NDEBUG
 #ifdef __MINGW32__
@@ -30,6 +30,6 @@ namespace CGE::Utils
 #else //ifndef __MINGW32__
 #define logError(msg) std::cout << "\033[1;31m[ERROR] " << msg << "\033[0m" << std::endl
 #endif //ifndef __MINGW32__
-#endif	//ifdef NDEBUG
+#endif    //ifdef NDEBUG
 
-    }
+}

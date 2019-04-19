@@ -65,7 +65,7 @@ namespace CGE::GUI
         {
             for (auto &button : buttons_)
             {
-                if(!GUIManager::GUIGotCleared)
+                if (!GUIManager::GUIGotCleared)
                     button->checkEvent();
             }
         }

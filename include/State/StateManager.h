@@ -3,17 +3,17 @@
 #include "State.h"
 
 namespace CGE::State::stateManager
-		{
-			State *getCurrentState();
+{
+    State *getCurrentState();
 
-			void setCurrentState(State *newState);
+    void setCurrentState(State *newState);
 
-			void deleteCurrentState();
+    void deleteCurrentState();
 
-            template<typename T, typename... Types>
-            void createCurrentState(Types... args)
-            {
-                deleteCurrentState();
-                setCurrentState(new T(args...));
-            }
-		}
+    template<typename T, typename... Types>
+    void createCurrentState(Types... args)
+    {
+        deleteCurrentState();
+        setCurrentState(new T(args...));
+    }
+}

@@ -4,9 +4,9 @@
 #include "GUI/GUIShader.h"
 
 namespace CGE::GUI
-    {
+{
 
-        const char *VERTEX_SHADER = R"glsl(
+    const char *VERTEX_SHADER = R"glsl(
 #version 130
 in vec4 positions;
 in vec2 TexCoords;
@@ -21,7 +21,7 @@ void main()
 }
 )glsl";
 
-        const char *FRAGMENT_SHADER = R"glsl(
+    const char *FRAGMENT_SHADER = R"glsl(
 #version 130
 in vec2 pass_texCoords;
 out vec4 color;
@@ -38,24 +38,24 @@ void main()
 }
 )glsl";
 
-        unsigned int transformationMatrixLocation;
+    unsigned int transformationMatrixLocation;
 
-        GUIShader::GUIShader()
-                : Shader::ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER, false)
-        {
-            start();
-            getAllUniformLocation();
-            stop();
-        }
-
-        void GUIShader::getAllUniformLocation()
-        {
-            transformationMatrixLocation = getUniformLocation("transformationMatrix");
-        }
-
-        void GUIShader::setTransformationMatrix(glm::mat4 &matrix)
-        {
-            loadMat4(transformationMatrixLocation, matrix);
-        }
-
+    GUIShader::GUIShader()
+            : Shader::ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER, false)
+    {
+        start();
+        getAllUniformLocation();
+        stop();
     }
+
+    void GUIShader::getAllUniformLocation()
+    {
+        transformationMatrixLocation = getUniformLocation("transformationMatrix");
+    }
+
+    void GUIShader::setTransformationMatrix(glm::mat4 &matrix)
+    {
+        loadMat4(transformationMatrixLocation, matrix);
+    }
+
+}

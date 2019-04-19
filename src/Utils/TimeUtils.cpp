@@ -139,7 +139,8 @@ namespace CGE::Utils
             logError("An inexisting chrono can't be stopped! ID: " << chronoID);
         } else
 #endif
-            chronos.erase(chronos.find(chronoID));
+            delete chronos[chronoID];
+        chronos.erase(chronos.find(chronoID));
     }
 
     static double time = glfwGetTime();

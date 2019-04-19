@@ -9,18 +9,18 @@
 #include <Entities/Entity.h>
 
 namespace CGE::View
+{
+    struct Camera
     {
-        struct Camera
-        {
-            glm::vec3 position_;
-            glm::vec3 rotation_;
+        glm::vec3 position_;
+        glm::vec3 rotation_;
 
-            explicit Camera(glm::vec3 position = glm::vec3(0), glm::vec3 rotation = glm::vec3(0));
+        explicit Camera(glm::vec3 position = glm::vec3(0), glm::vec3 rotation = glm::vec3(0));
 
-            void followPlayer(glm::vec3 &playerPos);
+        void followPlayer(glm::vec3 &playerPos);
 
-            glm::mat4 toViewMatrix(bool zAxis = true);
-        };
+        glm::mat4 toViewMatrix(bool zAxis = true);
+    };
 
-    }
+}
 
