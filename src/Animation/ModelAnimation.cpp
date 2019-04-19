@@ -3,6 +3,6 @@
 //
 
 namespace CGE::Animations
-    {
+{
 
-    }
+}

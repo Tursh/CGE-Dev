@@ -5,16 +5,16 @@
 #pragma once
 
 namespace CGE::Animations
+{
+
+    class ModelAnimation
     {
 
-        class ModelAnimation
-        {
+        //TODO DAE Loader
 
-            //TODO DAE Loader
+    };
 
-        };
-
-    }
+}
 }
 
 

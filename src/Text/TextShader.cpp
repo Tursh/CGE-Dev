@@ -2,9 +2,9 @@
 
 
 namespace CGE::Text
-    {
+{
 
-        const char *VERTEX_SHADER = R"glsl(
+    const char *VERTEX_SHADER = R"glsl(
 #version 130
 in vec4 vertex; // <vec2 pos, vec2 tex>
 out vec2 TexCoords;
@@ -16,7 +16,7 @@ void main()
 }
 )glsl";
 
-        const char *FRAGMENT_SHADER = R"glsl(
+    const char *FRAGMENT_SHADER = R"glsl(
 #version 130
 in vec2 TexCoords;
 out vec4 color;
@@ -31,24 +31,24 @@ void main()
 }
 )glsl";
 
-        unsigned int textColorLocation;
+    unsigned int textColorLocation;
 
-        TextShader::TextShader()
-                : ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER, false)
-        {
-            start();
-            getAllUniformLocation();
-            stop();
-        }
-
-        void TextShader::getAllUniformLocation()
-        {
-            textColorLocation = getUniformLocation("textColor");
-        }
-
-        void TextShader::setTextColor(glm::vec3 color)
-        {
-            loadVec3(textColorLocation, color);
-        }
-
+    TextShader::TextShader()
+            : ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER, false)
+    {
+        start();
+        getAllUniformLocation();
+        stop();
     }
+
+    void TextShader::getAllUniformLocation()
+    {
+        textColorLocation = getUniformLocation("textColor");
+    }
+
+    void TextShader::setTextColor(glm::vec3 color)
+    {
+        loadVec3(textColorLocation, color);
+    }
+
+}

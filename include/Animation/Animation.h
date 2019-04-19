@@ -7,17 +7,17 @@
 #include <Utils/Log.h>
 
 namespace CGE::Animations
-    {
+{
 #define ANIMATION_PATH "res/graphics/animations/"
 
-        struct Animation
+    struct Animation
+    {
+
+        virtual void tick()
         {
-
-            virtual void tick()
-            {
-                logInfo("FONCTIONNE PAS!");
-            };
-
+            logInfo("FONCTIONNE PAS!");
         };
 
-    }
+    };
+
+}

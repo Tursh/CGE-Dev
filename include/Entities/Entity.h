@@ -10,36 +10,36 @@
 #include <Loader/Models/TexturedModel.h>
 
 namespace CGE::Entities
+{
+    class Entity
     {
-        class Entity
-        {
-            bool movable_;
-            glm::vec3 lastPosition_ = glm::vec3(0);
-            glm::vec3 lastRotation_ = glm::vec3(0);
-        public:
-            unsigned int ID;
-            std::shared_ptr<Loader::TexturedModel> texModel_;
-            glm::vec3 position_;
-            glm::vec3 rotation_;
-            bool visible_;
-            glm::vec2 size_;
+        bool movable_;
+        glm::vec3 lastPosition_ = glm::vec3(0);
+        glm::vec3 lastRotation_ = glm::vec3(0);
+    public:
+        unsigned int ID;
+        std::shared_ptr<Loader::TexturedModel> texModel_;
+        glm::vec3 position_;
+        glm::vec3 rotation_;
+        bool visible_;
+        glm::vec2 size_;
 
-            explicit Entity(unsigned int texModelID, Loader::TexturedModelType type, glm::vec3 position = glm::vec3(0),
-                            glm::vec3 rotation = glm::vec3(0), bool visible = true, bool movable = true);
+        explicit Entity(unsigned int texModelID, Loader::TexturedModelType type, glm::vec3 position = glm::vec3(0),
+                        glm::vec3 rotation = glm::vec3(0), bool visible = true, bool movable = true);
 
-            explicit Entity(Loader::TexturedModel *Model, glm::vec3 position = glm::vec3(0),
-                            glm::vec3 rotation = glm::vec3(0), bool visible = true, bool movable = true);
+        explicit Entity(Loader::TexturedModel *Model, glm::vec3 position = glm::vec3(0),
+                        glm::vec3 rotation = glm::vec3(0), bool visible = true, bool movable = true);
 
-            ~Entity();
+        ~Entity();
 
-            void startAnimation(unsigned int animationID);
+        void startAnimation(unsigned int animationID);
 
-            glm::vec3 getExactPosition();
+        glm::vec3 getExactPosition();
 
-            glm::mat4 getTransformationMatrix();
+        glm::mat4 getTransformationMatrix();
 
-            void move(glm::vec3 movement);
+        void move(glm::vec3 movement);
 
-            void render();
-        };
-    }
+        void render();
+    };
+}

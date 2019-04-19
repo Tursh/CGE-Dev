@@ -7,10 +7,10 @@
 #include "Animation.h"
 
 namespace CGE::Animations::Animator
-        {
+{
 
-            void addAnimation(Animation *animation);
+    void addAnimation(Animation *animation);
 
-            void updateAnimations();
+    void updateAnimations();
 
-        }
+}

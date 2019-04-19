@@ -140,7 +140,7 @@ namespace CGE::Utils
         } else
 #endif
             delete chronos[chronoID];
-            chronos.erase(chronos.find(chronoID));
+        chronos.erase(chronos.find(chronoID));
     }
 
     static double time = glfwGetTime();
