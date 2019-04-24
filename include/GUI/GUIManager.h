@@ -17,6 +17,8 @@ namespace CGE::GUI::GUIManager
 
     void removeComponent(GUIComponent *component);
 
+    bool isMouseInGUI();
+
     void resetDisplayRes(const glm::ivec2 &newResolution);
 
     void checkEvents();

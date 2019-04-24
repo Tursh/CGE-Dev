@@ -2,6 +2,7 @@
 #include <IO/Display.h>
 #include <Utils/Log.h>                        //logError
 #include <Utils/TimeUtils.h>
+#include <GUI/GUIManager.h>
 #include "IO/Input.h"
 
 namespace CGE::IO::input
@@ -59,7 +60,7 @@ namespace CGE::IO::input
         void mouseButtonCallback(GLFWwindow *window, int button, int action, int mode)
         {
             mouse[button] = action;
-            if (customMouseButtonCallBack != nullptr && !isPanelVisible())
+            if (customMouseButtonCallBack != nullptr && !isPanelVisible() && !CGE::GUI::GUIManager::isMouseInGUI())
                 customMouseButtonCallBack(window, button, action);
         }
 

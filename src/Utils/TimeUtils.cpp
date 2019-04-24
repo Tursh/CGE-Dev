@@ -228,7 +228,7 @@ namespace CGE::Utils
         }
         if (deltaTime < tickCooldown[TPSClockID] / 10)
             std::this_thread::__sleep_for(std::chrono::seconds(0),
-                                          std::chrono::milliseconds((int) (100 * tickCooldown[TPSClockID])));
+                                          std::chrono::milliseconds((int) (1000 * tickCooldown[TPSClockID])));
         return shouldTick;
     }
 

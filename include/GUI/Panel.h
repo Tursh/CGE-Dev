@@ -34,7 +34,7 @@ namespace CGE::GUI
 
         void render(GUIShader *shader) override;
 
-        void checkEvents();
+        virtual void checkEvents();
 
         void resetDisplayScale() override;
     };

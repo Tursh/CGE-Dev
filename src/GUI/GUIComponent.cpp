@@ -2,6 +2,7 @@
 #include <GUI/GUIComponent.h>
 #include <GUI/GUIManager.h>
 #include <glm/ext/matrix_transform.hpp>
+#include <IO/Input.h>
 
 namespace CGE::GUI
 {
@@ -98,5 +99,30 @@ namespace CGE::GUI
         setPosition(rawPosition_);
         setDimension(rawDimension_);
         GUIManager::removeComponent(this);
+    }
+
+    bool GUIComponent::isMouseInPanel()
+    {
+        //Get mouse position
+        glm::vec2 mousePos = IO::input::getCursorPos();
+        IO::Display *display = IO::getDisplay();
+        //Change pixel position to openGL coordinate
+        mousePos.x = mousePos.x / display->width * 2 - 1;
+        mousePos.y = (display->height - mousePos.y) / display->height * 2 - 1;
+        //Check if the mouse is on the button
+        return position_.x - dimension_.x <= mousePos.x
+            && mousePos.x <= position_.x + dimension_.x
+            && position_.y - dimension_.y <= mousePos.y
+            && mousePos.y <= position_.y + dimension_.y;
+    }
+
+    const glm::vec2 &GUIComponent::getRawPosition() const
+    {
+        return rawPosition_;
+    }
+
+    const glm::vec2 &GUIComponent::getRawDimension() const
+    {
+        return rawDimension_;
     }
 }

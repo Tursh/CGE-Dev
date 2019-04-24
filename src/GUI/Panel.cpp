@@ -57,6 +57,12 @@ namespace CGE::GUI
         //Render buttons
         for (auto &button : buttons_)
             button->render(shader);
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+        for(auto &component : components_)
+            component->render(shader);
+        glDisable(GL_BLEND);
     }
 
     void Panel::checkEvents()

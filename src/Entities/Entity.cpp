@@ -12,10 +12,12 @@ namespace CGE::Entities
 {
     unsigned int futurID = 1;
 
-        Entity::Entity(unsigned int texModelID, Loader::TexturedModelType type, glm::vec3 position, glm::vec3 rotation,
-                       bool visible, bool movable)
-                : ID(futurID), position_(position), rotation_(rotation), visible_(visible), movable_(movable),
-                lastPosition_(position), lastRotation_(rotation)
+    Entity::Entity(unsigned int texModelID, Loader::TexturedModelType type, glm::vec3 position, glm::vec3 rotation,
+                   bool visible, bool movable)
+            : ID(futurID), position_(position), rotation_(rotation), visible_(visible), movable_(movable),
+              lastPosition_(position), lastRotation_(rotation)
+    {
+        switch (type)
         {
             case Loader::Basic2DTexturedModel:
                 texModel_ = CGE::Loader::resManager::getTexModel(texModelID);
@@ -29,6 +31,7 @@ namespace CGE::Entities
             case Loader::Animated3DModel:
                 break;
         }
+
         futurID++;
         size_ = texModel_->getModelSize();
     }
@@ -96,4 +99,5 @@ namespace CGE::Entities
         if (visible_)
             texModel_->render();
     }
+
 }

@@ -26,8 +26,8 @@ void loop()
     CGE::IO::Display *display = CGE::IO::getDisplay();
     CGE::State::stateManager::setCurrentState(new PlayingState);
     while (!glfwWindowShouldClose(display->window)
-#ifndef NDEBUG
-        && !CGE::IO::input::isKeyPressed(GLFW_KEY_ESCAPE)
+           #ifndef NDEBUG
+           && !CGE::IO::input::isKeyPressed(GLFW_KEY_ESCAPE)
 #endif
             )
     {
@@ -36,7 +36,8 @@ void loop()
         currentState->draw();
         display->update();
         //Set the info in the Title Bar
-        glfwSetWindowTitle(display->window, (std::string("Game Engine Tester | FPS: ") + std::to_string(CGE::Utils::getFPS())).c_str());
+        glfwSetWindowTitle(display->window,
+                           (std::string("Game Engine Tester | FPS: ") + std::to_string(CGE::Utils::getFPS())).c_str());
     }
 }
 

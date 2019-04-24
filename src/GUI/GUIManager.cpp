@@ -4,6 +4,7 @@
 
 #include <GUI/GUIManager.h>
 #include <IO/Display.h>
+#include <IO/Input.h>
 
 namespace CGE::GUI::GUIManager
 {
@@ -119,5 +120,23 @@ namespace CGE::GUI::GUIManager
         components.clear();
 
         GUIGotCleared = true;
+    }
+
+    bool lastValue = false;
+
+    bool isMouseInGUI()
+    {
+        if (CGE::IO::input::getCursorShifting() != glm::vec2(0))
+        {
+            for (auto *panel : panels)
+                if (panel->getVisibility() && panel->isMouseInPanel())
+                {
+                    lastValue = true;
+                    return true;
+                }
+            lastValue = false;
+            return false;
+        } else
+            return lastValue;
     }
 }

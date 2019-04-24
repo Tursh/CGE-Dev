@@ -32,14 +32,20 @@ namespace CGE::GUI
 
         virtual void resetDisplayScale();
 
+        bool isMouseInPanel();
+
         //Getters setters
         const ComponentType &getType_() const;
 
         const glm::vec2 &getPosition() const;
 
+        const glm::vec2 &getRawPosition() const;
+
         virtual void setPosition(const glm::vec2 &position);
 
         const glm::vec2 &getDimension() const;
+
+        const glm::vec2 &getRawDimension() const;
 
         virtual void setDimension(const glm::vec2 &dimension);
 

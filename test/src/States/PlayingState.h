@@ -17,16 +17,16 @@ class PlayingState : public CGE::State::State
 {
     CGE::Loader::TwoDAnimatedModel model;
     CGE::World::World world;
-	CGE::Entities::Player player_;
-	CGE::View::Camera camera_;
+    CGE::Entities::Player player_;
+    CGE::View::Camera camera_;
 public:
-	PlayingState();
+    PlayingState();
 
-	~PlayingState() override;
+    ~PlayingState() override;
 
-	void tick(float delta) override;
+    void tick(float delta) override;
 
-	void draw() override;
+    void draw() override;
 };
 
 
