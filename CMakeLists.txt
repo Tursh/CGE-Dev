@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.13)
 project(CrossGameEngine)
 
 option(BUILD_SHARED_LIBS "Compile CGE as a shared library" OFF)
-option(CompileTest "Compile the test project" OFF)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -94,8 +93,3 @@ add_library(CrossGameEngine ${LIBRARY_TYPE}
         src/Animation/Animator.cpp
         src/Utils/XMLElementArrayLoader.cpp
         src/Entities/Entity.cpp src/GUI/GUIManager.cpp include/GUI/GUIManager.h)
-
-#Add the testing project
-if (${CompileTest})
-    add_subdirectory(test)
-endif ()
