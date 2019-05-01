@@ -65,4 +65,6 @@ namespace CGE::IO::input
     }
 
     glm::vec2 getMouseScroll();
+
+    void grabMouse();
 }

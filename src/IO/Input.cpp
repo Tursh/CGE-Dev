@@ -164,4 +164,9 @@ namespace CGE::IO::input
             lastScroll = glm::vec3(0, 0, tickCount);
         return scroll;
     }
+
+    void grabMouse()
+    {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
 }

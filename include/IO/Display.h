@@ -18,11 +18,13 @@ namespace CGE::IO
         //The window pointer
         GLFWwindow *window;
 
-        //Create the window taking the name, default width and height
-        Display(const char *name, unsigned int width, unsigned int, bool resizable = true);
-
         //Look for inputs changes and swap the drawing buffer
         void update() const;
+
+        bool shouldClose();
+
+        //Create the window taking the name, default width and height
+        Display(const char *name, unsigned int width, unsigned int, bool resizable = true);
 
         //Destroy the window
         ~Display();

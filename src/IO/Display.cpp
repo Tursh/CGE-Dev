@@ -109,6 +109,11 @@ namespace CGE::IO
         glfwDestroyWindow(window);
     }
 
+    bool Display::shouldClose()
+    {
+        return glfwWindowShouldClose(window);
+    }
+
 }
 
 /*
