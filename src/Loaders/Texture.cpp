@@ -19,8 +19,8 @@ namespace CGE::Loader
         return textures;
     }
 
-    Texture::Texture()
-            : ID(0xffffffff)
+    Texture::Texture(glm::ivec2 atlasCount)
+            : ID(0xffffffff), atlasCount_(atlasCount)
     {
     }
 
@@ -79,5 +79,19 @@ namespace CGE::Loader
     {
         return {width, height};
     }
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "bugprone-integer-division"
+    glm::vec4 Texture::getTextureCoords(unsigned int atlasIndex)
+    {
+        glm::vec4 texCoords;
+        texCoords.x = (atlasIndex % atlasCount_.x) / atlasCount_.x;
+        texCoords.y = 1.0f - ((atlasIndex / atlasCount_.x) / atlasCount_.y);
+        texCoords.z = texCoords.x + 1.0f / atlasCount_.x;
+        texCoords.w = texCoords.y - 1.0f / atlasCount_.y;
+
+        return texCoords;
+    }
+#pragma clang diagnostic pop
 
 }
