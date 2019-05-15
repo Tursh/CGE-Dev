@@ -89,4 +89,16 @@ namespace CGE::Loader
      * filePath: path to the file from the project folder
      */
     //std::shared_ptr<AnimatedModel> loadDAEFile(const char *filePath);
+
+
+
+    //Load data to VAO when you are not in the render thread
+    void DataToVAO(std::shared_ptr<Model> *sharedPtr,
+                   Data<float> positions,
+                   Data<float> texCoords,
+                   Data<unsigned int> indices,
+                   bool threeDimension);
+
+    void loadModels();
+
 }

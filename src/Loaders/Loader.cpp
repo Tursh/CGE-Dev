@@ -146,6 +146,46 @@ namespace CGE::Loader
 
     }
 
+    std::vector<std::tuple<std::shared_ptr<Model> *, const Data<float>, const Data<float>, const Data<unsigned int>, bool>> modelsToLoad;
+
+    void
+    Loader::DataToVAO(std::shared_ptr<Model> *sharedPtr,
+                      Data<float> positions,
+                      Data<float> texCoords,
+                      Data<unsigned int> indices,
+                      bool threeDimension)
+    {
+        //Copy vertices
+        auto *positionArray = new float[positions.size];
+        std::copy(positions.data, positions.data + positions.size, positionArray);
+        positions.data = positionArray;
+
+        auto *texCoordsArray = new float[texCoords.size];
+        std::copy(texCoords.data, texCoords.data + texCoords.size, texCoordsArray);
+        texCoords.data = texCoordsArray;
+
+        auto *indicesArray = new unsigned int[indices.size];
+        std::copy(indices.data, indices.data + indices.size, indicesArray);
+        indices.data = indicesArray;
+
+        modelsToLoad.push_back(std::make_tuple(
+                sharedPtr,
+                positions,
+                texCoords,
+                indices,
+                threeDimension));
+    }
+
+    void loadModels()
+    {
+        for (auto vertices : modelsToLoad)
+        {
+            *std::get<0>(vertices) = DataToVAO(std::get<1>(vertices), std::get<2>(vertices), std::get<3>(vertices),
+                                                 std::get<4>(vertices));
+        }
+        modelsToLoad.clear();
+    }
+
     //std::shared_ptr<AnimatedModel>
     //Loader::DataToVAO(const Data<float> &positions, const Data<float> &texCoords, const Data<float> &normals,
     //                  const Data<unsigned int> &indices, const Data<unsigned int> &jointIDs,

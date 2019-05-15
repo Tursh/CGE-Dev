@@ -30,8 +30,8 @@ if (BUILD_SHARED_LIBS)
     set(LIBRARY_TYPE SHARED)
 
     if (NOT WIN32)
-        set(LIBRARIES_LOCATION "/usr/local/lib64")
 
+        set(LIBRARIES_LOCATION "/usr/local/lib64")
         link_libraries(
                 "${LIBRARIES_LOCATION}/libglfw3.a"
                 "${LIBRARIES_LOCATION}/libGLEW.a"

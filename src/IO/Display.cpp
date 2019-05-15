@@ -71,7 +71,7 @@ namespace CGE::IO
         if (!window)
         {
             glfwTerminate();
-            logError("[ERROR] GLFW could not create a window");
+            logError("GLFW could not create a window");
             exit(-1);
         }
 
@@ -97,6 +97,8 @@ namespace CGE::IO
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //Add to frame count
         Utils::addFrame();
+        //
+        Loader::loadModels();
         //Check if some resources are to clear
         Loader::resManager::scrap();
     }
