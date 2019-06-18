@@ -9,7 +9,7 @@
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_int2.hpp>
 #include <GL/glew.h>
-#include <IO/Display.h>
+#include <IO/Window.h>
 #include <Text/TextShader.h> //TextShader
 #include <Utils/GLDebug.h>    //GLCall
 #include <Utils/Log.h>        //logError
@@ -209,7 +209,7 @@ namespace CGE::Text::textRenderer
         FT_Done_FreeType(ft);
     }
 
-    void resetDisplayResolution(const glm::vec2 &newResolution)
+    void resetWindowDimension(const glm::vec2 &newResolution)
     {
         displayScale = (glm::vec2) newResolution / glm::vec2(CGE::IO::DEFAULT_WIDTH, CGE::IO::DEFAULT_HEIGHT);
     }

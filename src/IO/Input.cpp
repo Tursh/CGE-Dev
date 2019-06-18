@@ -1,5 +1,5 @@
 #include <glm/detail/type_vec2.hpp>
-#include <IO/Display.h>
+#include <IO/Window.h>
 #include <Utils/Log.h>                        //logError
 #include <Utils/TimeUtils.h>
 #include <GUI/GUIManager.h>
@@ -24,7 +24,7 @@ namespace CGE::IO::input
     /*Initialize inputs*/
     void init()
     {
-        window = getDisplay()->window;
+        window = getWindow()->getGlfwWindow();
         keys = new bool[348];
         mouse = new bool[10];
         for (int i = 0; i < 348; i++)
@@ -138,9 +138,9 @@ namespace CGE::IO::input
         glfwGetCursorPos(window, &x, &y);
         if (displayID >= 0)
         {
-            Display *display = getDisplay(displayID);
-            x = x / display->width * 2 - 1;
-            y = -(y / display->height * 2 - 1);
+            Window *display = getWindow(displayID);
+            x = x / display->getWidth() * 2 - 1;
+            y = -(y / display->getHeight() * 2 - 1);
         }
         return glm::vec2((float) x, (float) y);
     }

@@ -47,5 +47,11 @@ namespace CGE::Loader
         GLCall(glBindVertexArray(0));
     }
 
+    void Model::setTexCoords(unsigned int offset, const Data<float> &data)
+    {
+        glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
+        glBufferSubData(GL_ARRAY_BUFFER, offset, data.size * sizeof(float), data.data);
+    }
+
 
 }

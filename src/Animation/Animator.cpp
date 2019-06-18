@@ -7,7 +7,7 @@
 
 namespace CGE::Animations::Animator
 {
-    std::vector<Animation *> animations;
+    static std::vector<Animation *> animations;
 
     void addAnimation(Animation *animation)
     {

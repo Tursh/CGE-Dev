@@ -13,7 +13,7 @@ namespace CGE::Loader
         int width, height, bpp;
         glm::ivec2 atlasCount_;
     public:
-        explicit Texture(glm::ivec2 atlasCount = glm::vec2(1));
+        explicit Texture(glm::ivec2 atlasCount = glm::ivec2(1));
 
         ~Texture();
 
@@ -45,14 +45,8 @@ namespace CGE::Loader
         /*
          * For texture atlas
          * return coordinates in this order:
-         * {top, left, bottom, right}
+         * {left, bottom, right, top}
          */
-        glm::vec4 getTextureCoords(unsigned int atlasIndex = 0);
+        glm::vec4 getTextureLimits(unsigned int atlasIndex = 0);
     };
-
-    /*
-     * Load textures from list of files
-     */
-    Texture *loadTextures(const char **filePaths, unsigned count);
-
 }

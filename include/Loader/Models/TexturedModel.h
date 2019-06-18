@@ -10,24 +10,16 @@
 
 namespace CGE::Loader
 {
-
-    enum TexturedModelType
-    {
-        Basic2DTexturedModel, Basic3DTexturedModel, Animated3DModel, Animated2DModel
-    };
-
     class TexturedModel
     {
     protected:
-        TexturedModelType type_;
-        /*Texture ID pointer*/
-        std::shared_ptr<Texture[]> texture_;
+        bool threeDimension_;
+        /*Texture pointer*/
+        std::shared_ptr<Texture> texture_;
         /*Model*/
         std::shared_ptr<Model> model_;
     public:
-        TexturedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture[]> texture, TexturedModelType type);
-
-        TexturedModelType getType();
+        TexturedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture> texture, bool threeDimension);
 
         virtual void render();
 
@@ -35,12 +27,10 @@ namespace CGE::Loader
 
         const unsigned int &indicesCount();
 
-        //TODO: remove start animation and get current animation function from TexturedModel
-        virtual unsigned int getCurrentAnimation() { return 0; }
+        virtual glm::vec2 getTextureSize();
 
-        virtual void startAnimation(unsigned int ID) {}
+        bool isThreeDimension() const;
 
-        virtual glm::vec2 getModelSize();
     };
 
 }

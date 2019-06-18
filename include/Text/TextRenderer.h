@@ -14,7 +14,7 @@ namespace CGE::Text::textRenderer
 
     void clean();
 
-    void resetDisplayResolution(const glm::vec2 &newResolution);
+    void resetWindowDimension(const glm::vec2 &newResolution);
 
     /*
      * Render text to the screen

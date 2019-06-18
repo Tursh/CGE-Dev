@@ -19,7 +19,7 @@ namespace CGE::GUI::GUIManager
 
     bool isMouseInGUI();
 
-    void resetDisplayRes(const glm::ivec2 &newResolution);
+    void resetWindowDimension(const glm::ivec2 &newResolution);
 
     void checkEvents();
 

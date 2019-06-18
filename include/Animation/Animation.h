@@ -13,10 +13,7 @@ namespace CGE::Animations
     struct Animation
     {
 
-        virtual void tick()
-        {
-            logInfo("FONCTIONNE PAS!");
-        };
+        virtual void tick() = 0;
 
     };
 

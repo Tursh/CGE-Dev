@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <Animation/TextureAnimation.h>
+#include <Animation/TwoDAnimation.h>
 #include "TexturedModel.h"
 
 namespace CGE::Loader
@@ -13,24 +13,22 @@ namespace CGE::Loader
     class TwoDAnimatedModel : public TexturedModel
     {
         float sizeScale_;
-        unsigned int textureCount_;
-        Animations::TextureAnimation *animation_;
+        Animations::TwoDAnimation *animation_;
     public:
 
-        TwoDAnimatedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture[]> textures,
-                          unsigned int textureCount, float size, Animations::TextureAnimation *animation);
+        TwoDAnimatedModel(TexturedModel texturedModel, float size, Animations::TwoDAnimation *animation);
 
         ~TwoDAnimatedModel();
 
-        glm::vec2 getModelSize() override;
+        glm::vec2 getTextureSize() override ;
 
         void setIdleAnimation(unsigned int ID);
 
-        void startAnimation(unsigned int ID) override;
+        void startAnimation(unsigned int ID);
 
         void stopAnimation();
 
-        unsigned int getCurrentAnimation() override;
+        unsigned int getCurrentAnimation();
 
         void render(unsigned int offset);
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <Loader/Loader.h>
 
 namespace CGE::Loader
 {
@@ -32,6 +33,8 @@ namespace CGE::Loader
 
         /*Render model*/
         void render(bool textured = true) const;
+
+        void setTexCoords(unsigned int offset, const Data<float> &data);
     };
 
 }

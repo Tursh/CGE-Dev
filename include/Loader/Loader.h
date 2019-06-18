@@ -6,6 +6,7 @@ Author: Raphael Tremblay
 
 #pragma once
 
+#include <GL/glew.h>
 #include <memory>
 #include "Loader/Models/Model.h"    //Model
 
@@ -20,18 +21,20 @@ namespace CGE::Loader
     template<typename T>
     struct Data
     {
-        /*data array*/
+        /**< data array*/
         const T *data;
-        /*array's size*/
+        /**< array's size*/
         unsigned int size;
+        /**< data usage*/
+        GLenum usage;
 
         /*
         Data constructor
         data: data array
         size: array's size
         */
-        Data(const T *data, unsigned int size)
-                : data(data), size(size) {}
+        Data(const T *data, unsigned int size, GLenum usage = GL_STATIC_DRAW)
+                : data(data), size(size), usage(usage) {}
     };
 
 /*

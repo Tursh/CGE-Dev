@@ -4,7 +4,7 @@
 
 #include <string>
 
-#include <Animation/TextureAnimation.h>
+#include <Animation/TwoDAnimation.h>
 #include <tinyxml2.h>
 #include <sstream>
 #include <iterator>
@@ -14,8 +14,7 @@
 namespace CGE::Animations
 {
 
-    TextureAnimation::TextureAnimation(const char *filePath)
-            : currentAnimation(0), currentTexture(0), frameCountDown(0), idleAnimation(0)
+    TwoDAnimation::TwoDAnimation(const char *filePath)
     {
         if (filePath == nullptr)
             return;
@@ -39,57 +38,77 @@ namespace CGE::Animations
         std::vector<unsigned int> offsets = Utils::getArray<unsigned int>(
                 doc.RootElement()->FirstChildElement("Offsets")->ToElement());
         for (int i = 0; i < offsets.size(); i += 2)
-            textureOffSets.push_back(std::make_pair(offsets[i], offsets[i + 1]));
+            textureOffSets_.push_back(std::make_pair(offsets[i], offsets[i + 1]));
 
-        frameDuration = Utils::getArray<unsigned int>(doc.RootElement()->FirstChildElement("FrameDuration"));
+        frameDuration_ = Utils::getArray<unsigned int>(doc.RootElement()->FirstChildElement("FrameDuration"));
 
         //Add to the animator to get updated for each ticks
         Animator::addAnimation(this);
     }
 
-    unsigned int TextureAnimation::getTextureToRender()
+    unsigned int TwoDAnimation::getTextureToRender()
     {
         return currentTexture;
     }
 
-    void TextureAnimation::returnToIdle()
+    void TwoDAnimation::returnToIdle()
     {
-        if (currentAnimation != idleAnimation)
+        if (currentAnimation_ != idleAnimation_)
         {
-            currentAnimation = idleAnimation;
+            currentAnimation_ = idleAnimation_;
             tick();
         }
     }
 
-    void TextureAnimation::tick()
+    void TwoDAnimation::tick()
     {
 
         //logInfo(frameCountDown << " -> " << currentTexture);
-        auto &textureOffSet = textureOffSets[currentAnimation];
+        auto &textureOffSet = textureOffSets_[currentAnimation_];
         //Is the texture currently in the animation
         if (textureOffSet.first <= currentTexture && currentTexture <= textureOffSet.second)
         {
-            if (frameCountDown == 0)
+            if (frameCountDown_ == 0)
             {
                 //If is was on the last frame return to idle animation
                 if (currentTexture == textureOffSet.second)
                 {
-                    currentAnimation = idleAnimation;
-                    currentTexture = textureOffSets[idleAnimation].first;
-                    frameCountDown = frameDuration[currentTexture];
+                    currentAnimation_ = idleAnimation_;
+                    currentTexture = textureOffSets_[idleAnimation_].first;
+                    frameCountDown_ = frameDuration_[currentTexture];
                 }
                     //Else go to the next frame if the frame count down is done
                 else
                 {
                     currentTexture++;
-                    frameCountDown = frameDuration[currentTexture];
+                    frameCountDown_ = frameDuration_[currentTexture];
                 }
             } else
-                frameCountDown--;
+                frameCountDown_--;
         }
             //If the texture is not in the offset it means that the animation got replaced
         else
             currentTexture = textureOffSet.first;
 
+    }
+
+    unsigned int TwoDAnimation::getCurrentAnimation() const
+    {
+        return currentAnimation_;
+    }
+
+    void TwoDAnimation::setCurrentAnimation(unsigned int currentAnimation)
+    {
+        currentAnimation_ = currentAnimation;
+    }
+
+    unsigned int TwoDAnimation::getIdleAnimation() const
+    {
+        return idleAnimation_;
+    }
+
+    void TwoDAnimation::setIdleAnimation(unsigned int idleAnimation)
+    {
+        idleAnimation_ = idleAnimation;
     }
 }

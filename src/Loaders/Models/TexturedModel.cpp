@@ -1,7 +1,7 @@
 #include <utility>
 #include <Loader/Models/TexturedModel.h>
 #include <glm/vec2.hpp>
-#include <IO/Display.h>
+#include <IO/Window.h>
 
 
 //
@@ -12,19 +12,19 @@
 
 namespace CGE::Loader
 {
-    TexturedModel::TexturedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture[]> texture,
-                                 TexturedModelType type)
-            : model_(std::move(model)), texture_(std::move(texture)), type_(type) {}
+    TexturedModel::TexturedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture> texture,
+                                 bool threeDimension)
+            : model_(std::move(model)), texture_(std::move(texture)), threeDimension_(threeDimension) {}
 
     void TexturedModel::render()
     {
-        texture_[0].bind();
+        texture_->bind();
         model_->render();
     }
 
     void TexturedModel::bind()
     {
-        texture_[0].bind();
+        texture_->bind();
         model_->bind();
     }
 
@@ -33,16 +33,8 @@ namespace CGE::Loader
         return model_->vertexCount;
     }
 
-    TexturedModelType TexturedModel::getType()
+    bool TexturedModel::isThreeDimension() const
     {
-        return type_;
-    }
-
-    glm::vec2 TexturedModel::getModelSize()
-    {
-        glm::vec2 texSize = texture_[0].getSize();
-        texSize.x /= IO::DEFAULT_WIDTH;
-        texSize.y /= IO::DEFAULT_HEIGHT;
-        return texSize;
+        return threeDimension_;
     }
 }

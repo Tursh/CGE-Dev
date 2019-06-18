@@ -1,17 +1,22 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <IO/Display.h>
+#include <IO/Window.h>
 #include <IO/Input.h>
 #include <Loader/RessourceManager.h>
 #include <Utils/Log.h>
 #include <GUI/GUIManager.h>
 
+namespace CGE::IO::input
+{
+    void init();
+}
+
 namespace CGE
 {
 
-    IO::Display *display;
+    IO::Window *display;
 
-    IO::Display *initEngine(const char *name, unsigned int width, unsigned int height, bool resizable = true)
+    IO::Window *initEngine(const char *name, unsigned int width, unsigned int height, bool resizable = true)
     {
 
         //Initialize GLFW
@@ -22,7 +27,7 @@ namespace CGE
         }
 
         //Create display
-        display = new IO::Display(name, width, height, resizable);
+        display = new IO::Window(name, width, height, resizable);
         //Initialize GLEW
         if (glewInit() != GLEW_OK)
         {

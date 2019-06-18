@@ -6,11 +6,13 @@
 
 #include "Animation.h"
 
+
 namespace CGE::Animations::Animator
 {
 
+    //Add animation for management
     void addAnimation(Animation *animation);
 
+    //Update all the known animations
     void updateAnimations();
-
 }

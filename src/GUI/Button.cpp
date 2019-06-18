@@ -1,15 +1,15 @@
 ﻿#include <utility>
 
+#include <Loader/RessourceManager.h>
+#include <GUI/Button.h>
+#include <IO/Window.h>
+#include <IO/Input.h>
+#include <Text/TextRenderer.h>
+#include <GUI/GUIManager.h>
+#include <GLFW/glfw3.h>
 #include <glm/detail/type_vec2.hpp>
 #include <glm/detail/type_vec3.hpp>
 #include <glm/ext/matrix_transform.hpp>
-#include <GLFW/glfw3.h>
-#include <GUI/Button.h>
-#include <IO/Display.h>
-#include <IO/Input.h>
-#include <Loader/RessourceManager.h>
-#include <Text/TextRenderer.h>
-#include <GUI/GUIManager.h>
 
 namespace CGE::GUI
 {
@@ -17,7 +17,7 @@ namespace CGE::GUI
     Button::Button(const unsigned int type, const glm::vec2 position, const glm::vec2 dimension,
                    std::string text, std::function<void(void)> funcWhenPressed, char relativeToParent)
             : GUIComponent(BUTTON, position, dimension,
-                           Loader::resManager::getFlat2DAnimation(type), relativeToParent),
+                           Loader::resManager::getTexModel(type), relativeToParent),
               type_(type), mode_(RELEASED),
               text_(std::move(text)), textPosition_(glm::vec2()), textSize_(1),
               press(std::move(funcWhenPressed))
@@ -81,11 +81,11 @@ namespace CGE::GUI
 
     void Button::setTextPosAndSize()
     {
-        CGE::IO::Display *display = CGE::IO::getDisplay();
+        CGE::IO::Window *display = CGE::IO::getWindow();
         for (textSize_ = MIN_TEXT_SIZE;
              dimension_.x * 0.75f >
              static_cast<float>(Text::textRenderer::getStringLength(text_, textSize_))
-             && dimension_.y * 0.85f > textSize_ * 120 / display->height; textSize_ += 0.001f);
+             && dimension_.y * 0.85f > textSize_ * 120 / display->getHeight(); textSize_ += 0.001f);
         textPosition_ = position_;
         textPosition_.y -= textSize_ / 20;
     }

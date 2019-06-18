@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IO/Display.h"
+#include "IO/Window.h"
 
 namespace CGE
 {

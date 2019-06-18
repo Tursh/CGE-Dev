@@ -5,6 +5,7 @@
 #include <View/Camera.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <IO/Input.h>
+#include <Utils/TimeUtils.h>
 
 namespace CGE::View
 {
@@ -41,11 +42,14 @@ namespace CGE::View
     Camera::Camera(glm::vec3 position, glm::vec3 rotation)
             : position_(position), rotation_(rotation) {}
 
-    void Camera::followPlayer(glm::vec3 &playerPos)
+    void Camera::followPlayer(Entities::Entity *player)
     {
-        double hyp = position_.z / tan(rotation_.x);
-        position_.x = static_cast<float>(playerPos.x + sin(rotation_.z) * hyp);
-        position_.y = static_cast<float>(playerPos.y + cos(rotation_.z) * hyp);
+        //TODO : Change the follow player function for TheGame project
+        //double hyp = position_.z / tan(rotation_.x);
+        //position_.x = static_cast<float>(player->position_.x + sin(rotation_.z) * hyp);
+        //position_.y = static_cast<float>(player->position_.y + cos(rotation_.z) * hyp);
+        position_ = player->getPosition();
+        rotation_ = player->getRotation();
     }
 
 

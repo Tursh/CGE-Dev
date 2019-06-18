@@ -1,4 +1,4 @@
-﻿#include <IO/Display.h>
+﻿#include <IO/Window.h>
 #include <GUI/GUIComponent.h>
 #include <GUI/GUIManager.h>
 #include <glm/ext/matrix_transform.hpp>
@@ -105,10 +105,10 @@ namespace CGE::GUI
     {
         //Get mouse position
         glm::vec2 mousePos = IO::input::getCursorPos();
-        IO::Display *display = IO::getDisplay();
+        IO::Window *display = IO::getWindow();
         //Change pixel position to openGL coordinate
-        mousePos.x = mousePos.x / display->width * 2 - 1;
-        mousePos.y = (display->height - mousePos.y) / display->height * 2 - 1;
+        mousePos.x = mousePos.x / display->getWidth() * 2 - 1;
+        mousePos.y = (display->getHeight() - mousePos.y) / display->getHeight() * 2 - 1;
         //Check if the mouse is on the button
         return position_.x - dimension_.x <= mousePos.x
             && mousePos.x <= position_.x + dimension_.x

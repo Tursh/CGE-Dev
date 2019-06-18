@@ -59,7 +59,7 @@ if (BUILD_SHARED_LIBS)
     endif ()
 
 else ()
-    set(LIBRARY_TYPE STATIC)
+    set(LIBRARY_TYPE STATIC include/Utils/PerlinNoise.h)
 endif ()
 
 add_library(CrossGameEngine ${LIBRARY_TYPE}
@@ -67,7 +67,7 @@ add_library(CrossGameEngine ${LIBRARY_TYPE}
         src/GUI/GUIComponent.cpp
         src/GUI/GUIShader.cpp
         src/GUI/Panel.cpp
-        src/IO/Display.cpp
+        src/IO/Window.cpp
         src/IO/Input.cpp
         src/Loaders/Loader.cpp
         src/Loaders/FileLoader/OBJLoader.cpp
@@ -87,9 +87,10 @@ add_library(CrossGameEngine ${LIBRARY_TYPE}
         src/Loaders/FileLoader/DAELoader.cpp
         src/Loaders/Models/Model.cpp
         src/Loaders/Models/TexturedModel.cpp
-        src/Animation/TextureAnimation.cpp
+        src/Animation/TwoDAnimation.cpp
         src/Animation/ModelAnimation.cpp
         src/Loaders/Models/TwoDAnimatedModel.cpp
         src/Animation/Animator.cpp
         src/Utils/XMLElementArrayLoader.cpp
-        src/Entities/Entity.cpp src/GUI/GUIManager.cpp include/GUI/GUIManager.h)
+        src/Entities/Entity.cpp src/GUI/GUIManager.cpp
+        src/Utils/PerlinNoice.cpp)

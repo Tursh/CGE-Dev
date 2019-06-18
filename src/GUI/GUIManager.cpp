@@ -3,7 +3,7 @@
 //
 
 #include <GUI/GUIManager.h>
-#include <IO/Display.h>
+#include <IO/Window.h>
 #include <IO/Input.h>
 
 namespace CGE::GUI::GUIManager
@@ -29,7 +29,7 @@ namespace CGE::GUI::GUIManager
         clear();
     }
 
-    void resetDisplayRes(const glm::ivec2 &newResolution)
+    void resetWindowDimension(const glm::ivec2 &newResolution)
     {
         displayScale = glm::vec2((float) newResolution.x / CGE::IO::DEFAULT_WIDTH,
                                  (float) newResolution.y / CGE::IO::DEFAULT_HEIGHT);

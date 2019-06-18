@@ -9,16 +9,6 @@
 namespace CGE::Loader
 {
 
-    Texture *loadTextures(const char **filePaths, unsigned count)
-    {
-        Texture *textures = new Texture[count];
-        for (unsigned int i = 0; i < count; i++)
-        {
-            textures[i].loadTexture(filePaths[i]);
-        }
-        return textures;
-    }
-
     Texture::Texture(glm::ivec2 atlasCount)
             : ID(0xffffffff), atlasCount_(atlasCount)
     {
@@ -77,12 +67,12 @@ namespace CGE::Loader
 
     glm::vec2 Texture::getSize()
     {
-        return {width, height};
+        return {width / atlasCount_.x, height / atlasCount_.y};
     }
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "bugprone-integer-division"
-    glm::vec4 Texture::getTextureCoords(unsigned int atlasIndex)
+    glm::vec4 Texture::getTextureLimits(unsigned int atlasIndex)
     {
         glm::vec4 texCoords;
         texCoords.x = (atlasIndex % atlasCount_.x) / atlasCount_.x;

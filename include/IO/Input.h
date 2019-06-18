@@ -7,9 +7,6 @@
 namespace CGE::IO::input
 {
 
-    /*Initialize inputs*/
-    void init();
-
     /*
      Return if the key on the keyboard is pressed
      key: key pressed (GLFW_KEY_<key>)

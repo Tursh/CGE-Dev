@@ -48,35 +48,35 @@ namespace CGE::Loader
     static void loadIndices(const Data<unsigned int> &data)
     {
         createVBO(GL_ELEMENT_ARRAY_BUFFER);
-        GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.size * sizeof(unsigned int), data.data, GL_STATIC_DRAW));
+        GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.size * sizeof(unsigned int), data.data, data.usage));
     }
 
-    /*
-    Load data to VAO
-    index: index pointer (pos -> 0, texCoords -> 1, norm -> 2)
-    dataSize: size that take one part of data (pos -> 3, tex -> 2, norm -> 3)
-    data: Data object containing float[] and the size of the array
-    */
+    /**
+     * Load floats to VAO
+     * @param index index pointer (pos -> 0, texCoords -> 1, norm -> 2)
+     * @param dataSize size that take one part of data (pos -> 3, tex -> 2, norm -> 3)
+     * @param data Data object containing float[] and the size of the array
+     */
     static void
     loadDataInAttribArray(const unsigned int &index, const unsigned int &dataSize, const Data<float> &data)
     {
         createVBO(GL_ARRAY_BUFFER);
-        GLCall(glBufferData(GL_ARRAY_BUFFER, data.size * sizeof(float), data.data, GL_STATIC_DRAW));
+        GLCall(glBufferData(GL_ARRAY_BUFFER, data.size * sizeof(float), data.data, data.usage));
         GLCall(glVertexAttribPointer(index, dataSize, GL_FLOAT, false, 0, nullptr));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
     }
 
-    /*
-    Load data to VAO
-    index: index pointer (pos -> 0, texCoords -> 1, norm -> 2...)
-    dataSize: size that take one part of data (pos -> 3, tex -> 2, norm -> 3...)
-    data: Data object containing unsigned int[] and the size of the array
-    */
+    /**
+     * Load unsigned integers to VAO
+     * @param index index pointer (pos -> 0, texCoords -> 1, norm -> 2)
+     * @param dataSize size that take one part of data (pos -> 3, tex -> 2, norm -> 3)
+     * @param data Data object containing float[] and the size of the array
+     */
     static void
     loadDataInAttribArray(const unsigned int &index, const unsigned int &dataSize, const Data<unsigned int> &data)
     {
         createVBO(GL_ARRAY_BUFFER);
-        GLCall(glBufferData(GL_ARRAY_BUFFER, data.size * sizeof(float), data.data, GL_STATIC_DRAW));
+        GLCall(glBufferData(GL_ARRAY_BUFFER, data.size * sizeof(float), data.data, data.usage));
         GLCall(glVertexAttribIPointer(index, dataSize, GL_UNSIGNED_INT, 0, nullptr));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
     }
@@ -148,12 +148,11 @@ namespace CGE::Loader
 
     std::vector<std::tuple<std::shared_ptr<Model> *, const Data<float>, const Data<float>, const Data<unsigned int>, bool>> modelsToLoad;
 
-    void
-    Loader::DataToVAO(std::shared_ptr<Model> *sharedPtr,
-                      Data<float> positions,
-                      Data<float> texCoords,
-                      Data<unsigned int> indices,
-                      bool threeDimension)
+    void DataToVAO(std::shared_ptr<Model> *sharedPtr,
+                   Data<float> positions,
+                   Data<float> texCoords,
+                   Data<unsigned int> indices,
+                   bool threeDimension)
     {
         //Copy vertices
         auto *positionArray = new float[positions.size];
@@ -181,7 +180,7 @@ namespace CGE::Loader
         for (auto vertices : modelsToLoad)
         {
             *std::get<0>(vertices) = DataToVAO(std::get<1>(vertices), std::get<2>(vertices), std::get<3>(vertices),
-                                                 std::get<4>(vertices));
+                                               std::get<4>(vertices));
         }
         modelsToLoad.clear();
     }
