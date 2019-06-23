@@ -16,8 +16,8 @@ namespace CGE::Loader
     VBOs: list of VBOs
     vertexCount: number of indices
     */
-    Model::Model(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount)
-            : VAO(VAO), VBOs(VBOs), vertexCount(vertexCount) {}
+    Model::Model(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount, glm::vec3 size)
+            : VAO(VAO), VBOs(VBOs), vertexCount(vertexCount), size(size) {}
 
     void trashModel(std::tuple<unsigned int, std::vector<unsigned int>> model);
 

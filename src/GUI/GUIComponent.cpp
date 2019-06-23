@@ -1,8 +1,8 @@
-﻿#include <IO/Window.h>
-#include <GUI/GUIComponent.h>
+﻿#include <GUI/GUIComponent.h>
 #include <GUI/GUIManager.h>
 #include <glm/ext/matrix_transform.hpp>
 #include <IO/Input.h>
+#include <IO/Window.h>
 
 namespace CGE::GUI
 {

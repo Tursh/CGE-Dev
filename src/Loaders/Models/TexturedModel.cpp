@@ -37,4 +37,9 @@ namespace CGE::Loader
     {
         return threeDimension_;
     }
+
+    glm::vec2 TexturedModel::getTextureSize()
+    {
+        return texture_->getSize();
+    }
 }

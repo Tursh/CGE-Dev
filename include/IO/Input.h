@@ -1,8 +1,8 @@
 #pragma once
 
+#include <GUI/Panel.h>
 #include <GLFW/glfw3.h>                    //GLFW*
 #include <glm/ext/vector_float2.hpp>    //glm::vec2
-#include <GUI/Panel.h>
 
 namespace CGE::IO::input
 {

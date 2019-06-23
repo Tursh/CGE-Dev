@@ -8,10 +8,11 @@ Author: Raphael Tremblay
 
 #include <GL/glew.h>
 #include <memory>
-#include "Loader/Models/Model.h"    //Model
 
 namespace CGE::Loader
 {
+
+    class Model;
 
     /*
     Data object used to load data arrays to a VAO

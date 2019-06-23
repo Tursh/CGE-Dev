@@ -1,9 +1,9 @@
 #include <glm/detail/type_vec2.hpp>
-#include <IO/Window.h>
 #include <Utils/Log.h>                        //logError
 #include <Utils/TimeUtils.h>
 #include <GUI/GUIManager.h>
 #include "IO/Input.h"
+#include <IO/Window.h>
 
 namespace CGE::IO::input
 {

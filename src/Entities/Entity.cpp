@@ -81,6 +81,14 @@ namespace CGE::Entities
         ap_ += movement;
     }
 
+    void Entity::update()
+    {
+        op_ = ap_;
+        or_ = ar_;
+        os_ = as_;
+        oa_ = aa_;
+    }
+
     void Entity::render()
     {
         if (visible_)
@@ -115,6 +123,21 @@ namespace CGE::Entities
     void Entity::setTexModel(const std::shared_ptr<Loader::TexturedModel> &texModel)
     {
         texModel_ = texModel;
+    }
+
+    void Entity::rotate(glm::vec3 rotation)
+    {
+        ar_ += rotation;
+    }
+
+    void Entity::setCollisionFunc(const std::function<bool(Entity)> &collisionFunc)
+    {
+        checkCollision_ = collisionFunc;
+    }
+
+    glm::vec3 Entity::getSize()
+    {
+        return glm::vec3();
     }
 
 }

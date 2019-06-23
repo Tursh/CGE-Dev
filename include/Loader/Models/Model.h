@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <Loader/Loader.h>
+#include <glm/glm.hpp>
 
 namespace CGE::Loader
 {
@@ -16,6 +17,7 @@ namespace CGE::Loader
         const std::vector<unsigned int> VBOs;
     public:
         const unsigned int vertexCount;
+        const glm::vec3 size;
 
         /*
         Model constructor
@@ -23,7 +25,7 @@ namespace CGE::Loader
         VBOs: list of VBOs
         vertexCount: number of indices
         */
-        Model(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount);
+        Model(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount, glm::vec3 size);
 
         /*Delete model (VAO and VBOs too)*/
         ~Model();

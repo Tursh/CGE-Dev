@@ -81,6 +81,21 @@ namespace CGE::Loader
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
     }
 
+    static glm::vec3 getSize(const Data<float> &positions)
+    {
+        glm::vec3 size(0);
+        for(int i = 0; i < positions.size; ++i)
+        {
+            if(positions.data[i * 3] > size.x)
+                size.x = positions.data[i];
+            if(positions.data[i * 3 + 1] > size.y)
+                size.x = positions.data[i];
+            if(positions.data[i * 3 + 2] > size.z)
+                size.x = positions.data[i];
+        }
+        return size;
+    }
+
     /*
     Load data to VAO and return a model that can be rendered
     positions: Data object containing float[] and size of array
@@ -100,7 +115,7 @@ namespace CGE::Loader
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
         const std::vector<unsigned int> VBOs = buffers;
         buffers.clear();
-        return std::make_shared<Model>(VAO, VBOs, indices.size);
+        return std::make_shared<Model>(VAO, VBOs, indices.size, getSize(positions));
     }
 
     /*
@@ -123,7 +138,7 @@ namespace CGE::Loader
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
         const std::vector<unsigned int> VBOs = buffers;
         buffers.clear();
-        return std::make_shared<Model>(VAO, VBOs, indices.size);
+        return std::make_shared<Model>(VAO, VBOs, indices.size, getSize(positions));
     }
 
 
@@ -142,8 +157,7 @@ namespace CGE::Loader
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
         const std::vector<unsigned int> VBOs = buffers;
         buffers.clear();
-        return std::make_shared<Model>(VAO, VBOs, indices.size);
-
+        return std::make_shared<Model>(VAO, VBOs, indices.size, getSize(positions));
     }
 
     std::vector<std::tuple<std::shared_ptr<Model> *, const Data<float>, const Data<float>, const Data<unsigned int>, bool>> modelsToLoad;

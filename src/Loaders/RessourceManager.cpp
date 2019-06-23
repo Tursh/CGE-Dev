@@ -17,7 +17,7 @@ namespace CGE::Loader
     std::map<unsigned int, std::pair<unsigned int, unsigned int>> texModelIndex;
     // <ID, path>
     std::map<unsigned int, char *> modelIndex;
-    // <ID, path>
+    // <ID, <path, atlas size>>
     std::map<unsigned int, std::tuple<char *, glm::ivec2>> texIndex;
     // <ID, .anim path>
     std::map<unsigned int, char *> animationIndex;

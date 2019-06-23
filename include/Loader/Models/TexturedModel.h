@@ -4,9 +4,9 @@
 
 #pragma once
 
+#include "Model.h"
 #include <Loader/Texture.h>
 #include <memory>
-#include "Model.h"
 
 namespace CGE::Loader
 {

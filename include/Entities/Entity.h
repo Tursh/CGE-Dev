@@ -3,6 +3,7 @@
  */
 #pragma once
 
+#include <functional>
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 #include <Loader/Texture.h>
@@ -15,7 +16,7 @@ namespace CGE::Entities
      */
     class Entity
     {
-        glm::vec3 ap_;                                         /**< @var Actual position */
+        glm::vec3 ap_;                                         /**< Actual position */
         glm::vec3 op_;                                         /**< Old position */
         glm::vec3 ar_;                                         /**< Actual rotation */
         glm::vec3 or_;                                         /**< Old rotation */
@@ -28,12 +29,12 @@ namespace CGE::Entities
         unsigned int ID_;                                      /**< Unique ID */
         std::shared_ptr<Loader::TexturedModel> texModel_;      /**< Textured model */
         bool visible_;                                         /**< Is visible */
+        std::function<bool (Entity)> checkCollision_;          /**< Collision check function */
     public:
 
         /**
          * Base Constructor
          * @param texModelID            Textured model ID
-         * @param texturedModelType     Textured model type
          * @param position              The 3D position of the entity
          * @param rotation              The 3D rotation of the entity (Pitch, Yaw, Roll)
          * @param visible               Is visible
@@ -68,11 +69,19 @@ namespace CGE::Entities
         void move(glm::vec3 movement);
 
         /**
+         * Rotate the entity by the vector
+         * @param [in] rotation rotation size in radian
+         */
+        void rotate(glm::vec3 rotation);
+
+        /**
          * Add a force that will change on the speed
          * @param [in] duration         Force duration (in tick)
          * @param [in] power            Power of the force
          */
         void addForce(int duration, glm::vec3 power);
+
+        virtual void update();
 
         void render();
 
@@ -85,5 +94,9 @@ namespace CGE::Entities
         bool isVisible() const;
 
         void setVisible(bool visible);
+
+        void setCollisionFunc(const std::function<bool(Entity)> &collisionFunc);
+
+        glm::vec3 getSize();
     };
 }
