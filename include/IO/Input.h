@@ -7,35 +7,38 @@
 namespace CGE::IO::input
 {
 
-    /*
-     Return if the key on the keyboard is pressed
-     key: key pressed (GLFW_KEY_<key>)
+    /**
+     * @param key: key to check (GLFW_KEY_<key>)
+     * @return if the key is pressed
      */
     bool isKeyPressed(int key);
 
-    /*
-     Return if the button on the mouse is pressed
-     button: button pressed (GLFW_BUTTON_MOUSE_<button>)
+    /**
+     * @param button: button to check (GLFW_BUTTON_MOUSE_<button>)
+     * @return if the button on the mouse is pressed
      */
     bool isButtonPressed(int button);
 
-    //Check if there is a visible panel
+    /**
+     * Check if there is a visible panel
+     */
     bool isPanelVisible();
 
     void addPanel(GUI::Panel *newPanel);
 
     void removePanel(GUI::Panel *panel);
 
-    /*
-     Set your own Key callback
-     Caution: if used, isKeyPressed is useless
+    /**
+     * Set your own Key callback
+     * @param keyCallBack: void keycallback(GLFWwindow *, int key, int action)
      */
     void setYourOwnKeyCallBack(std::function<void(GLFWwindow *, int, int)> keyCallBack);
 
     void resetKeyCallBack();
 
-    /*
-     Set your own MouseButton callback
+    /**
+     * Set your own mouse button callback
+     * @param keyCallBack: void keycallback(GLFWwindow *, int key, int action)
      */
     void setYourOwnMouseButtonCallBack(std::function<void(GLFWwindow *, int, int)> mouseButtonCallBack);
 
@@ -63,5 +66,9 @@ namespace CGE::IO::input
 
     glm::vec2 getMouseScroll();
 
+    void toggleGrabMouse();
+
     void grabMouse();
+
+    void ungrabMouse();
 }

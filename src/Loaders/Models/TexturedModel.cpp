@@ -42,4 +42,12 @@ namespace CGE::Loader
     {
         return texture_->getSize();
     }
+
+    const glm::vec3 &TexturedModel::getModelSize()
+    {
+        if (model_ != nullptr)
+            return model_->size;
+        else
+            return glm::vec3(0);
+    }
 }

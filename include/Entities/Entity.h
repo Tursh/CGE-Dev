@@ -8,6 +8,7 @@
 #include <glm/vec3.hpp>
 #include <Loader/Texture.h>
 #include <Loader/Models/TexturedModel.h>
+#include <Physics/Hitbox.h>
 
 namespace CGE::Entities
 {
@@ -16,6 +17,7 @@ namespace CGE::Entities
      */
     class Entity
     {
+    private:
         glm::vec3 ap_;                                         /**< Actual position */
         glm::vec3 op_;                                         /**< Old position */
         glm::vec3 ar_;                                         /**< Actual rotation */
@@ -24,14 +26,15 @@ namespace CGE::Entities
         glm::vec3 os_ = glm::vec3(0);                          /**< Old speed*/
         glm::vec3 aa_ = glm::vec3(0);                          /**< Actual acceleration */
         glm::vec3 oa_ = glm::vec3(0);                          /**< Old acceleration */
+
     protected:
-        std::vector<std::tuple<int, glm::vec3>> forces_;       /**< List of forces applied on the player */
+        std::vector<std::tuple<int, glm::vec3>> forces_;       /**< List of forces applied on the entity */
         unsigned int ID_;                                      /**< Unique ID */
         std::shared_ptr<Loader::TexturedModel> texModel_;      /**< Textured model */
         bool visible_;                                         /**< Is visible */
-        std::function<bool (Entity)> checkCollision_;          /**< Collision check function */
-    public:
+        std::function<glm::vec3 (Entity*)> checkCollision_;    /**< Collision check function */
 
+    public:
         /**
          * Base Constructor
          * @param texModelID            Textured model ID
@@ -55,10 +58,6 @@ namespace CGE::Entities
                         glm::vec3 position = glm::vec3(0),
                         glm::vec3 rotation = glm::vec3(0),
                         bool visible = true);
-
-        glm::vec3 getPosition();
-
-        glm::vec3 getRotation();
 
         /**
          * Transform the position and rotation to a matrix
@@ -84,19 +83,45 @@ namespace CGE::Entities
         virtual void update();
 
         void render();
-
+        
+		/**
+		 * Set collision function
+		 * @param collisionFunc: return the position that respect the collision
+		 */
+		void setCollisionFunc(const std::function<glm::vec3(Entity*)> &collisionFunc);
+  
+		//Getters and Setters
+		
         unsigned int getID() const;
 
+        void setSpeed(glm::vec3 speed);
+
+        const glm::vec3 &getSpeed() const;
+
+        const glm::vec3 &getPosition() const;
+
+        const glm::vec3 &getRotation() const;
+
+        glm::vec3 getRenderPosition();
+
+        glm::vec3 getRenderRotation();
+
+        const glm::vec3 &getOldPosition() const;
+
+        const glm::vec3 &getOldRotation() const;
+	
+		Hitbox getHitbox();
+        
+		
         void setTexModel(const std::shared_ptr<Loader::TexturedModel> &texModel);
 
         const std::shared_ptr<Loader::TexturedModel> &getTexModel() const;
 
-        bool isVisible() const;
-
         void setVisible(bool visible);
 
-        void setCollisionFunc(const std::function<bool(Entity)> &collisionFunc);
-
-        glm::vec3 getSize();
+        bool isVisible() const;
+        
+        virtual const glm::vec3 &getSize();
+        
     };
 }

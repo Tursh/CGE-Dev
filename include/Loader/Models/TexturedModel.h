@@ -29,6 +29,11 @@ namespace CGE::Loader
 
         virtual glm::vec2 getTextureSize();
 
+        /**
+         * @return the 3D size of the model
+         */
+        const glm::vec3 &getModelSize();
+
         bool isThreeDimension() const;
 
     };

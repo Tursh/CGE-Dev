@@ -48,8 +48,9 @@ namespace CGE::View
         //double hyp = position_.z / tan(rotation_.x);
         //position_.x = static_cast<float>(player->position_.x + sin(rotation_.z) * hyp);
         //position_.y = static_cast<float>(player->position_.y + cos(rotation_.z) * hyp);
-        position_ = player->getPosition();
-        rotation_ = player->getRotation();
+        float playerHeight = player->getSize().y;
+        position_ = player->getRenderPosition() + glm::vec3(-(4.0f / 3.0f), playerHeight, -(4.0f / 3.0f)) * (3.0f / 8.0f);
+        rotation_ = player->getRenderRotation();
     }
 
 

@@ -59,7 +59,7 @@ if (BUILD_SHARED_LIBS)
     endif ()
 
 else ()
-    set(LIBRARY_TYPE STATIC include/Utils/PerlinNoise.h)
+    set(LIBRARY_TYPE STATIC)
 endif ()
 
 add_library(CrossGameEngine ${LIBRARY_TYPE}
@@ -93,4 +93,5 @@ add_library(CrossGameEngine ${LIBRARY_TYPE}
         src/Animation/Animator.cpp
         src/Utils/XMLElementArrayLoader.cpp
         src/Entities/Entity.cpp src/GUI/GUIManager.cpp
-        src/Utils/PerlinNoice.cpp)
+        src/Utils/PerlinNoice.cpp
+        src/Physics/Hitbox.cpp)

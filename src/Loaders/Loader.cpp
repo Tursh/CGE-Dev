@@ -83,17 +83,29 @@ namespace CGE::Loader
 
     static glm::vec3 getSize(const Data<float> &positions)
     {
-        glm::vec3 size(0);
+        glm::vec3 bigger(0);
         for(int i = 0; i < positions.size; ++i)
         {
-            if(positions.data[i * 3] > size.x)
-                size.x = positions.data[i];
-            if(positions.data[i * 3 + 1] > size.y)
-                size.x = positions.data[i];
-            if(positions.data[i * 3 + 2] > size.z)
-                size.x = positions.data[i];
+            if(positions.data[i * 3] > bigger.x)
+                bigger.x = positions.data[i * 3];
+            if(positions.data[i * 3 + 1] > bigger.y)
+                bigger.y = positions.data[i * 3 + 1];
+            if(positions.data[i * 3 + 2] > bigger.z)
+                bigger.z = positions.data[i * 3 + 2];
         }
-        return size;
+
+        glm::vec3 smaller(0);
+        for(int i = 0; i < positions.size; ++i)
+        {
+            if(positions.data[i * 3] > smaller.x)
+                smaller.x = positions.data[i * 3];
+            if(positions.data[i * 3 + 1] > smaller.y)
+                smaller.y = positions.data[i * 3 + 1];
+            if(positions.data[i * 3 + 2] > smaller.z)
+                smaller.z = positions.data[i * 3 + 2];
+        }
+
+        return bigger - smaller;
     }
 
     /*

@@ -38,7 +38,6 @@ namespace CGE::IO::input
 
     namespace CallBacks
     {
-        /*Key callback function*/
         void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mode)
         {
             if (key > 348)
@@ -46,17 +45,20 @@ namespace CGE::IO::input
                 logError(key << "is not listed as a key");
                 return;
             }
+
+            //Set key in buffer for isKeyPressed function
             if (action != GLFW_REPEAT)
                 keys[key] = action;
+            //Call custom key callback
             if (customKeyCallBack != nullptr && !isPanelVisible())
                 customKeyCallBack(window, key, action);
+            //Call panel key callbacks
             else if (isPanelVisible())
                 for (auto &panel : currentPanels)
                     if (panel->getVisibility())
                         panel->keyCallback(key, action);
         }
 
-        /*Mouse callback fonction*/
         void mouseButtonCallback(GLFWwindow *window, int button, int action, int mode)
         {
             mouse[button] = action;
@@ -165,8 +167,25 @@ namespace CGE::IO::input
         return scroll;
     }
 
+    static bool isMouseGrabed = false;
+
     void grabMouse()
     {
+        isMouseGrabed = true;
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+
+    void ungrabMouse()
+    {
+        isMouseGrabed = false;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+
+    void toggleGrabMouse()
+    {
+        if(isMouseGrabed)
+            ungrabMouse();
+        else
+            grabMouse();
     }
 }

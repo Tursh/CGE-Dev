@@ -8,6 +8,8 @@
 #include <Entities/Entity.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Utils/TimeUtils.h>
+#include <GLFW/glfw3.h>
+#include <glm/gtx/string_cast.hpp>
 
 
 namespace CGE::Entities
@@ -25,6 +27,7 @@ namespace CGE::Entities
               texModel_(CGE::Loader::resManager::getTexModel(texModelID)),
               visible_(visible)
     {
+        addForce(INT_MAX, {0, -0.01f, 0});
         futurID++;
     }
 
@@ -38,16 +41,17 @@ namespace CGE::Entities
               or_(rotation),
               visible_(visible)
     {
+        addForce(INT_MAX, {0, -0.01f, 0});
         futurID++;
     }
 
-    glm::vec3 Entity::getPosition()
+    glm::vec3 Entity::getRenderPosition()
     {
         return op_ + (ap_ - op_) * CGE::Utils::getDelta();
     }
 
 
-    glm::vec3 Entity::getRotation()
+    glm::vec3 Entity::getRenderRotation()
     {
         return or_ + (ar_ - or_) * CGE::Utils::getDelta();
     }
@@ -55,8 +59,8 @@ namespace CGE::Entities
     glm::mat4 Entity::getTransformationMatrix()
     {
         glm::mat4 matrix(1);
-        glm::vec3 position = getPosition();
-        glm::vec3 rotation = getRotation();
+        glm::vec3 position = getRenderPosition();
+        glm::vec3 rotation = getRenderRotation();
 
         matrix = glm::translate(matrix, position);
         matrix = glm::rotate(matrix, rotation.x, {1, 0, 0});
@@ -81,12 +85,47 @@ namespace CGE::Entities
         ap_ += movement;
     }
 
+    void Entity::rotate(glm::vec3 rotation)
+    {
+        ar_ += rotation;
+    }
+
     void Entity::update()
     {
         op_ = ap_;
         or_ = ar_;
         os_ = as_;
         oa_ = aa_;
+
+        //Acceleration
+        //Get acceleration from the forces
+        aa_ = glm::vec3(0);
+        auto it = forces_.begin();
+        while (it != forces_.end())
+        {
+            //Add force to player acceleration
+            aa_ += std::get<1>(*it);
+            //Check duration
+            int &duration = std::get<0>(*it);
+            --duration;
+            if (duration == 0)
+                forces_.erase(it);
+            else
+                ++it;
+        }
+
+        //Speed
+        //Add acceleration to speed
+        as_ += aa_;
+        //Natural deceleration
+        as_ *= 0.9f;
+
+        //Position
+        ap_ += as_;
+        if (checkCollision_ != nullptr)
+        {
+            ap_ = checkCollision_(this);
+        }
     }
 
     void Entity::render()
@@ -125,19 +164,53 @@ namespace CGE::Entities
         texModel_ = texModel;
     }
 
-    void Entity::rotate(glm::vec3 rotation)
-    {
-        ar_ += rotation;
-    }
-
-    void Entity::setCollisionFunc(const std::function<bool(Entity)> &collisionFunc)
+    void Entity::setCollisionFunc(const std::function<glm::vec3(Entity *)> &collisionFunc)
     {
         checkCollision_ = collisionFunc;
     }
 
-    glm::vec3 Entity::getSize()
+    const glm::vec3 &Entity::getSize()
     {
-        return glm::vec3();
+        if (texModel_ != nullptr)
+            return texModel_->getModelSize();
+        else
+            return glm::vec3(0);
     }
 
+    const glm::vec3 &Entity::getOldPosition() const
+    {
+        return op_;
+    }
+
+    const glm::vec3 &Entity::getOldRotation() const
+    {
+        return or_;
+    }
+
+    const glm::vec3 &Entity::getPosition() const
+    {
+        return ap_;
+    }
+
+    const glm::vec3 &Entity::getRotation() const
+    {
+        return ar_;
+    }
+
+    const glm::vec3 &Entity::getSpeed() const
+    {
+        return as_;
+    }
+
+    void Entity::setSpeed(glm::vec3 speed)
+    {
+        as_ = speed;
+    }
+	
+	Hitbox Entity::getHitbox()
+	{
+    	glm::vec3 size = getSize();
+		return Hitbox(op_.x - size.x / 2, op_.x + size.x / 2, op_.y - size.y / 2, op_.y + size.y / 2, op_.z - size.z / 2, op_.z + size.z / 2);
+	}
+	
 }
