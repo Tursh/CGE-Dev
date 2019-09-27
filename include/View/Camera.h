@@ -20,6 +20,12 @@ namespace CGE::View
         void followPlayer(Entities::Entity *player);
 
         glm::mat4 toViewMatrix(bool zAxis = true);
+
+        /**
+         * Get the normalized vector of where the camera is oriented at
+         * @return the normalize vector of the camera orientation
+         */
+        glm::vec3 getRotationInNormalizedVector();
     };
 
 }

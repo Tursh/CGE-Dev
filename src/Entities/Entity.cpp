@@ -27,7 +27,7 @@ namespace CGE::Entities
               texModel_(CGE::Loader::resManager::getTexModel(texModelID)),
               visible_(visible)
     {
-        addForce(INT_MAX, {0, -0.01f, 0});
+        addForce(INT_MAX, {0, -0.02f, 0});
         futurID++;
     }
 
@@ -41,7 +41,7 @@ namespace CGE::Entities
               or_(rotation),
               visible_(visible)
     {
-        addForce(INT_MAX, {0, -0.01f, 0});
+        addForce(INT_MAX, {0, -0.02f, 0});
         futurID++;
     }
 
@@ -126,6 +126,8 @@ namespace CGE::Entities
         {
             ap_ = checkCollision_(this);
         }
+        
+        as_ = ap_ - op_;
     }
 
     void Entity::render()
@@ -211,6 +213,11 @@ namespace CGE::Entities
 	{
     	glm::vec3 size = getSize();
 		return Hitbox(op_.x - size.x / 2, op_.x + size.x / 2, op_.y - size.y / 2, op_.y + size.y / 2, op_.z - size.z / 2, op_.z + size.z / 2);
+	}
+	
+	bool Entity::isOnGround()
+	{
+		return fabsf(ap_.y - op_.y) < 0.0001f;
 	}
 	
 }
