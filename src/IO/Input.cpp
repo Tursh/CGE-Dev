@@ -152,7 +152,7 @@ namespace CGE::IO::input
     {
         const glm::vec2 mousePos = getCursorPos(0);
         glm::vec2 delta = mousePos - (glm::vec2) lastMousePos;
-        int tickCount = Utils::getTickCount();
+        int tickCount = Utils::TPSClock::getTickCount();
         if ((int) lastMousePos.z != tickCount)
             lastMousePos = glm::vec3(mousePos.x, mousePos.y, tickCount);
         return delta;
@@ -161,7 +161,7 @@ namespace CGE::IO::input
     glm::vec2 getMouseScroll()
     {
         glm::vec2 scroll = lastScroll;
-        int tickCount = Utils::getTickCount();
+        int tickCount = Utils::TPSClock::getTickCount();
         if (tickCount != lastScroll.z)
             lastScroll = glm::vec3(0, 0, tickCount);
         return scroll;

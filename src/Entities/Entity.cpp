@@ -27,7 +27,7 @@ namespace CGE::Entities
               texModel_(CGE::Loader::resManager::getTexModel(texModelID)),
               visible_(visible)
     {
-        addForce(INT_MAX, {0, -0.02f, 0});
+        //addForce(INT_MAX, {0, -0.02f, 0});
         futurID++;
     }
 
@@ -41,19 +41,19 @@ namespace CGE::Entities
               or_(rotation),
               visible_(visible)
     {
-        addForce(INT_MAX, {0, -0.02f, 0});
+        //addForce(INT_MAX, {0, -0.02f, 0});
         futurID++;
     }
 
     glm::vec3 Entity::getRenderPosition()
     {
-        return op_ + (ap_ - op_) * CGE::Utils::getDelta();
+        return op_ + (ap_ - op_) * CGE::Utils::TPSClock::getDelta();
     }
 
 
     glm::vec3 Entity::getRenderRotation()
     {
-        return or_ + (ar_ - or_) * CGE::Utils::getDelta();
+        return or_ + (ar_ - or_) * CGE::Utils::TPSClock::getDelta();
     }
 
     glm::mat4 Entity::getTransformationMatrix()

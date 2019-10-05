@@ -1,12 +1,10 @@
-#include <map>            //map
-#include <iomanip>        //setprecision
+#include <map>
 
 #include <GLFW/glfw3.h>
 #include <cmath>
 #include <Utils/TimeUtils.h>
 #include <thread>
 #include <unordered_map>
-
 
 #include "Utils/Log.h"
 
@@ -97,7 +95,7 @@ namespace CGE::Utils
 
     std::map<unsigned int, Chronometer *> chronos;
 
-    void startChrono(unsigned int chronoID)
+    void Chrono::start(unsigned int chronoID)
     {
         //Check if the chorno exist
         if (chronos.find(chronoID) == chronos.end())
@@ -105,7 +103,7 @@ namespace CGE::Utils
         chronos[chronoID]->start();
     }
 
-    void stopChrono(unsigned int chronoID)
+    void Chrono::stop(unsigned int chronoID)
     {
 #ifndef NDEBUG
         //Check if the chrono exist
@@ -117,7 +115,7 @@ namespace CGE::Utils
             chronos[chronoID]->stop();
     }
 
-    double getChronoTime(unsigned int chronoID)
+    double Chrono::getTime(unsigned int chronoID)
     {
 #ifndef NDEBUG
         //Check if the chrono exist
@@ -130,7 +128,7 @@ namespace CGE::Utils
             return chronos[chronoID]->getTime();
     }
 
-    void destroyChrono(unsigned chronoID)
+    void Chrono::destroy(unsigned chronoID)
     {
 #ifndef NDEBUG
         //Check if the chrono exist
@@ -164,101 +162,97 @@ namespace CGE::Utils
         return lastFPS;
     }
 
-    //Time to wait before the next tick
-    static std::unordered_map<unsigned int, float> tickCooldown;
-    //Tick count since the TPS got started
-    static std::unordered_map<unsigned int, int> tickCount;
-    //Tick count from the last tick refresh
-    static std::unordered_map<unsigned int, int> lastTickCount;
-    //Last ticks per second
-    static std::unordered_map<unsigned int, float> lastTPS;
-    //Time when the last tick occurred
-    static std::unordered_map<unsigned int, double> lastTime;
+    static std::unordered_map<unsigned int, TPSClock *> TPSClocks;
 
-    void resetDelta(unsigned int TPSClockID)
+    void TPSClock::resetDelta()
     {
-        lastTime[TPSClockID] = glfwGetTime();
+        lastTime = glfwGetTime();
     }
 
-    float getDelta(unsigned int TPSClockID)
+    float TPSClock::getDelta(unsigned int TPSClockID)
     {
-        return static_cast<float>((glfwGetTime() - lastTime[TPSClockID]) / tickCooldown[TPSClockID]);
+        TPSClock *tpsClock = TPSClocks[TPSClockID];
+        return static_cast<float>((glfwGetTime() - tpsClock->lastTime) / tpsClock->tickCooldown);
     }
 
-
-    static std::unordered_map<unsigned int, double> TPSTime;
-
-    void addTick(unsigned int TPSClockID)
+    void TPSClock::addTick()
     {
-        tickCount[TPSClockID]++;
-        if (glfwGetTime() - TPSTime[TPSClockID] >= 1.0f)
+        ++tickCount;
+        if (glfwGetTime() - TPSTime >= 1.0f)
         {
-            lastTPS[TPSClockID] = tickCount[TPSClockID] - lastTickCount[TPSClockID];
-            lastTickCount[TPSClockID] = tickCount[TPSClockID];
-            TPSTime[TPSClockID] += 1.0f;
+            lastTPS = tickCount - lastTickCount;
+            lastTickCount = tickCount;
+            TPSTime += 1.0f;
         }
-        resetDelta(TPSClockID);
+        resetDelta();
     }
 
-    void setTPS(float newTPS, unsigned int TPSClockID)
+    void TPSClock::setTPS(float newTPS, unsigned int TPSClockID)
     {
-        tickCooldown[TPSClockID] = 1.0 / newTPS;
+        TPSClocks[TPSClockID]->tickCooldown = 1.0f / newTPS;
     }
 
-    float getTPS(unsigned int TPSClockID)
+    float TPSClock::getTPS(unsigned int TPSClockID)
     {
-        return lastTPS[TPSClockID];
+        return TPSClocks[TPSClockID]->lastTPS;
     }
 
-    int getTickCount(unsigned int TPSClockID)
+    int TPSClock::getTickCount(unsigned int TPSClockID)
     {
-        return tickCount[TPSClockID];
+        return TPSClocks[TPSClockID]->tickCount;
     }
 
-    static std::unordered_map<unsigned int, double> lastTick;
 
-    bool shouldTick(unsigned int TPSClockID)
+    bool TPSClock::shouldTick(unsigned int TPSClockID)
     {
-        double deltaTime = glfwGetTime() - lastTick[TPSClockID];
-        bool shouldTick = deltaTime >= tickCooldown[TPSClockID];
+        TPSClock *tpsClock = TPSClocks[TPSClockID];
+        double deltaTime = glfwGetTime() - tpsClock->lastTick;
+        bool shouldTick = deltaTime >= tpsClock->tickCooldown;
         if (shouldTick)
         {
-            lastTick[TPSClockID] += tickCooldown[TPSClockID];
-            addTick(TPSClockID);
+            tpsClock->lastTick += tpsClock->tickCooldown;
+            tpsClock->addTick();
         }
-        if (deltaTime < tickCooldown[TPSClockID] / 10)
+        if (deltaTime < tpsClock->tickCooldown / 10)
             std::this_thread::__sleep_for(std::chrono::seconds(0),
-                                          std::chrono::milliseconds((int) (1000 * tickCooldown[TPSClockID])));
+                                          std::chrono::milliseconds((int) (1000 * tpsClock->tickCooldown)));
         return shouldTick;
     }
 
 
-    void resetTPSClock(unsigned int TPSClockID)
+    void TPSClock::reset(unsigned int TPSClockID)
     {
-        lastTick[TPSClockID] = glfwGetTime();
+        TPSClocks[TPSClockID]->lastTick = glfwGetTime();
     }
 
-    void initTPSClock(unsigned int TPSClockID)
+    void TPSClock::init(unsigned int TPSClockID, float wantedTPS)
     {
-        float currentTime = glfwGetTime();
-        tickCooldown[TPSClockID] = 1 / 60.0f;
-        tickCount[TPSClockID] = 0;
-        lastTickCount[TPSClockID] = 0;
-        lastTPS[TPSClockID] = 0;
-        lastTick[TPSClockID] = currentTime;
-        lastTime[TPSClockID] = currentTime;
-        TPSTime[TPSClockID] = currentTime;
+        //Check if TPS clock already exist
+        if (TPSClocks.count(TPSClockID) > 0)
+#ifndef NDEBUG
+        logError("TPS clock " << TPSClockID << " already exist");
+#else
+        logWarning("TPS clock " << TPSClockID << " already exist");
+#endif
+        //Create the TPS clock
+        TPSClocks[TPSClockID] = new TPSClock(TPSClockID, wantedTPS);
     }
 
-    void terminateTPSClock(unsigned int TPSClockID)
+    void TPSClock::terminate(unsigned int TPSClockID)
     {
-        tickCooldown.erase(TPSClockID);
-        tickCount.erase(TPSClockID);
-        lastTick.erase(TPSClockID);
-        lastTPS.erase(TPSClockID);
-        lastTick.erase(TPSClockID);
-        lastTime.erase(TPSClockID);
-        TPSTime.erase(TPSClockID);
+        delete TPSClocks[TPSClockID];
+        TPSClocks.erase(TPSClockID);
     }
 
+    TPSClock::TPSClock(unsigned int ID, float wantedTPS)
+    {
+        double currentTime = glfwGetTime();
+        tickCooldown = wantedTPS;
+        tickCount = 0;
+        lastTickCount = 0;
+        lastTPS = 0;
+        lastTick = currentTime;
+        lastTime = currentTime;
+        TPSTime = currentTime;
+    }
 }

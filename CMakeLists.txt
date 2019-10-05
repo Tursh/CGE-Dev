@@ -94,4 +94,5 @@ add_library(CrossGameEngine ${LIBRARY_TYPE}
         src/Utils/XMLElementArrayLoader.cpp
         src/Entities/Entity.cpp src/GUI/GUIManager.cpp
         src/Utils/PerlinNoice.cpp
-        src/Physics/Hitbox.cpp)
+        src/Physics/Hitbox.cpp
+        src/Utils/ThreadProcess.cpp)

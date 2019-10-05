@@ -8,38 +8,64 @@ namespace CGE::Utils
     std::string timeToString(double time, unsigned int microsecondPrecision,
                              bool showHours = false);
 
-    //Chronos
+    struct Chrono
+    {
+        static void start(unsigned int chronoID);
 
-    void startChrono(unsigned int chronoID);
+        static void stop(unsigned int chronoID);
 
-    void stopChrono(unsigned int chronoID);
+        static double getTime(unsigned int chronoID);
 
-    double getChronoTime(unsigned int chronoID);
-
-    void destroyChrono(unsigned int chronoID);
+        static void destroy(unsigned int chronoID);
+    };
 
     //Frames per second
-
     void addFrame();
 
     float getFPS();
 
-    //Ticks per second
 
-    void initTPSClock(unsigned int TPSClockID = 0);
+    class TPSClock
+    {
 
-    void terminateTPSClock(unsigned int TPSClockID = 0);
+        //Time to wait before the next tick
+        float tickCooldown;
+        //Tick count since the TPS got started
+        int tickCount;
+        //Tick count from the last tick refresh
+        int lastTickCount;
+        //Last ticks per second
+        float lastTPS;
+        //Time when the last tick occurred
+        double lastTime;
 
-    void resetTPSClock(unsigned int TPSClockID = 0);
+        double TPSTime;
 
-    void setTPS(float newTPS, unsigned int TPSClockID = 0);
+        double lastTick;
 
-    float getTPS(unsigned int TPSClockID = 0);
+    public:
+        static void init(unsigned int TPSClockID = 0, float wantedTPS = 1 / 60.0f);
 
-    int getTickCount(unsigned int TPSClockID = 0);
+        static void terminate(unsigned int TPSClockID = 0);
 
-    bool shouldTick(unsigned int TPSClockID = 0);
+        static void reset(unsigned int TPSClockID = 0);
 
-    float getDelta(unsigned int TPSClockID = 0);
+        static void setTPS(float newTPS, unsigned int TPSClockID = 0);
 
+        static float getTPS(unsigned int TPSClockID = 0);
+
+        static int getTickCount(unsigned int TPSClockID = 0);
+
+        static bool shouldTick(unsigned int TPSClockID = 0);
+
+        static float getDelta(unsigned int TPSClockID = 0);
+
+    private:
+        TPSClock(unsigned int ID, float wantedTPS);
+
+
+        void resetDelta();
+
+        void addTick();
+    };
 }
