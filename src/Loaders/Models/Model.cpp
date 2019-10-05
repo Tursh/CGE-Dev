@@ -17,7 +17,8 @@ namespace CGE::Loader
     vertexCount: number of indices
     */
     Model::Model(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount, glm::vec3 size)
-            : VAO(VAO), VBOs(VBOs), vertexCount(vertexCount), size(size) {}
+            : VAO(VAO), VBOs(VBOs), vertexCount(vertexCount), size(size)
+    {}
 
     void trashModel(std::tuple<unsigned int, std::vector<unsigned int>> model);
 
@@ -39,18 +40,18 @@ namespace CGE::Loader
         GLCall(glBindVertexArray(VAO));
         GLCall(glEnableVertexAttribArray(0));
         if (textured)
-        GLCall(glEnableVertexAttribArray(1));
+            GLCall(glEnableVertexAttribArray(1));
         GLCall(glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, nullptr));
         GLCall(glDisableVertexAttribArray(0));
         if (textured)
-        GLCall(glDisableVertexAttribArray(1));
+            GLCall(glDisableVertexAttribArray(1));
         GLCall(glBindVertexArray(0));
     }
 
     void Model::setTexCoords(unsigned int offset, const Data<float> &data)
     {
         glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
-        glBufferSubData(GL_ARRAY_BUFFER, offset, data.size * sizeof(float), data.data);
+        glBufferSubData(GL_ARRAY_BUFFER, offset, data.size_ * sizeof(float), data.data_);
     }
 
 

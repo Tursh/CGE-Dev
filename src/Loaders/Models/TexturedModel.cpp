@@ -19,7 +19,8 @@ namespace CGE::Loader
     void TexturedModel::render()
     {
         texture_->bind();
-        model_->render();
+        if (model_ != nullptr)
+            model_->render();
     }
 
     void TexturedModel::bind()
@@ -43,11 +44,13 @@ namespace CGE::Loader
         return texture_->getSize();
     }
 
+    static auto zero = glm::vec3(0);
+
     const glm::vec3 &TexturedModel::getModelSize()
     {
         if (model_ != nullptr)
             return model_->size;
         else
-            return glm::vec3(0);
+            return zero;
     }
 }

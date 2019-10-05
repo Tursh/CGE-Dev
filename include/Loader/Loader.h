@@ -23,26 +23,36 @@ namespace CGE::Loader
     struct Data
     {
         /**< data array*/
-        const T *data;
+        const T *data_;
         /**< array's size*/
-        unsigned int size;
+        unsigned int size_;
         /**< data usage*/
-        GLenum usage;
+        GLenum usage_;
 
         /*
         Data constructor
         data: data array
-        size: array's size
+        size_: array's size_
+        */
+        Data(T *data, unsigned int size, GLenum usage = GL_STATIC_DRAW)
+                : data_(data), size_(size), usage_(usage) {}
+
+        /*
+        Data constructor
+        data: data array
+        size_: array's size_
         */
         Data(const T *data, unsigned int size, GLenum usage = GL_STATIC_DRAW)
-                : data(data), size(size), usage(usage) {}
+                : data_(data), size_(size), usage_(usage)
+        {
+        }
     };
 
 /*
         Load data to VAO and return a model that can be rendered
-        positions: Data object containing float[] and size of array
-        texCoords: Data object containing float[] and size of array
-        indices: Data object containing unsigned int[] and size of array
+        positions: Data object containing float[] and size_ of array
+        texCoords: Data object containing float[] and size_ of array
+        indices: Data object containing unsigned int[] and size_ of array
         threeDimension: Is object in 3 dimensions
         */
     std::shared_ptr<Model> DataToVAO(const Data<float> &positions,
@@ -52,10 +62,10 @@ namespace CGE::Loader
 
     /*
     Load data to VAO and return a model that can be rendered
-    positions: Data object containing float[] and size of array
-    texCoords: Data object containing float[] and size of array
-    normals: Data object containing float[] and size of array
-    indices: Data object containing unsigned int[] and size of array
+    positions: Data object containing float[] and size_ of array
+    texCoords: Data object containing float[] and size_ of array
+    normals: Data object containing float[] and size_ of array
+    indices: Data object containing unsigned int[] and size_ of array
     */
     std::shared_ptr<Model> DataToVAO(const Data<float> &positions,
                                      const Data<float> &texCoords,
@@ -65,8 +75,8 @@ namespace CGE::Loader
 
     /*
     Load data to VAO and return a model that can be rendered (Without texture)
-    positions: Data object containing float[] and size of array
-    indices: Data object containing unsigned int[] and size of array
+    positions: Data object containing float[] and size_ of array
+    indices: Data object containing unsigned int[] and size_ of array
     threeDimension: Is object in 3 dimensions
     */
     std::shared_ptr<Model>
@@ -97,7 +107,7 @@ namespace CGE::Loader
 
 
     //Load data to VAO when you are not in the render thread
-    void DataToVAO(std::shared_ptr<Model> *sharedPtr,
+    void DataToVAO(std::shared_ptr<Model> &sharedPtr,
                    Data<float> positions,
                    Data<float> texCoords,
                    Data<unsigned int> indices,
