@@ -10,6 +10,12 @@
 namespace CGE::Utils
 {
 
+	/**
+	 * Get array in XML element
+	 * @tparam Type Array type
+	 * @param element XML element
+	 * @return The array in the XML element
+	 */
     template<class Type>
     std::vector<Type> getArray(tinyxml2::XMLElement *element)
     {
