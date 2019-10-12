@@ -214,8 +214,8 @@ namespace CGE::Loader
         }
 
         loadingModel = true;
-        bool loadedAllModels = loadingIndex + 5 > modelsToLoad.size();
-        int maxLoadingIndex = loadedAllModels ? (int)modelsToLoad.size() : 5 + loadingIndex;
+        bool loadedAllModels = loadingIndex + 200 > modelsToLoad.size();
+        int maxLoadingIndex = loadedAllModels ? (int)modelsToLoad.size() : 200 + loadingIndex;
         for (; loadingIndex < maxLoadingIndex; ++loadingIndex)
         {
             auto &model = modelsToLoad[loadingIndex];

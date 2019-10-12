@@ -70,18 +70,15 @@ namespace CGE::Loader
         return {width / atlasCount_.x, height / atlasCount_.y};
     }
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "bugprone-integer-division"
     glm::vec4 Texture::getTextureLimits(unsigned int atlasIndex)
     {
         glm::vec4 texCoords;
-        texCoords.x = (atlasIndex % atlasCount_.x) / atlasCount_.x;
-        texCoords.y = 1.0f - ((atlasIndex / atlasCount_.x) / atlasCount_.y);
+        texCoords.x = (float)(atlasIndex % atlasCount_.x) / atlasCount_.x;
+        texCoords.y = 1.0f - ((float)(atlasIndex / atlasCount_.x) / atlasCount_.y);
         texCoords.z = texCoords.x + 1.0f / atlasCount_.x;
         texCoords.w = texCoords.y - 1.0f / atlasCount_.y;
 
         return texCoords;
     }
-#pragma clang diagnostic pop
 
 }

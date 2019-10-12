@@ -126,8 +126,7 @@ namespace CGE::Entities
         {
             ap_ = checkCollision_(this);
         }
-        
-        as_ = ap_ - op_;
+
     }
 
     void Entity::render()
