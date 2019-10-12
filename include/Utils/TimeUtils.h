@@ -110,7 +110,7 @@ namespace CGE::Utils
 		 * @param TPSClockID The clock ID
 		 * @return Is it time to tick
 		 */
-		static bool shouldTick(unsigned int TPSClockID = 0);
+		static bool shouldTick(unsigned int TPSClockID = 0, bool waitForNextTick = true);
 		
 		/**
 		 * Get the time since last tick

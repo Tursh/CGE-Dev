@@ -203,8 +203,13 @@ namespace CGE::Utils
     }
 
 
-    bool TPSClock::shouldTick(unsigned int TPSClockID)
+    bool TPSClock::shouldTick(unsigned int TPSClockID, bool waitForNextTick)
     {
+        if(TPSClocks.empty())
+        {
+            logWarning("The TPS clock with ID: " << TPSClockID << "does not exist");
+            return false;
+        }
         TPSClock *tpsClock = TPSClocks[TPSClockID];
         double deltaTime = glfwGetTime() - tpsClock->lastTick;
         bool shouldTick = deltaTime >= tpsClock->tickCooldown;
@@ -213,9 +218,9 @@ namespace CGE::Utils
             tpsClock->lastTick += tpsClock->tickCooldown;
             tpsClock->addTick();
         }
-        if (deltaTime < tpsClock->tickCooldown / 10)
+        if (waitForNextTick && deltaTime > tpsClock->tickCooldown / 10)
             std::this_thread::__sleep_for(std::chrono::seconds(0),
-                                          std::chrono::milliseconds((int) (1000 * tpsClock->tickCooldown)));
+                                          std::chrono::milliseconds((int) (100 * tpsClock->tickCooldown)));
         return shouldTick;
     }
 

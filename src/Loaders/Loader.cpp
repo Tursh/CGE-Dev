@@ -11,6 +11,7 @@ Author: Raphael Tremblay
 #include <Loader/Loader.h>
 #include <mutex>
 #include <condition_variable>
+#include <GLFW/glfw3.h>
 
 
 #include "Utils/GLDebug.h"    //GLCall
@@ -85,8 +86,6 @@ namespace CGE::Loader
 
     static glm::vec3 getSize(const Data<float> &positions)
     {
-        if(positions.size_ > 10000000)
-            logError("test");
         glm::vec3 bigger(0);
         for (int i = 0; i < positions.size_ / 3; ++i)
         {
@@ -176,9 +175,8 @@ namespace CGE::Loader
         return std::make_shared<Model>(VAO, VBOs, indices.size_, getSize(positions));
     }
 
+    std::vector<std::tuple<std::shared_ptr<Model> &, const Data<float>, const Data<float>, const Data<unsigned int>, bool>> modelsExtraBuffer;
     std::vector<std::tuple<std::shared_ptr<Model> &, const Data<float>, const Data<float>, const Data<unsigned int>, bool>> modelsToLoad;
-    std::mutex mtx;
-    std::condition_variable cv;
     bool loadingModel = false;
 
     void DataToVAO(std::shared_ptr<Model> &sharedPtr,
@@ -187,11 +185,6 @@ namespace CGE::Loader
                    Data<unsigned int> indices,
                    bool threeDimension)
     {
-        if(loadingModel)
-        {
-            std::unique_lock<std::mutex> lock(mtx);
-            cv.wait(lock);
-        }
         //Copy vertices
         float *positionData = new float[positions.size_];
         std::copy(positions.data_, positions.data_ + positions.size_, positionData);
@@ -202,7 +195,7 @@ namespace CGE::Loader
         unsigned int *indicesData = new unsigned int[indices.size_];
         std::copy(indices.data_, indices.data_ + indices.size_, indicesData);
 
-        modelsToLoad.emplace_back(
+        modelsExtraBuffer.emplace_back(
                 sharedPtr,
                 Data<float>(positionData, positions.size_, positions.usage_),
                 Data<float>(texCoordsData, texCoords.size_, texCoords.usage_),
@@ -210,11 +203,22 @@ namespace CGE::Loader
                 threeDimension);
     }
 
+    int loadingIndex = 0;
+
     void loadModels()
     {
-        loadingModel = true;
-        for (auto &model : modelsToLoad)
+        if(modelsToLoad.empty())
         {
+            modelsToLoad.swap(modelsExtraBuffer);
+            return;
+        }
+
+        loadingModel = true;
+        bool loadedAllModels = loadingIndex + 5 > modelsToLoad.size();
+        int maxLoadingIndex = loadedAllModels ? (int)modelsToLoad.size() : 5 + loadingIndex;
+        for (; loadingIndex < maxLoadingIndex; ++loadingIndex)
+        {
+            auto &model = modelsToLoad[loadingIndex];
             auto &modelPtr = std::get<0>(model);
             const auto &positions = std::get<1>(model);
             const auto &texCoords = std::get<2>(model);
@@ -226,9 +230,13 @@ namespace CGE::Loader
             delete[] texCoords.data_;
             delete[] indices.data_;
         }
-        modelsToLoad.clear();
+        if(loadedAllModels)
+        {
+            loadingIndex = 0;
+            modelsToLoad.clear();
+            modelsToLoad.swap(modelsExtraBuffer);
+        }
         loadingModel = false;
-        cv.notify_all();
     }
 
     //std::shared_ptr<AnimatedModel>
