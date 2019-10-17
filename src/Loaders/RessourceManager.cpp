@@ -3,9 +3,7 @@
 #include "Loader/RessourceManager.h"
 
 #include <map>
-#include <Loader/RessourceManager.h>
 #include <GL/glew.h>
-#include <GL/gl.h>
 #include <Utils/GLDebug.h>
 
 
@@ -241,7 +239,8 @@ namespace CGE::Loader
     }
 
     std::vector<unsigned int> textureToClear;
-    std::vector<std::tuple<unsigned int, std::vector<unsigned int>>> modelToClear;
+    std::vector<std::tuple<unsigned int, std::vector<unsigned int>>> modelToClear,
+            modelToClearExtraBuffer; //* < For multithreading memory management
 
     void resManager::scrap()
     {
@@ -254,6 +253,7 @@ namespace CGE::Loader
             GLCall(glDeleteTextures(1, &texture));
         }
         textureToClear.clear();
+        modelToClear.swap(modelToClearExtraBuffer);
         for (const auto &model : modelToClear)
         {
             auto &VAO = std::get<0>(model);
@@ -268,6 +268,7 @@ namespace CGE::Loader
             }
         }
         modelToClear.clear();
+
     }
 
     void trashTexture(unsigned int texture)
@@ -275,9 +276,9 @@ namespace CGE::Loader
         textureToClear.push_back(texture);
     }
 
-    void trashModel(std::tuple<unsigned int, std::vector<unsigned int>> model)
+    void trashModel(const std::tuple<unsigned int, std::vector<unsigned int>>& model)
     {
-        modelToClear.push_back(model);
+        modelToClearExtraBuffer.push_back(model);
     }
 
 }

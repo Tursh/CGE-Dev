@@ -27,7 +27,7 @@ namespace CGE::Entities
               texModel_(CGE::Loader::resManager::getTexModel(texModelID)),
               visible_(visible)
     {
-        //addForce(INT_MAX, {0, -0.02f, 0});
+        //addForce(INT_MAX, {0, -0.04f, 0});
         futurID++;
     }
 
@@ -41,7 +41,7 @@ namespace CGE::Entities
               or_(rotation),
               visible_(visible)
     {
-        //addForce(INT_MAX, {0, -0.02f, 0});
+        //addForce(INT_MAX, {0, -0.04f, 0});
         futurID++;
     }
 

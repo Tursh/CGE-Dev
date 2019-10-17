@@ -12,6 +12,7 @@ Author: Raphael Tremblay
 #include <mutex>
 #include <condition_variable>
 #include <GLFW/glfw3.h>
+#include <thread>
 
 
 #include "Utils/GLDebug.h"    //GLCall
@@ -195,30 +196,35 @@ namespace CGE::Loader
         unsigned int *indicesData = new unsigned int[indices.size_];
         std::copy(indices.data_, indices.data_ + indices.size_, indicesData);
 
-        modelsExtraBuffer.emplace_back(
-                sharedPtr,
-                Data<float>(positionData, positions.size_, positions.usage_),
-                Data<float>(texCoordsData, texCoords.size_, texCoords.usage_),
-                Data<unsigned int>(indicesData, indices.size_, indices.usage_),
-                threeDimension);
+        std::tuple<std::shared_ptr<Model> &, const Data<float>, const Data<float>, const Data<unsigned int>, bool> model =
+                {sharedPtr,
+                                Data<float>(positionData, positions.size_, positions.usage_),
+                                Data<float>(texCoordsData, texCoords.size_, texCoords.usage_),
+                                Data<unsigned int>(indicesData, indices.size_, indices.usage_),
+                                threeDimension};
+
+        while(loadingModel)
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        modelsExtraBuffer.push_back(model);
+        if(loadingModel)
+            logInfo("tests");
     }
 
-    int loadingIndex = 0;
+    //int loadingIndex = 0;
 
     void loadModels()
     {
-        if(modelsToLoad.empty())
+        unsigned int size = modelsToLoad.size();
+        if(size == 0)
         {
+            loadingModel = true;
             modelsToLoad.swap(modelsExtraBuffer);
+            loadingModel = false;
             return;
         }
 
-        loadingModel = true;
-        bool loadedAllModels = loadingIndex + 200 > modelsToLoad.size();
-        int maxLoadingIndex = loadedAllModels ? (int)modelsToLoad.size() : 200 + loadingIndex;
-        for (; loadingIndex < maxLoadingIndex; ++loadingIndex)
+        for(auto &model : modelsToLoad)
         {
-            auto &model = modelsToLoad[loadingIndex];
             auto &modelPtr = std::get<0>(model);
             const auto &positions = std::get<1>(model);
             const auto &texCoords = std::get<2>(model);
@@ -230,12 +236,9 @@ namespace CGE::Loader
             delete[] texCoords.data_;
             delete[] indices.data_;
         }
-        if(loadedAllModels)
-        {
-            loadingIndex = 0;
-            modelsToLoad.clear();
-            modelsToLoad.swap(modelsExtraBuffer);
-        }
+        modelsToLoad.clear();
+        loadingModel = true;
+        modelsToLoad.swap(modelsExtraBuffer);
         loadingModel = false;
     }
 

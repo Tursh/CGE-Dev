@@ -7,6 +7,7 @@
 #include <Utils/GLDebug.h>
 #include <Utils/Log.h>
 #include <tuple>
+#include <utility>
 
 namespace CGE::Loader
 {
@@ -17,10 +18,10 @@ namespace CGE::Loader
     vertexCount: number of indices
     */
     Model::Model(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount, glm::vec3 size)
-            : VAO(VAO), VBOs(VBOs), vertexCount(vertexCount), size(size)
+            : VAO(VAO), VBOs(std::move(VBOs)), vertexCount(vertexCount), size(size)
     {}
 
-    void trashModel(std::tuple<unsigned int, std::vector<unsigned int>> model);
+    void trashModel(const std::tuple<unsigned int, std::vector<unsigned int>> &model);
 
     /*Delete model (VAO and VBOs too)*/
     Model::~Model()
