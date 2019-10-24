@@ -45,7 +45,7 @@ namespace CGE::Loader
         /*
          * For texture atlas
          * return coordinates in this order:
-         * {left, bottom, right, top}
+         * {x-, y-, x+, y+}
          */
         glm::vec4 getTextureLimits(unsigned int atlasIndex = 0);
     };
