@@ -106,6 +106,8 @@ namespace CGE::GUI::GUIManager
 
     void clear()
     {
+        //TODO: Check that weird GUI system that always make everything crash
+        return; //Because it's too buggy,
         singleDelete = false;
         for (auto *panel : panels)
             delete panel;

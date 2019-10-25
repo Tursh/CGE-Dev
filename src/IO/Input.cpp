@@ -55,7 +55,7 @@ namespace CGE::IO::input
             //Call panel key callbacks
             else if (isPanelVisible())
                 for (auto &panel : currentPanels)
-                    if (panel->getVisibility())
+                    if (panel->getVisibility() && panel->keyCallback != nullptr)
                         panel->keyCallback(key, action);
         }
 
