@@ -18,6 +18,9 @@ namespace CGE::IO
 
         glm::mat4 projectionMatrix;
 
+        //Projection matrix info
+        float FOV = 45.0f, zNear = 0.000001f, zFar = 100.0f;
+
         //The window pointer
         GLFWwindow *glfwWindow_;
 
@@ -41,6 +44,8 @@ namespace CGE::IO
         unsigned int getHeight() const;
 
         unsigned int getID() const;
+
+        void createProjectionMatrix(float FOV, float zNear = 0.000001f, float zFar = 100.0f);
 
         const glm::mat4 &getProjectionMatrix() const;
 

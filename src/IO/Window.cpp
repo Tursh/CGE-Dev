@@ -120,7 +120,15 @@ namespace CGE::IO
     {
         width = dimension.x;
         height = dimension.y;
-        projectionMatrix = glm::perspective(45.0f, (float) width / height, 0.00001f, 100.f);
+        projectionMatrix = glm::perspective(FOV, (float) width / height, zNear, zFar);
+    }
+
+    void Window::createProjectionMatrix(float FOV, float zNear, float zFar)
+    {
+        this->FOV = FOV;
+        this->zNear = zNear;
+        this->zFar = zFar;
+        projectionMatrix = glm::perspective(FOV, (float) width / height, zNear, zFar);
     }
 
     static std::function<void(int, int)> customWindowResizeCallback;

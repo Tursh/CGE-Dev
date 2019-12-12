@@ -82,7 +82,7 @@ namespace CGE::Entities
 
         virtual void update();
 
-        void render();
+        virtual void render();
         
 		/**
 		 * Set collision function
