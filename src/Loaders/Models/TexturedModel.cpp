@@ -12,44 +12,38 @@
 
 namespace CGE::Loader
 {
-    TexturedModel::TexturedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture> texture,
+    TexturedModel::TexturedModel(SharedMesh mesh,
+                                 SharedTexture texture,
                                  bool threeDimension)
-            : model_(std::move(model)), texture_(std::move(texture)), threeDimension_(threeDimension) {}
+            : mesh_(std::move(mesh)),
+              texture_(std::move(texture)),
+              threeDimension_(threeDimension) {}
 
     void TexturedModel::render()
     {
         texture_->bind();
-        if (model_ != nullptr)
-            model_->render();
+        if (mesh_ != nullptr)
+            mesh_->render();
     }
 
     void TexturedModel::bind()
     {
         texture_->bind();
-        model_->bind();
+        mesh_->bind();
     }
 
-    const unsigned int &TexturedModel::indicesCount()
-    {
-        return model_->vertexCount;
-    }
+    const unsigned int &TexturedModel::indicesCount() { return mesh_->vertexCount; }
 
-    bool TexturedModel::isThreeDimension() const
-    {
-        return threeDimension_;
-    }
+    bool TexturedModel::isThreeDimension() const { return threeDimension_; }
 
-    glm::vec2 TexturedModel::getTextureSize()
-    {
-        return texture_->getSize();
-    }
+    glm::vec2 TexturedModel::getTextureSize() { return texture_->getSize(); }
 
     static auto zero = glm::vec3(0);
 
     const glm::vec3 &TexturedModel::getModelSize()
     {
-        if (model_ != nullptr)
-            return model_->size;
+        if (mesh_ != nullptr)
+            return mesh_->size;
         else
             return zero;
     }

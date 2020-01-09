@@ -9,7 +9,6 @@
 #include <string>                        //std::string
 #include <vector>                        //std::vector
 #include <cstring>
-#include <memory>
 
 #include "Loader/Loader.h"                        //loadToVAO
 #include "Utils/Log.h"                        //logError
@@ -38,7 +37,7 @@ namespace CGE::Loader
                                      std::vector<unsigned int> &indices, std::vector<glm::vec2> &texs,
                                      std::vector<glm::vec3> &norms);
 
-    std::shared_ptr<Model> loadOBJFile(const char *filePath)
+    SharedMesh loadOBJFile(const char *filePath)
     {
 #ifdef SHOWTIME
         double time = glfwGetTime();
@@ -162,12 +161,13 @@ namespace CGE::Loader
 
         //Load to VAO
         //float[] -> Data objects
-        const Data<float> positionsData(pos, (unsigned int) (vertices.size()) * 3);
-        const Data<float> textureCoordsData(tex, (unsigned int) (vertices.size()) * 2);
-        const Data<float> normalsData(norm, (unsigned int) (vertices.size()) * 3);
-        const Data<unsigned int> indicesData(ind, (unsigned int) (indices.size()));
+        MeshData meshData;
+        meshData.positions = Data<float>(pos, (unsigned int) (vertices.size()) * 3);
+        meshData.textureCoordinates = Data<float>(tex, (unsigned int) (vertices.size()) * 2);
+        meshData.normals = Data<float>(norm, (unsigned int) (vertices.size()) * 3);
+        meshData.indices = Data<unsigned int>(ind, (unsigned int) (indices.size()));
         //Data objects -> VAO
-        std::shared_ptr<Model> model = DataToVAO(positionsData, textureCoordsData, normalsData, indicesData);
+        SharedMesh model = meshData.load();
         //Delete loading arrays
         delete[] pos;
         delete[] tex;
@@ -186,10 +186,11 @@ namespace CGE::Loader
         return model;
     }
 
-    static inline void processVertex(unsigned int &index, unsigned int &texInd,
-                                     unsigned int &normInd, std::vector<Vertex> &vertices,
-                                     std::vector<unsigned int> &indices, std::vector<glm::vec2> &texs,
-                                     std::vector<glm::vec3> &norms)
+
+    static void processVertex(unsigned int &index, unsigned int &texInd,
+                              unsigned int &normInd, std::vector<Vertex> &vertices,
+                              std::vector<unsigned int> &indices, std::vector<glm::vec2> &texs,
+                              std::vector<glm::vec3> &norms)
     {
         //Get vertex with the same position if there is
         Vertex &currentVertex = vertices[index - 1];
@@ -222,4 +223,9 @@ namespace CGE::Loader
         }
     }
 
+    template
+    struct Data<float>;
+    template
+    struct Data<unsigned int>;
 }
+

@@ -2,6 +2,7 @@
 
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
+#include <memory>
 
 namespace CGE::Loader
 {
@@ -49,4 +50,6 @@ namespace CGE::Loader
          */
         glm::vec4 getTextureLimits(unsigned int atlasIndex = 0);
     };
+
+    typedef std::shared_ptr<Texture> SharedTexture;
 }

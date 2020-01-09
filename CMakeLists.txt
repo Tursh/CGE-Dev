@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-project(CrossGameEngine)
+project(CGE)
 
 option(BUILD_SHARED_LIBS "Compile CGE as a shared library" OFF)
 
@@ -62,7 +62,7 @@ else ()
     set(LIBRARY_TYPE STATIC)
 endif ()
 
-add_library(CrossGameEngine ${LIBRARY_TYPE}
+add_library(CGE ${LIBRARY_TYPE}
         src/GUI/Button.cpp
         src/GUI/GUIComponent.cpp
         src/GUI/GUIShader.cpp
@@ -85,7 +85,7 @@ add_library(CrossGameEngine ${LIBRARY_TYPE}
         src/extern/stb_image.c
         src/View/Camera.cpp
         src/Loaders/FileLoader/DAELoader.cpp
-        src/Loaders/Models/Model.cpp
+        src/Loaders/Models/Mesh.cpp
         src/Loaders/Models/TexturedModel.cpp
         src/Animation/TwoDAnimation.cpp
         src/Animation/ModelAnimation.cpp
@@ -95,4 +95,4 @@ add_library(CrossGameEngine ${LIBRARY_TYPE}
         src/Entities/Entity.cpp src/GUI/GUIManager.cpp
         src/Utils/PerlinNoice.cpp
         src/Physics/Hitbox.cpp
-        src/Utils/ThreadProcess.cpp)
+        src/Utils/ThreadProcess.cpp src/Loaders/Models/MeshlBuilder.cpp include/Loader/Models/MeshlBuilder.h)

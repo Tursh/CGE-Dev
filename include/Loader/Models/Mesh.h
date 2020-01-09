@@ -8,10 +8,10 @@ namespace CGE::Loader
 {
 
     /*
-    Basic Model containing the shape of a 2D or 3D model
+    Basic Mesh containing the shape of a 2D or 3D model
     VAO: ID of the VAO
     */
-    class Model
+    class Mesh
     {
         const unsigned int VAO;
         const std::vector<unsigned int> VBOs;
@@ -20,15 +20,15 @@ namespace CGE::Loader
         const glm::vec3 size;
 
         /*
-        Model constructor
+        Mesh constructor
         VAO: VAO ID
         VBOs: list of VBOs
         vertexCount: number of indices
         */
-        Model(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount, glm::vec3 size);
+        Mesh(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount, glm::vec3 size);
 
         /*Delete model (VAO and VBOs too)*/
-        ~Model();
+        ~Mesh();
 
         /*Bind model*/
         void bind() const;
@@ -38,5 +38,6 @@ namespace CGE::Loader
 
         void setTexCoords(unsigned int offset, const Data<float> &data);
     };
+
 
 }

@@ -1,5 +1,5 @@
 #include <GL/glew.h>    //GL*
-#include <Loader/Models/Model.h>
+#include <Loader/Models/Mesh.h>
 #include <extern/stb_image.h>    //decodePNG
 #include <Loader/Texture.h>    //Texture
 #include <Utils/Log.h>        //logError

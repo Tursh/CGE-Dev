@@ -55,8 +55,12 @@ namespace CGE::Loader
 #endif
         //Check if the file has been opened correctly
         if (file == nullptr)
+        {
             //Print if file could not open
-        logError("could not open '" << FILEPATH << "'");
+            logWarning("could not open '" << FILEPATH << "'" << ".");
+            logWarning("The resource manager did not initialize correctly!");
+            return;
+        }
 
         unsigned int lineCount = 0;
         while (true)
@@ -85,7 +89,7 @@ namespace CGE::Loader
                 fscanf(file, "%u %u %u\n", &ID, &info.first, &info.second);
                 texModelIndex[ID] = info;
             }
-                //Load Model
+                //Load Mesh
             else if (head == 'M')
             {
                 unsigned int ID;
@@ -137,25 +141,25 @@ namespace CGE::Loader
             delete[] index.second;
     }
 
-    //Buffers <ID, Model/Texture>
+    //Buffers <ID, Mesh/Texture>
     std::map<unsigned int, std::weak_ptr<TexturedModel>> texModelBuf;
-    std::map<unsigned int, std::weak_ptr<Model>> modelBuf;
+    std::map<unsigned int, std::weak_ptr<Mesh>> modelBuf;
     std::map<unsigned int, std::weak_ptr<Texture>> texBuf;
     std::map<unsigned int, std::weak_ptr<TwoDAnimatedModel>> twoDAniModelBuf;
     std::map<unsigned int, std::weak_ptr<Texture>> twoDAniBuf;
 
     //Check if textured model got already loaded and return it
-    std::shared_ptr<TexturedModel> resManager::getTexModel(unsigned int ID)
+    SharedTexModel resManager::getTexModel(unsigned int ID)
     {
 #ifndef NDEBUG
         if (texModelIndex.find(ID) == texModelIndex.end())
         logError("The textured model: " << ID << " does not exist!");
 #endif
-        std::shared_ptr<TexturedModel> texModel;
+        SharedTexModel texModel;
         start:
         if (texModelBuf.find(ID) == texModelBuf.end())
         {
-            //Get Model and Texture IDs
+            //Get Mesh and Texture IDs
             std::pair<unsigned int, unsigned int> &pair = texModelIndex[ID];
             texModel = std::make_shared<TexturedModel>(getModel(pair.first), getTexture(pair.second), pair.first);
             texModelBuf[ID] = texModel;
@@ -173,9 +177,9 @@ namespace CGE::Loader
     }
 
     //Check if model got already loaded and return it
-    std::shared_ptr<Model> resManager::getModel(unsigned int ID)
+    SharedMesh resManager::getModel(unsigned int ID)
     {
-        std::shared_ptr<Model> model;
+        SharedMesh model;
         start:
         //check if the model is loaded
         if (modelBuf.find(ID) == modelBuf.end())
@@ -187,7 +191,7 @@ namespace CGE::Loader
             logError("The model with the ID: " << ID << " does not exist.");
 #endif //NDEBUG
             //If 0, we want the square model
-            //logInfo("Model with ID: " << ID << "got loaded. ");
+            //logInfo("Mesh with ID: " << ID << "got loaded. ");
             if (ID == 0)
                 model = DataToVAO(*SQUARE_POSITION, *SQUARE_TEX_COORDS, *SQUARE_INDICES, false);
             else
@@ -207,9 +211,9 @@ namespace CGE::Loader
     }
 
     //Check if texture got already loaded and return it
-    std::shared_ptr<Texture> resManager::getTexture(unsigned int ID)
+    SharedTexture resManager::getTexture(unsigned int ID)
     {
-        std::shared_ptr<Texture> tex;
+        SharedTexture tex;
         start:
         if (texBuf.find(ID) == texBuf.end())
         {
@@ -276,9 +280,14 @@ namespace CGE::Loader
         textureToClear.push_back(texture);
     }
 
-    void trashModel(const std::tuple<unsigned int, std::vector<unsigned int>>& model)
+    void trashModel(const std::tuple<unsigned int, std::vector<unsigned int>> &model)
     {
         modelToClearExtraBuffer.push_back(model);
     }
 
 }
+
+template
+struct CGE::Loader::Data<float>;
+template
+struct CGE::Loader::Data<unsigned int>;

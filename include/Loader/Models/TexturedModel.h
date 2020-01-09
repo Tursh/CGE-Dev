@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Model.h"
+#include "Mesh.h"
 #include <Loader/Texture.h>
 #include <memory>
 
@@ -14,12 +14,11 @@ namespace CGE::Loader
     {
     protected:
         bool threeDimension_;
-        /*Texture pointer*/
-        std::shared_ptr<Texture> texture_;
-        /*Model*/
-        std::shared_ptr<Model> model_;
+        SharedTexture texture_;
+        SharedMesh mesh_;
+
     public:
-        TexturedModel(std::shared_ptr<Model> model, std::shared_ptr<Texture> texture, bool threeDimension);
+        TexturedModel(SharedMesh mesh, SharedTexture texture, bool threeDimension);
 
         virtual void render();
 
@@ -37,5 +36,7 @@ namespace CGE::Loader
         bool isThreeDimension() const;
 
     };
+
+    typedef std::shared_ptr<TexturedModel> SharedTexModel;
 
 }

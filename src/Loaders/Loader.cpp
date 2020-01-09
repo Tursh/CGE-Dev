@@ -1,12 +1,12 @@
 /*
-Load data arrays to a Model for rendering
+Load data arrays to a Mesh for rendering
 Author: Raphael Tremblay
 */
 
 #include <GL/glew.h>    //GL*
 
 #include <vector>        //std::vector
-#include <Loader/Models/Model.h>
+#include <Loader/Models/Mesh.h>
 #include <Utils/Log.h>
 #include <Loader/Loader.h>
 #include <mutex>
@@ -119,7 +119,7 @@ namespace CGE::Loader
     indices: Data object containing unsigned int[] and size_ of array
     threeDimension: Is object in 3 dimensions
     */
-    std::shared_ptr<Model>
+    SharedMesh
     DataToVAO(const Data<float> &positions, const Data<float> &texCoords, const Data<unsigned int> &indices,
               bool threeDimension)
     {
@@ -131,7 +131,7 @@ namespace CGE::Loader
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
         const std::vector<unsigned int> VBOs = buffers;
         buffers.clear();
-        return std::make_shared<Model>(VAO, VBOs, indices.size_, getSize(positions));
+        return std::make_shared<Mesh>(VAO, VBOs, indices.size_, getSize(positions));
     }
 
     /*
@@ -141,7 +141,7 @@ namespace CGE::Loader
     normals: Data object containing float[] and size_ of array
     indices: Data object containing unsigned int[] and size_ of array
     */
-    std::shared_ptr<Model>
+    SharedMesh
     DataToVAO(const Data<float> &positions, const Data<float> &texCoords, const Data<float> &normals,
               const Data<unsigned int> &indices)
     {
@@ -154,7 +154,7 @@ namespace CGE::Loader
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
         const std::vector<unsigned int> VBOs = buffers;
         buffers.clear();
-        return std::make_shared<Model>(VAO, VBOs, indices.size_, getSize(positions));
+        return std::make_shared<Mesh>(VAO, VBOs, indices.size_, getSize(positions));
     }
 
 
@@ -163,7 +163,7 @@ namespace CGE::Loader
     positions: Data object containing float[] and size_ of array
     indices: Data object containing unsigned int[] and size_ of array
     */
-    std::shared_ptr<Model>
+    SharedMesh
     DataToVAO(const Data<float> &positions, const Data<unsigned int> &indices, bool threeDimension)
     {
         const int VAO = createVAO();
@@ -173,49 +173,72 @@ namespace CGE::Loader
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
         const std::vector<unsigned int> VBOs = buffers;
         buffers.clear();
-        return std::make_shared<Model>(VAO, VBOs, indices.size_, getSize(positions));
+        return std::make_shared<Mesh>(VAO, VBOs, indices.size_, getSize(positions));
     }
 
-    std::vector<std::tuple<std::shared_ptr<Model> &, const Data<float>, const Data<float>, const Data<unsigned int>, bool>> modelsExtraBuffer;
-    std::vector<std::tuple<std::shared_ptr<Model> &, const Data<float>, const Data<float>, const Data<unsigned int>, bool>> modelsToLoad;
+    SharedMesh Loader::DataToVAO(const MeshData &meshData)
+    {
+#ifndef NDEBUG
+        if (!isOnOpenGLThread())
+        logError("There is no openGL context in this thread!");
+
+        if (!meshData.isValid())
+        logError("This mesh is invalid!");
+#endif
+
+        unsigned int VAO = createVAO();
+
+        loadDataInAttribArray(0, meshData.threeDimension ? 3 : 2, meshData.positions);
+
+        if (meshData.textureCoordinates.size_ != 0)
+            loadDataInAttribArray(1, 2, meshData.textureCoordinates);
+
+        if (meshData.normals.size_ != 0)
+            loadDataInAttribArray(2, 3, meshData.normals);
+
+        loadIndices(meshData.indices);
+
+        GLCall(glBindVertexArray(0));
+        GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+
+        const std::vector<unsigned int> VBOs = buffers;
+        buffers.clear();
+
+        return std::make_shared<Mesh>(VAO, VBOs, meshData.indices.size_, getSize(meshData.positions));
+    }
+
+    std::vector<std::tuple<SharedMesh &, MeshData>> modelsExtraBuffer;
+    std::vector<std::tuple<SharedMesh &, MeshData>> modelsToLoad;
     bool loadingModel = false;
 
-    void DataToVAO(std::shared_ptr<Model> &sharedPtr,
-                   Data<float> positions,
-                   Data<float> texCoords,
-                   Data<unsigned int> indices,
-                   bool threeDimension)
+    void Loader::DataToVAO(SharedMesh &sharedPtr, MeshData meshData)
     {
-        //Copy vertices
-        float *positionData = new float[positions.size_];
-        std::copy(positions.data_, positions.data_ + positions.size_, positionData);
+        //Copy vertices to loader memory
+        float *positionData = new float[meshData.positions.size_];
+        std::copy(meshData.positions.data_, meshData.positions.data_ + meshData.positions.size_, positionData);
+        meshData.positions.data_ = positionData;
 
-        float *texCoordsData = new float[texCoords.size_];
-        std::copy(texCoords.data_, texCoords.data_ + texCoords.size_, texCoordsData);
+        float *texCoordsData = new float[meshData.textureCoordinates.size_];
+        std::copy(meshData.textureCoordinates.data_,
+                  meshData.textureCoordinates.data_ + meshData.textureCoordinates.size_, texCoordsData);
+        meshData.textureCoordinates.data_ = texCoordsData;
 
-        unsigned int *indicesData = new unsigned int[indices.size_];
-        std::copy(indices.data_, indices.data_ + indices.size_, indicesData);
+        unsigned int *indicesData = new unsigned int[meshData.indices.size_];
+        std::copy(meshData.indices.data_, meshData.indices.data_ + meshData.indices.size_, indicesData);
+        meshData.indices.data_ = indicesData;
 
-        std::tuple<std::shared_ptr<Model> &, const Data<float>, const Data<float>, const Data<unsigned int>, bool> model =
-                {sharedPtr,
-                                Data<float>(positionData, positions.size_, positions.usage_),
-                                Data<float>(texCoordsData, texCoords.size_, texCoords.usage_),
-                                Data<unsigned int>(indicesData, indices.size_, indices.usage_),
-                                threeDimension};
+        std::tuple<SharedMesh &, MeshData> meshWithPointer = {sharedPtr, meshData};
 
-        while(loadingModel)
+        while (loadingModel)
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
-        modelsExtraBuffer.push_back(model);
-        if(loadingModel)
-            logInfo("tests");
+
+        modelsExtraBuffer.push_back(meshWithPointer);
     }
 
-    //int loadingIndex = 0;
-
-    void loadModels()
+    void loadMeshes()
     {
         unsigned int size = modelsToLoad.size();
-        if(size == 0)
+        if (size == 0)
         {
             loadingModel = true;
             modelsToLoad.swap(modelsExtraBuffer);
@@ -223,24 +246,22 @@ namespace CGE::Loader
             return;
         }
 
-        for(auto &model : modelsToLoad)
+        for (auto &model : modelsToLoad)
         {
-            auto &modelPtr = std::get<0>(model);
-            const auto &positions = std::get<1>(model);
-            const auto &texCoords = std::get<2>(model);
-            const auto &indices = std::get<3>(model);
+            auto &meshPtr = std::get<0>(model);
+            auto &meshData = std::get<1>(model);
 
-            modelPtr = DataToVAO(positions, texCoords, indices, std::get<4>(model));
+            meshPtr = DataToVAO(meshData);
 
-            delete[] positions.data_;
-            delete[] texCoords.data_;
-            delete[] indices.data_;
+            meshData.destroy();
         }
         modelsToLoad.clear();
         loadingModel = true;
         modelsToLoad.swap(modelsExtraBuffer);
         loadingModel = false;
     }
+
+
 
     //std::shared_ptr<AnimatedModel>
     //Loader::DataToVAO(const Data<float> &positions, const Data<float> &texCoords, const Data<float> &normals,
@@ -261,4 +282,77 @@ namespace CGE::Loader
     //    return std::make_shared<AnimatedModel>(VAO, VBOs, indices.size_);
     //}
 
+    //template<typename T>
+    //Data<T>::Data(const T *data, unsigned int size, bool makeCopy, GLenum usage)
+
+    template<typename T>
+    Data<T>::Data(const std::vector<glm::vec3> &data, bool makeCopy, GLenum usage)
+            : data_(data.data()), size_(data.size()), usage_(usage)
+    {
+        if (makeCopy)
+        {
+            data_ = new T[3 * data.size()];
+            std::copy(data.begin(), data.end(), data_);
+        }
+    }
+
+    template<typename T>
+    Data<T>::Data(const std::vector<glm::vec2> &data, bool makeCopy, GLenum usage)
+            : data_(data.data()), size_(data.size()), usage_(usage)
+    {
+        if (makeCopy)
+        {
+            data_ = new T[2 * data.size()];
+            std::copy(data.begin(), data.end(), data_);
+        }
+    }
+
+    template<typename T>
+    Data<T>::Data(const std::vector<unsigned int> &data, bool makeCopy, GLenum usage)
+            : data_(data.data()), size_(data.size()), usage_(usage)
+    {
+        if (makeCopy)
+        {
+            data_ = new T[data.size()];
+            std::copy(data.begin(), data.end(), data_);
+        }
+    }
+
+    template<typename T>
+    void Data<T>::deleteData()
+    {
+        if (isValid())
+        {
+            delete[] data_;
+            size_ = 0;
+        }
+    }
+
+    template<typename T>
+    bool Data<T>::isValid() const
+    {
+        return size_ != 0;
+    }
+
+    bool MeshData::isValid() const
+    {
+        return positions.isValid() && indices.isValid();
+    }
+
+    void MeshData::destroy()
+    {
+        positions.deleteData();
+        textureCoordinates.deleteData();
+        normals.deleteData();
+        indices.deleteData();
+    }
+
+    SharedMesh MeshData::load()
+    {
+        if (isOnOpenGLThread())
+            return DataToVAO(*this);
+        else
+        logError("You can't load a model outside the render thread");
+        return nullptr;
+    }
 }

@@ -14,12 +14,12 @@
 
 namespace CGE::Entities
 {
-    unsigned int futurID = 1;
+    unsigned int futureID = 1;
 
     Entity::Entity(unsigned int texModelID, glm::vec3 position,
                    glm::vec3 rotation,
                    bool visible)
-            : ID_(futurID),
+            : ID_(futureID),
               ap_(position),
               op_(position),
               ar_(rotation),
@@ -28,13 +28,13 @@ namespace CGE::Entities
               visible_(visible)
     {
         //addForce(INT_MAX, {0, -0.04f, 0});
-        futurID++;
+        ++futureID;
     }
 
     Entity::Entity(std::shared_ptr<Loader::TexturedModel> texModel, glm::vec3 position, glm::vec3 rotation,
                    bool visible)
             : texModel_(std::move(texModel)),
-              ID_(futurID),
+              ID_(futureID),
               ap_(position),
               op_(position),
               ar_(rotation),
@@ -42,7 +42,7 @@ namespace CGE::Entities
               visible_(visible)
     {
         //addForce(INT_MAX, {0, -0.04f, 0});
-        futurID++;
+        ++futureID;
     }
 
     glm::vec3 Entity::getRenderPosition()
@@ -140,83 +140,44 @@ namespace CGE::Entities
         forces_.emplace_back(duration, Size);
     }
 
-    unsigned int Entity::getID() const
-    {
-        return ID_;
-    }
+    const unsigned int &Entity::getID() const { return ID_; }
 
-    const std::shared_ptr<Loader::TexturedModel> &Entity::getTexModel() const
-    {
-        return texModel_;
-    }
+    bool Entity::isOnGround() { return fabsf(ap_.y - op_.y) < 0.0001f; }
 
-    bool Entity::isVisible() const
-    {
-        return visible_;
-    }
+    bool Entity::isVisible() const { return visible_; }
 
-    void Entity::setVisible(bool visible)
-    {
-        visible_ = visible;
-    }
+    void Entity::setVisible(bool visible) { visible_ = visible; }
 
-    void Entity::setTexModel(const std::shared_ptr<Loader::TexturedModel> &texModel)
-    {
-        texModel_ = texModel;
-    }
+    const glm::vec3 &Entity::getOldPosition() const { return op_; }
+
+    const glm::vec3 &Entity::getOldRotation() const { return or_; }
+
+    const glm::vec3 &Entity::getPosition() const { return ap_; }
+
+    const glm::vec3 &Entity::getRotation() const { return ar_; }
+
+    const glm::vec3 &Entity::getSpeed() const { return as_; }
+
+    void Entity::setSpeed(const glm::vec3 &speed) { as_ = speed; }
+
+    const Loader::SharedTexModel &Entity::getTexModel() const { return texModel_; }
+
+    void Entity::setTexModel(const Loader::SharedTexModel &texModel) { texModel_ = texModel; }
 
     void Entity::setCollisionFunc(const std::function<glm::vec3(Entity *)> &collisionFunc)
     {
         checkCollision_ = collisionFunc;
     }
 
-    const glm::vec3 &Entity::getSize()
+    static const glm::vec3 zero(0);
+
+    const glm::vec3 &Entity::getSize() { return texModel_ != nullptr ? texModel_->getModelSize() : zero; }
+
+    Hitbox Entity::getHitbox()
     {
-        if (texModel_ != nullptr)
-            return texModel_->getModelSize();
-        else
-            return glm::vec3(0);
+        glm::vec3 size = getSize();
+        return Hitbox(op_.x - size.x / 2, op_.x + size.x / 2, op_.y - size.y / 2, op_.y + size.y / 2,
+                      op_.z - size.z / 2, op_.z + size.z / 2);
     }
 
-    const glm::vec3 &Entity::getOldPosition() const
-    {
-        return op_;
-    }
-
-    const glm::vec3 &Entity::getOldRotation() const
-    {
-        return or_;
-    }
-
-    const glm::vec3 &Entity::getPosition() const
-    {
-        return ap_;
-    }
-
-    const glm::vec3 &Entity::getRotation() const
-    {
-        return ar_;
-    }
-
-    const glm::vec3 &Entity::getSpeed() const
-    {
-        return as_;
-    }
-
-    void Entity::setSpeed(glm::vec3 speed)
-    {
-        as_ = speed;
-    }
-	
-	Hitbox Entity::getHitbox()
-	{
-    	glm::vec3 size = getSize();
-		return Hitbox(op_.x - size.x / 2, op_.x + size.x / 2, op_.y - size.y / 2, op_.y + size.y / 2, op_.z - size.z / 2, op_.z + size.z / 2);
-	}
-	
-	bool Entity::isOnGround()
-	{
-		return fabsf(ap_.y - op_.y) < 0.0001f;
-	}
-	
 }

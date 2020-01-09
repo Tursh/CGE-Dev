@@ -29,19 +29,19 @@ namespace CGE::Loader
         glm::vec4 texLimits = texture_->getTextureLimits();
         float texCoords[] =
                 {
-                texLimits.x, texLimits.y,
-                texLimits.x, texLimits.w,
-                texLimits.z, texLimits.w,
-                texLimits.z, texLimits.y
+                        texLimits.x, texLimits.y,
+                        texLimits.x, texLimits.w,
+                        texLimits.z, texLimits.w,
+                        texLimits.z, texLimits.y
                 };
         Data<float> texCoordsData(texCoords, 4 * 2);
-        model_->setTexCoords(0, texCoordsData);
-        model_->render();
+        mesh_->setTexCoords(0, texCoordsData);
+        mesh_->render();
     }
 
     void TwoDAnimatedModel::render()
     {
-        model_->render(animation_->getTextureToRender());
+        mesh_->render(animation_->getTextureToRender());
     }
 
     TwoDAnimatedModel::~TwoDAnimatedModel()

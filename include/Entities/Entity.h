@@ -30,9 +30,9 @@ namespace CGE::Entities
     protected:
         std::vector<std::tuple<int, glm::vec3>> forces_;       /**< List of forces applied on the entity */
         unsigned int ID_;                                      /**< Unique ID */
-        std::shared_ptr<Loader::TexturedModel> texModel_;      /**< Textured model */
+        Loader::SharedTexModel texModel_;                      /**< Textured model */
         bool visible_;                                         /**< Is visible */
-        std::function<glm::vec3 (Entity*)> checkCollision_;    /**< Collision check function */
+        std::function<glm::vec3(Entity *)> checkCollision_;    /**< Collision check function */
 
     public:
         /**
@@ -49,7 +49,7 @@ namespace CGE::Entities
 
         /**
          * Constructor with an already existing textured model
-         * @param texModel              Textured Model
+         * @param texModel              Textured Mesh
          * @param position              The 3D position of the entity
          * @param rotation              The 3D rotation of the entity (Pitch, Yaw, Roll)
          * @param visible               Is visible
@@ -91,10 +91,10 @@ namespace CGE::Entities
 		void setCollisionFunc(const std::function<glm::vec3(Entity*)> &collisionFunc);
   
 		//Getters and Setters
-		
-        unsigned int getID() const;
 
-        void setSpeed(glm::vec3 speed);
+        const unsigned int &getID() const;
+
+        void setSpeed(const glm::vec3 &speed);
 
         const glm::vec3 &getSpeed() const;
 
@@ -115,7 +115,7 @@ namespace CGE::Entities
 		
         void setTexModel(const std::shared_ptr<Loader::TexturedModel> &texModel);
 
-        const std::shared_ptr<Loader::TexturedModel> &getTexModel() const;
+        const Loader::SharedTexModel &getTexModel() const;
 
         void setVisible(bool visible);
 

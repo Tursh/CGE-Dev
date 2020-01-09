@@ -13,7 +13,7 @@
 namespace CGE::IO
 {
 
-    const unsigned int DEFAULT_WIDTH = 720, DEFAULT_HEIGHT = 720;
+    const unsigned int DEFAULT_WIDTH = 720, DEFAULT_HEIGHT = 480;
 
     unsigned int windowsCreated = 0;
     std::map<unsigned int, Window *> windows;
@@ -73,7 +73,7 @@ namespace CGE::IO
         //Add to frame count
         Utils::addFrame();
         //
-        Loader::loadModels();
+        Loader::loadMeshes();
         //Check if some resources are to clear
         Loader::resManager::scrap();
     }
