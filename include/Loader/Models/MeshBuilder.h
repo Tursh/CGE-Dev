@@ -1,5 +1,5 @@
 /*
- * MeshlBuilder.h
+ * MeshBuilder.h
  *
  * Created by tursh on 1/8/20.
 */
@@ -10,12 +10,12 @@
 #include <glm/vec3.hpp>
 #include <glm/vec2.hpp>
 #include <vector>
-#include <Loader/Loader.h>
+#include <Loader/Models/Mesh.h>
 
 namespace CGE::Loader
 {
 
-    class MeshlBuilder
+    class MeshBuilder
     {
         std::vector<glm::vec3> positions_;
         std::vector<glm::vec2> texCoords_;
@@ -32,9 +32,9 @@ namespace CGE::Loader
          * @return The triangle index
          */
         unsigned int
-        loadTriangle(glm::vec3 *positions, glm::vec2 *texCoords, glm::vec3 *normals, bool invIndices = false);
+        loadTriangle(const glm::vec3 *positions, const glm::vec2 *texCoords, const glm::vec3 *normals, bool invIndices = false);
 
-        void AddIndices(Data<unsigned int> indices);
+        void AddIndices(const Data<unsigned int> &indices);
 
         /**
          * Load vertex to model without using it
@@ -43,7 +43,7 @@ namespace CGE::Loader
          * @param normal Vertex normal
          * @return Vertex index
          */
-        unsigned int loadVertex(glm::vec3 position, glm::vec2 texCoord, glm::vec3 normal);
+        unsigned int loadVertex(const glm::vec3 &position, const glm::vec2 &texCoord, const glm::vec3 &normal);
 
         /**
          * Load position, texcoords, normals and indices to a MeshData object

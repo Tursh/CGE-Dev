@@ -92,7 +92,9 @@ add_library(CGE ${LIBRARY_TYPE}
         src/Loaders/Models/TwoDAnimatedModel.cpp
         src/Animation/Animator.cpp
         src/Utils/XMLElementArrayLoader.cpp
-        src/Entities/Entity.cpp src/GUI/GUIManager.cpp
+        src/Entities/Entity.cpp
+        src/GUI/GUIManager.cpp
         src/Utils/PerlinNoice.cpp
         src/Physics/Hitbox.cpp
-        src/Utils/ThreadProcess.cpp src/Loaders/Models/MeshlBuilder.cpp include/Loader/Models/MeshlBuilder.h)
+        src/Utils/ThreadProcess.cpp
+        src/Loaders/Models/MeshBuilder.cpp)

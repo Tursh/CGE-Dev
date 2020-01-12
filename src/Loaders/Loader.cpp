@@ -285,36 +285,36 @@ namespace CGE::Loader
     //template<typename T>
     //Data<T>::Data(const T *data, unsigned int size, bool makeCopy, GLenum usage)
 
-    template<typename T>
-    Data<T>::Data(const std::vector<glm::vec3> &data, bool makeCopy, GLenum usage)
-            : data_(data.data()), size_(data.size()), usage_(usage)
+    template<>
+    Data<float>::Data(const std::vector<glm::vec3> &data, bool makeCopy, GLenum usage)
+            : data_((float *) data.data()), size_(data.size()), usage_(usage)
     {
         if (makeCopy)
         {
-            data_ = new T[3 * data.size()];
-            std::copy(data.begin(), data.end(), data_);
+            data_ = new float[3 * data.size()];
+            std::copy((float *) data.data(), (float *) data.data() + data.size(), (float *) data_);
+        }
+    }
+
+    template<>
+    Data<float>::Data(const std::vector<glm::vec2> &data, bool makeCopy, GLenum usage)
+            : data_((float *) data.data()), size_(data.size()), usage_(usage)
+    {
+        if (makeCopy)
+        {
+            data_ = new float[2 * data.size()];
+            std::copy((float *) data.data(), (float *) data.data() + data.size(), (float *) data_);
         }
     }
 
     template<typename T>
-    Data<T>::Data(const std::vector<glm::vec2> &data, bool makeCopy, GLenum usage)
-            : data_(data.data()), size_(data.size()), usage_(usage)
-    {
-        if (makeCopy)
-        {
-            data_ = new T[2 * data.size()];
-            std::copy(data.begin(), data.end(), data_);
-        }
-    }
-
-    template<typename T>
-    Data<T>::Data(const std::vector<unsigned int> &data, bool makeCopy, GLenum usage)
+    Data<T>::Data(const std::vector<T> &data, bool makeCopy, GLenum usage)
             : data_(data.data()), size_(data.size()), usage_(usage)
     {
         if (makeCopy)
         {
             data_ = new T[data.size()];
-            std::copy(data.begin(), data.end(), data_);
+            std::copy((T *) data.data(), (T *) data.data() + data.size(), (T *) data_);
         }
     }
 
@@ -355,4 +355,7 @@ namespace CGE::Loader
         logError("You can't load a model outside the render thread");
         return nullptr;
     }
+
+    template
+    class Data<unsigned int>;
 }

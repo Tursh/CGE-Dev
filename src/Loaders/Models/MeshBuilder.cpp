@@ -1,5 +1,5 @@
 /*
- * MeshlBuilder.cpp
+ * MeshBuilder.cpp
  *
  * Created by tursh on 1/8/20.
 */
@@ -8,7 +8,8 @@
 #include <Utils/GLDebug.h>
 #include <algorithm>
 #include <Utils/Log.h>
-#include "Loader/Models/MeshlBuilder.h"
+#include "Loader/Models/MeshBuilder.h"
+#include <Loader/Loader.h>
 
 namespace CGE::Loader
 {
@@ -18,7 +19,7 @@ namespace CGE::Loader
             };
 
     unsigned int
-    MeshlBuilder::loadTriangle(glm::vec3 *positions, glm::vec2 *texCoords, glm::vec3 *normals, bool invIndices)
+    MeshBuilder::loadTriangle(const glm::vec3 *positions, const glm::vec2 *texCoords, const glm::vec3 *normals, bool invIndices)
     {
         positions_.insert(positions_.end(), positions, positions + 3);
         if (texCoords != nullptr)
@@ -33,12 +34,12 @@ namespace CGE::Loader
         return positions_.size() - 3;
     }
 
-    void MeshlBuilder::AddIndices(Data<unsigned int> indices)
+    void MeshBuilder::AddIndices(const Data<unsigned int> &indices)
     {
         indices_.insert(indices_.end(), indices.data_, indices.data_ + indices.size_);
     }
 
-    unsigned int MeshlBuilder::loadVertex(glm::vec3 position, glm::vec2 texCoord, glm::vec3 normal)
+    unsigned int MeshBuilder::loadVertex(const glm::vec3 &position, const glm::vec2 &texCoord, const glm::vec3 &normal)
     {
         positions_.push_back(position);
         texCoords_.push_back(texCoord);
@@ -47,7 +48,9 @@ namespace CGE::Loader
         return positions_.size() - 1;
     }
 
-    MeshData MeshlBuilder::toMeshData()
+    template<> Data<unsigned int>::Data(const std::vector<unsigned int> &data, bool makeCopy, GLenum usage);
+
+    MeshData MeshBuilder::toMeshData()
     {
         MeshData meshData;
         meshData.positions = Data<float>(positions_);
@@ -58,7 +61,7 @@ namespace CGE::Loader
         return meshData;
     }
 
-    SharedMesh MeshlBuilder::toSharedMesh()
+    SharedMesh MeshBuilder::toSharedMesh()
     {
         MeshData data = toMeshData();
 
@@ -69,7 +72,7 @@ namespace CGE::Loader
         return nullptr;
     }
 
-    void MeshlBuilder::reset()
+    void MeshBuilder::reset()
     {
         positions_.clear();
         texCoords_.clear();
@@ -77,8 +80,10 @@ namespace CGE::Loader
         indices_.clear();
     }
 
-    void MeshlBuilder::loadToSharedMesh(SharedMesh &sharedMesh)
+    void MeshBuilder::loadToSharedMesh(SharedMesh &sharedMesh)
     {
         DataToVAO(sharedMesh, toMeshData());
     }
+
+
 }
