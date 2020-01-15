@@ -10,6 +10,7 @@
 #include <Utils/Log.h>
 #include "Loader/Models/MeshBuilder.h"
 #include <Loader/Loader.h>
+#include <glm/ext/matrix_transform.inl>
 
 namespace CGE::Loader
 {
@@ -19,7 +20,8 @@ namespace CGE::Loader
             };
 
     unsigned int
-    MeshBuilder::loadTriangle(const glm::vec3 *positions, const glm::vec2 *texCoords, const glm::vec3 *normals, bool invIndices)
+    MeshBuilder::loadTriangle(const glm::vec3 *positions, const glm::vec2 *texCoords, const glm::vec3 *normals,
+                              bool invIndices)
     {
         positions_.insert(positions_.end(), positions, positions + 3);
         if (texCoords != nullptr)
@@ -48,7 +50,8 @@ namespace CGE::Loader
         return positions_.size() - 1;
     }
 
-    template<> Data<unsigned int>::Data(const std::vector<unsigned int> &data, bool makeCopy, GLenum usage);
+    template<>
+    Data<unsigned int>::Data(const std::vector<unsigned int> &data, bool makeCopy, GLenum usage);
 
     MeshData MeshBuilder::toMeshData()
     {
@@ -65,11 +68,15 @@ namespace CGE::Loader
     {
         MeshData data = toMeshData();
 
+#ifndef NDEBUG
         if (isOnOpenGLThread())
             return DataToVAO(data);
         else
         logError("You can't load a mesh outside the render thread");
         return nullptr;
+#else
+        return DataToVAO(data);
+#endif
     }
 
     void MeshBuilder::reset()
@@ -83,6 +90,58 @@ namespace CGE::Loader
     void MeshBuilder::loadToSharedMesh(SharedMesh &sharedMesh)
     {
         DataToVAO(sharedMesh, toMeshData());
+    }
+
+    unsigned int MeshBuilder::loadSubMesh(const MeshData &subMeshData)
+    {
+        unsigned int startIndex = positions_.size();
+        positions_.insert(positions_.end(), (glm::vec3 *) subMeshData.positions.begin(),
+                          (glm::vec3 *) subMeshData.positions.end());
+        if (subMeshData.textureCoordinates.isValid())
+            texCoords_.insert(texCoords_.end(), (glm::vec3 *) subMeshData.textureCoordinates.begin(),
+                              (glm::vec3 *) subMeshData.textureCoordinates.end());
+        if (subMeshData.normals.isValid())
+            normals_.insert(normals_.end(), (glm::vec3 *) subMeshData.normals.begin(),
+                            (glm::vec3 *) subMeshData.normals.end());
+        indices_.insert(indices_.end(), subMeshData.indices.begin(),
+                        subMeshData.indices.end());
+        return startIndex;
+    }
+
+    void MeshBuilder::translateVertices(unsigned int firstIndex, unsigned int lastIndex, const glm::vec3 &movement)
+    {
+#ifndef NDEBUG
+        if (vertexCount() >= lastIndex)
+        logError("You can't translate nonexistent vertices");
+#endif
+        for (unsigned int i = firstIndex; i < lastIndex; ++i)
+            positions_[i] += movement;
+    }
+
+    void MeshBuilder::rotateVertices(unsigned int firstIndex, unsigned int lastIndex, const glm::vec3 &centerOfRotation,
+                                     const glm::vec3 &angles)
+    {
+#ifndef NDEBUG
+        if (vertexCount() >= lastIndex)
+        logError("You can't translate nonexistent vertices");
+#endif
+        glm::mat4 rotationMat(1);
+        for (int i = 0; i < 3; ++i)
+        {
+            glm::vec3 axis(0);
+            axis[i] = 1;
+            rotationMat = glm::rotate(rotationMat, angles[i], axis);
+        }
+        for (unsigned int i = firstIndex; i < lastIndex; ++i)
+        {
+            positions_[i] =
+                    (glm::vec3) (glm::vec4(positions_[i] - centerOfRotation, 0) * rotationMat) + centerOfRotation;
+        }
+    }
+
+    unsigned int MeshBuilder::vertexCount()
+    {
+        return positions_.size();
     }
 
 

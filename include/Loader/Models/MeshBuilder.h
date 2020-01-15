@@ -7,10 +7,10 @@
 #pragma once
 
 
+#include <Loader/Models/Mesh.h>
 #include <glm/vec3.hpp>
 #include <glm/vec2.hpp>
 #include <vector>
-#include <Loader/Models/Mesh.h>
 
 namespace CGE::Loader
 {
@@ -32,8 +32,13 @@ namespace CGE::Loader
          * @return The triangle index
          */
         unsigned int
-        loadTriangle(const glm::vec3 *positions, const glm::vec2 *texCoords, const glm::vec3 *normals, bool invIndices = false);
+        loadTriangle(const glm::vec3 *positions, const glm::vec2 *texCoords, const glm::vec3 *normals,
+                     bool invIndices = false);
 
+        /**
+         * Use existing vertices to create triangle
+         * @param indices List of vertex to use as indices
+         */
         void AddIndices(const Data<unsigned int> &indices);
 
         /**
@@ -44,6 +49,37 @@ namespace CGE::Loader
          * @return Vertex index
          */
         unsigned int loadVertex(const glm::vec3 &position, const glm::vec2 &texCoord, const glm::vec3 &normal);
+
+        /**
+         * Add an existing mesh to the current mesh
+         * @param subMeshData The existing mesh data
+         * @return The start index of the added mesh in the current mesh
+         */
+        unsigned int loadSubMesh(const MeshData &subMeshData);
+
+        /**
+         * Translate a range of vertices
+         * @param firstIndex The index of the first vertex
+         * @param lastIndex The index of the last vertex
+         * @param movement The movement vector
+         */
+        void translateVertices(unsigned int firstIndex, unsigned int lastIndex, const glm::vec3 &movement);
+
+        /**
+         * Rotate a range of vertices
+         * @param firstIndex The index of the first vertex
+         * @param lastIndex The index of the last vertex
+         * @param centerOfRotation The position to rotate around
+         * @param angles The xyz angle in degree
+         */
+        void rotateVertices(unsigned int firstIndex, unsigned int lastIndex, const glm::vec3 &centerOfRotation,
+                            const glm::vec3 &angles);
+
+        /**
+         * Get the number of vertex in the mesh
+         * @return positions_.size()
+         */
+        unsigned int vertexCount();
 
         /**
          * Load position, texcoords, normals and indices to a MeshData object

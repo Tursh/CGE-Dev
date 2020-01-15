@@ -93,6 +93,18 @@ namespace CGE::Loader
          * @return If there is data stored in the wrapper
          */
         bool isValid() const;
+
+        /**
+         * Pointer at the start of the data
+         * @return data_
+         */
+        const T* begin() const;
+
+        /**
+         * Pointer at the end of the data
+         * @return data_ + size_;
+         */
+        const T* end() const;
     };
 
     typedef std::shared_ptr<Mesh> SharedMesh;

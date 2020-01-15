@@ -287,23 +287,23 @@ namespace CGE::Loader
 
     template<>
     Data<float>::Data(const std::vector<glm::vec3> &data, bool makeCopy, GLenum usage)
-            : data_((float *) data.data()), size_(data.size()), usage_(usage)
+            : data_((float *) data.data()), size_(3 * data.size()), usage_(usage)
     {
         if (makeCopy)
         {
             data_ = new float[3 * data.size()];
-            std::copy((float *) data.data(), (float *) data.data() + data.size(), (float *) data_);
+            std::copy((float *) data.data(), (float *) data.data() + size_, (float *) data_);
         }
     }
 
     template<>
     Data<float>::Data(const std::vector<glm::vec2> &data, bool makeCopy, GLenum usage)
-            : data_((float *) data.data()), size_(data.size()), usage_(usage)
+            : data_((float *) data.data()), size_(2 * data.size()), usage_(usage)
     {
         if (makeCopy)
         {
             data_ = new float[2 * data.size()];
-            std::copy((float *) data.data(), (float *) data.data() + data.size(), (float *) data_);
+            std::copy((float *) data.data(), (float *) data.data() + size_, (float *) data_);
         }
     }
 
@@ -334,6 +334,18 @@ namespace CGE::Loader
         return size_ != 0;
     }
 
+    template<typename T>
+    const T *Data<T>::begin() const
+    {
+        return data_;
+    }
+
+    template<typename T>
+    const T *Data<T>::end() const
+    {
+        return data_ + size_;
+    }
+
     bool MeshData::isValid() const
     {
         return positions.isValid() && indices.isValid();
@@ -358,4 +370,6 @@ namespace CGE::Loader
 
     template
     class Data<unsigned int>;
+    template
+    class Data<float>;
 }
