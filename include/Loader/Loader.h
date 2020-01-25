@@ -26,7 +26,7 @@ namespace CGE::Loader
     struct Data
     {
         /**< data array*/
-        const T *data_;
+        const T *data_{};
         /**< array's size*/
         unsigned int size_;
         /**< data usage*/
@@ -81,7 +81,7 @@ namespace CGE::Loader
          * @param makeCopy Make a copy of the array (default: true)
          * @param usage Expected usage pattern of the data store (default: GL_STATIC_DRAW)
          */
-        explicit Data(const std::vector<unsigned int> &data, bool makeCopy = true, GLenum usage = GL_STATIC_DRAW);
+        explicit Data(const std::vector<T> &data, bool makeCopy = true, GLenum usage = GL_STATIC_DRAW);
 
         /**
          * Delete all stored data
@@ -93,6 +93,18 @@ namespace CGE::Loader
          * @return If there is data stored in the wrapper
          */
         bool isValid() const;
+
+        /**
+         * Pointer at the start of the data
+         * @return data_
+         */
+        const T* begin() const;
+
+        /**
+         * Pointer at the end of the data
+         * @return data_ + size_;
+         */
+        const T* end() const;
     };
 
     typedef std::shared_ptr<Mesh> SharedMesh;
