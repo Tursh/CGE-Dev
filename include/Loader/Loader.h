@@ -28,7 +28,7 @@ namespace CGE::Loader
         /**< data array*/
         const T *data_{};
         /**< array's size*/
-        unsigned int size_;
+        unsigned int size_ = 0;
         /**< data usage*/
         GLenum usage_;
 
