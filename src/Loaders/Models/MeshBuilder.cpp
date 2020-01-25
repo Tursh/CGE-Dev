@@ -10,7 +10,7 @@
 #include <Utils/Log.h>
 #include "Loader/Models/MeshBuilder.h"
 #include <Loader/Loader.h>
-#include <glm/ext/matrix_transform.inl>
+#include <glm/gtc/quaternion.hpp>
 
 namespace CGE::Loader
 {
@@ -111,10 +111,10 @@ namespace CGE::Loader
     void MeshBuilder::translateVertices(unsigned int firstIndex, unsigned int lastIndex, const glm::vec3 &movement)
     {
 #ifndef NDEBUG
-        if (vertexCount() >= lastIndex)
+        if (vertexCount() <= lastIndex)
         logError("You can't translate nonexistent vertices");
 #endif
-        for (unsigned int i = firstIndex; i < lastIndex; ++i)
+        for (unsigned int i = firstIndex; i <= lastIndex; ++i)
             positions_[i] += movement;
     }
 
@@ -122,20 +122,15 @@ namespace CGE::Loader
                                      const glm::vec3 &angles)
     {
 #ifndef NDEBUG
-        if (vertexCount() >= lastIndex)
+
+        if (vertexCount() <= lastIndex)
         logError("You can't translate nonexistent vertices");
 #endif
-        glm::mat4 rotationMat(1);
-        for (int i = 0; i < 3; ++i)
+        glm::quat quaternion(angles);
+
+        for (unsigned int i = firstIndex; i <= lastIndex; ++i)
         {
-            glm::vec3 axis(0);
-            axis[i] = 1;
-            rotationMat = glm::rotate(rotationMat, angles[i], axis);
-        }
-        for (unsigned int i = firstIndex; i < lastIndex; ++i)
-        {
-            positions_[i] =
-                    (glm::vec3) (glm::vec4(positions_[i] - centerOfRotation, 0) * rotationMat) + centerOfRotation;
+            positions_[i] = quaternion * (positions_[i] - centerOfRotation) + centerOfRotation;
         }
     }
 
