@@ -176,7 +176,7 @@ namespace CGE::Loader
         return std::make_shared<Mesh>(VAO, VBOs, indices.size_, getSize(positions));
     }
 
-    SharedMesh Loader::DataToVAO(const MeshData &meshData)
+    SharedMesh DataToVAO(const MeshData &meshData)
     {
 #ifndef NDEBUG
         if (!isOnOpenGLThread())
@@ -211,7 +211,7 @@ namespace CGE::Loader
     std::vector<std::tuple<SharedMesh &, MeshData>> modelsToLoad;
     bool loadingModel = false;
 
-    void Loader::DataToVAO(SharedMesh &sharedPtr, MeshData meshData)
+    void DataToVAO(SharedMesh &sharedPtr, MeshData meshData)
     {
         //Copy vertices to loader memory
         float *positionData = new float[meshData.positions.size_];
