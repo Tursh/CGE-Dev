@@ -4,8 +4,14 @@
 #include "DebugBreak.h"
 #include "ConsoleColor.h"
 
+namespace CGE::IO::input
+{
+    void ungrabMouse();
+}
+
 namespace CGE::Utils
 {
+
 
 // Print information on the console
 #define logInfo(msg) std::cout << "[INFO] " << msg << std::endl
@@ -22,6 +28,7 @@ namespace CGE::Utils
         DebugBreak();}
 #else //ifndef __MINGW32__
 #define logError(msg) {std::cout << "\033[1;31m[ERROR] " << msg << "\033[0m" << std::endl;\
+        CGE::IO::input::ungrabMouse();\
         debugBreak();}
 #endif //ifndef __MINGW32__
 #else //ifdef NDEBUG

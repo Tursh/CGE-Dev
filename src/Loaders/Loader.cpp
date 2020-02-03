@@ -213,6 +213,10 @@ namespace CGE::Loader
 
     void DataToVAO(SharedMesh &sharedPtr, MeshData meshData)
     {
+#ifndef NDEBUG
+        if (!meshData.isValid())
+        logError("This mesh is invalid!");
+#endif
         //Copy vertices to loader memory
         float *positionData = new float[meshData.positions.size_];
         std::copy(meshData.positions.data_, meshData.positions.data_ + meshData.positions.size_, positionData);
