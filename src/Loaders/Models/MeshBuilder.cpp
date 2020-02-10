@@ -94,7 +94,6 @@ namespace CGE::Loader
 
     unsigned int MeshBuilder::loadSubMesh(const MeshData &subMeshData)
     {
-        unsigned int startIndex = positions_.size();
         positions_.insert(positions_.end(), (glm::vec3 *) subMeshData.positions.begin(),
                           (glm::vec3 *) subMeshData.positions.end());
         if (subMeshData.textureCoordinates.isValid())
@@ -105,16 +104,16 @@ namespace CGE::Loader
                             (glm::vec3 *) subMeshData.normals.end());
         indices_.insert(indices_.end(), subMeshData.indices.begin(),
                         subMeshData.indices.end());
-        return startIndex;
+        return vertexCount() - 1;
     }
 
-    void MeshBuilder::translateVertices(unsigned int firstIndex, unsigned int lastIndex, const glm::vec3 &movement)
+    void MeshBuilder::translateVertices(unsigned int firstVertex, unsigned int lastVertex, const glm::vec3 &movement)
     {
 #ifndef NDEBUG
-        if (vertexCount() <= lastIndex)
+        if (vertexCount() <= lastVertex)
         logError("You can't translate nonexistent vertices");
 #endif
-        for (unsigned int i = firstIndex; i <= lastIndex; ++i)
+        for (unsigned int i = firstVertex; i <= lastVertex; ++i)
             positions_[i] += movement;
     }
 
@@ -137,6 +136,38 @@ namespace CGE::Loader
     unsigned int MeshBuilder::vertexCount()
     {
         return positions_.size();
+    }
+
+    bool MeshBuilder::isValid() const
+    {
+        return !positions_.empty() && !indices_.empty();
+    }
+
+    unsigned int MeshBuilder::indexCount()
+    {
+        return indices_.size();
+    }
+
+    unsigned int MeshBuilder::loadIndices(const unsigned int *indices, unsigned int indexCount)
+    {
+        indices_.insert(indices_.end(), indices, indices + indexCount);
+        return this->indexCount() - 1;
+    }
+
+    void MeshBuilder::incrementIndices(unsigned int firstIndex, unsigned int lastIndex, unsigned int scalarToIncrement)
+    {
+#ifndef NDEBUG
+        if(lastIndex >= indexCount())
+            logError("Can't increment nonexistent indices");
+#endif
+
+        for(; firstIndex < lastIndex; ++firstIndex)
+            indices_[firstIndex] += scalarToIncrement;
+    }
+
+    unsigned int MeshBuilder::loadVertices(const glm::vec3 *positions, unsigned int positionCount)
+    {
+        positions_.insert(positions_.end(), positions, positions + positionCount);
     }
 
 

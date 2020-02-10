@@ -15,7 +15,7 @@
 namespace CGE::Loader
 {
 
-    class MeshBuilder
+    struct MeshBuilder
     {
         std::vector<glm::vec3> positions_;
         std::vector<glm::vec2> texCoords_;
@@ -53,17 +53,17 @@ namespace CGE::Loader
         /**
          * Add an existing mesh to the current mesh
          * @param subMeshData The existing mesh data
-         * @return The start index of the added mesh in the current mesh
+         * @return The last index of the added mesh in the current mesh (vertexCount - 1)
          */
         unsigned int loadSubMesh(const MeshData &subMeshData);
 
         /**
          * Translate a range of vertices
-         * @param firstIndex The index of the first vertex
-         * @param lastIndex The index of the last vertex
+         * @param firstVertex The index of the first vertex
+         * @param lastVertex The index of the last vertex
          * @param movement The movement vector
          */
-        void translateVertices(unsigned int firstIndex, unsigned int lastIndex, const glm::vec3 &movement);
+        void translateVertices(unsigned int firstVertex, unsigned int lastVertex, const glm::vec3 &movement);
 
         /**
          * Rotate a range of vertices
@@ -103,6 +103,19 @@ namespace CGE::Loader
          * Reset built mesh
          */
         void reset();
+
+        /**
+         * Check if the mesh is valid to be loaded
+         */
+        bool isValid() const;
+
+        unsigned int indexCount();
+
+        unsigned int loadIndices(const unsigned int *indices, unsigned int indexCount);
+
+        void incrementIndices(unsigned int firstIndex, unsigned int lastIndex, unsigned int scalarToIncrement);
+
+        unsigned int loadVertices(const glm::vec3 *positions, unsigned int positionCount);
     };
 
 }
