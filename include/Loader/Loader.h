@@ -49,13 +49,7 @@ namespace CGE::Loader
          */
         Data(T const *data, unsigned int size, GLenum usage = GL_STATIC_DRAW)
                 : data_(data), size_(size), usage_(usage)
-        {
-            //if (makeCopy)
-            //{
-            //    data_ = new T[size];
-            //    std::copy(data, data + size, data_);
-            //}
-        }
+        {}
 
         Data() = default;
 
@@ -98,13 +92,13 @@ namespace CGE::Loader
          * Pointer at the start of the data
          * @return data_
          */
-        const T* begin() const;
+        const T* first() const;
 
         /**
          * Pointer at the end of the data
          * @return data_ + size_;
          */
-        const T* end() const;
+        const T* last() const;
     };
 
     typedef std::shared_ptr<Mesh> SharedMesh;

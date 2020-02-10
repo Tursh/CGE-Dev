@@ -23,22 +23,32 @@ namespace CGE::Loader
     MeshBuilder::loadTriangle(const glm::vec3 *positions, const glm::vec2 *texCoords, const glm::vec3 *normals,
                               bool invIndices)
     {
+        unsigned int firstVertex = vertexCount();
         positions_.insert(positions_.end(), positions, positions + 3);
         if (texCoords != nullptr)
             texCoords_.insert(texCoords_.end(), texCoords, texCoords + 3);
         if (normals != nullptr)
             normals_.insert(normals_.end(), normals, normals + 3);
 
-        indices_.insert(indices_.end(), TRIANGLE_INDICES, TRIANGLE_INDICES + 3);
+        unsigned int firstIndex = loadIndices({TRIANGLE_INDICES, 3});
+        incrementIndices(firstIndex, firstIndex + 3, firstVertex);
         if (invIndices)
             std::reverse(indices_.end() - 3, indices_.end() - 1);
 
-        return positions_.size() - 3;
+        return firstVertex;
     }
 
-    void MeshBuilder::AddIndices(const Data<unsigned int> &indices)
+    unsigned int MeshBuilder::loadIndices(const Data<unsigned int> &indices, bool invIndices)
     {
-        indices_.insert(indices_.end(), indices.data_, indices.data_ + indices.size_);
+        unsigned int firstIndexPosition = indexCount();
+
+        auto firstIt = indices_.end();
+        indices_.insert(firstIt, indices.first(), indices.last());
+
+        if (invIndices)
+            std::reverse(firstIt, indices_.end() - 1);
+
+        return firstIndexPosition;
     }
 
     unsigned int MeshBuilder::loadVertex(const glm::vec3 &position, const glm::vec2 &texCoord, const glm::vec3 &normal)
@@ -47,7 +57,7 @@ namespace CGE::Loader
         texCoords_.push_back(texCoord);
         normals_.push_back(normal);
 
-        return positions_.size() - 1;
+        return vertexCount() - 1;
     }
 
     template<>
@@ -94,40 +104,57 @@ namespace CGE::Loader
 
     unsigned int MeshBuilder::loadSubMesh(const MeshData &subMeshData)
     {
-        positions_.insert(positions_.end(), (glm::vec3 *) subMeshData.positions.begin(),
-                          (glm::vec3 *) subMeshData.positions.end());
+        unsigned int startVertex = vertexCount();
+
+#ifndef NDEBUG
+        if (!subMeshData.isValid())
+        logError("You tried to load an invalid mesh!");
+#endif
+
+        positions_.insert(positions_.end(), (glm::vec3 *) subMeshData.positions.first(),
+                          (glm::vec3 *) subMeshData.positions.last());
+
         if (subMeshData.textureCoordinates.isValid())
-            texCoords_.insert(texCoords_.end(), (glm::vec3 *) subMeshData.textureCoordinates.begin(),
-                              (glm::vec3 *) subMeshData.textureCoordinates.end());
+            texCoords_.insert(texCoords_.end(), (glm::vec3 *) subMeshData.textureCoordinates.first(),
+                              (glm::vec3 *) subMeshData.textureCoordinates.last());
+
         if (subMeshData.normals.isValid())
-            normals_.insert(normals_.end(), (glm::vec3 *) subMeshData.normals.begin(),
-                            (glm::vec3 *) subMeshData.normals.end());
-        indices_.insert(indices_.end(), subMeshData.indices.begin(),
-                        subMeshData.indices.end());
-        return vertexCount() - 1;
+            normals_.insert(normals_.end(), (glm::vec3 *) subMeshData.normals.first(),
+                            (glm::vec3 *) subMeshData.normals.last());
+
+        indices_.insert(indices_.end(), subMeshData.indices.first(),
+                        subMeshData.indices.last());
+
+        return startVertex;
     }
 
-    void MeshBuilder::translateVertices(unsigned int firstVertex, unsigned int lastVertex, const glm::vec3 &movement)
+    void MeshBuilder::translateVertices(const glm::vec3 &movement, unsigned int firstVertex, unsigned int lastVertex)
     {
+        if (lastVertex == UINT_MAX)
+            lastVertex = vertexCount() - 1;
 #ifndef NDEBUG
-        if (vertexCount() <= lastVertex)
-        logError("You can't translate nonexistent vertices");
+        else if (vertexCount() <= lastVertex)
+        logError("You can't translate nonexistent vertices -> lastVertex: " << lastVertex << " vertexCount: "
+                                                                            << vertexCount());
 #endif
         for (unsigned int i = firstVertex; i <= lastVertex; ++i)
             positions_[i] += movement;
     }
 
-    void MeshBuilder::rotateVertices(unsigned int firstIndex, unsigned int lastIndex, const glm::vec3 &centerOfRotation,
-                                     const glm::vec3 &angles)
+    void
+    MeshBuilder::rotateVertices(const glm::vec3 &centerOfRotation, const glm::vec3 &angles, unsigned int firstVertex,
+                                unsigned int lastVertex)
     {
+        if (lastVertex == UINT_MAX)
+            lastVertex = vertexCount() - 1;
 #ifndef NDEBUG
-
-        if (vertexCount() <= lastIndex)
-        logError("You can't translate nonexistent vertices");
+        else if (vertexCount() <= lastVertex)
+        logError("You can't rotate nonexistent vertices -> lastVertex: " << lastVertex << " vertexCount: "
+                                                                         << vertexCount());
 #endif
         glm::quat quaternion(angles);
 
-        for (unsigned int i = firstIndex; i <= lastIndex; ++i)
+        for (unsigned int i = firstVertex; i <= lastVertex; ++i)
         {
             positions_[i] = quaternion * (positions_[i] - centerOfRotation) + centerOfRotation;
         }
@@ -140,7 +167,11 @@ namespace CGE::Loader
 
     bool MeshBuilder::isValid() const
     {
-        return !positions_.empty() && !indices_.empty();
+        return !positions_.empty() && !indices_.empty()     //Is the positions and indices
+               && (texCoords_.empty() ||
+                   texCoords_.size() == positions_.size())  //If there is texCoords, it there as many as positions
+               && (normals_.empty() ||
+                   normals_.size() == positions_.size());   //If there is normals, is there as many as positions
     }
 
     unsigned int MeshBuilder::indexCount()
@@ -148,27 +179,34 @@ namespace CGE::Loader
         return indices_.size();
     }
 
-    unsigned int MeshBuilder::loadIndices(const unsigned int *indices, unsigned int indexCount)
+    void MeshBuilder::incrementIndices(unsigned int scalarToIncrement, unsigned int firstIndex, unsigned int lastIndex)
     {
-        indices_.insert(indices_.end(), indices, indices + indexCount);
-        return this->indexCount() - 1;
-    }
-
-    void MeshBuilder::incrementIndices(unsigned int firstIndex, unsigned int lastIndex, unsigned int scalarToIncrement)
-    {
+        if (lastIndex == UINT_MAX)
+            lastIndex = indexCount() - 1;
 #ifndef NDEBUG
-        if(lastIndex >= indexCount())
-            logError("Can't increment nonexistent indices");
+        else if (lastIndex >= indexCount())
+        logError("You can't increment nonexistent indices -> lastIndex: " << lastIndex << " indexCount: "
+                                                                          << indexCount());
 #endif
 
-        for(; firstIndex < lastIndex; ++firstIndex)
+        for (; firstIndex < lastIndex; ++firstIndex)
             indices_[firstIndex] += scalarToIncrement;
     }
 
-    unsigned int MeshBuilder::loadVertices(const glm::vec3 *positions, unsigned int positionCount)
+    unsigned int
+    MeshBuilder::loadVertices(const glm::vec3*vertices, const glm::vec2*texCoords, const glm::vec3*normals, unsigned int vertexCount)
     {
-        positions_.insert(positions_.end(), positions, positions + positionCount);
-    }
+        unsigned int startVertex = this->vertexCount();
 
+        positions_.insert(positions_.end(), vertices, vertices + vertexCount);
+
+        if (texCoords != nullptr)
+            texCoords_.insert(texCoords_.end(), texCoords, texCoords + vertexCount);
+
+        if (normals != nullptr)
+            normals_.insert(normals_.end(), normals, normals + vertexCount);
+
+        return startVertex;
+    }
 
 }

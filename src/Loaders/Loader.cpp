@@ -339,13 +339,13 @@ namespace CGE::Loader
     }
 
     template<typename T>
-    const T *Data<T>::begin() const
+    const T *Data<T>::first() const
     {
         return data_;
     }
 
     template<typename T>
-    const T *Data<T>::end() const
+    const T *Data<T>::last() const
     {
         return data_ + size_;
     }
