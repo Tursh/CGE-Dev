@@ -29,26 +29,28 @@ namespace CGE::Loader
          * @param texCoords The corresponding texture coordinates
          * @param normals The corresponding normals
          * @param invIndices Reverse the triangle indices
-         * @return The triangle index
+         * @return The first vertex index
          */
         unsigned int
         loadTriangle(const glm::vec3 *positions, const glm::vec2 *texCoords, const glm::vec3 *normals,
                      bool invIndices = false);
 
         /**
-         * Load vertex to model without using it
+         * Load vertex to model (Need to load your indices to use them)
          * @param position Vertex position
          * @param texCoord Vertex texture coordinate
          * @param normal Vertex normal
          * @return Vertex index
          */
-        unsigned int loadVertex(const glm::vec3 &position, const glm::vec2 &texCoord, const glm::vec3 &normal);
+        unsigned int loadVertex(const glm::vec3 &position, const glm::vec2 &texCoord = glm::vec2(INT_MAX), const glm::vec3 &normal = glm::vec3(INT_MAX));
 
         /**
-         *
-         * @param vertices
-         * @param texCoords
-         * @return
+         * Load vertex to model (Need to load your indices to use them)
+         * @param vertices Vertices to load
+         * @param texCoords Texture Coordinates to load
+         * @param normals Normals to load
+         * @param vertexCount Number of vertices to load
+         * @return The first vertex index
          */
         unsigned int loadVertices(const glm::vec3 *vertices, const glm::vec2 *texCoords, const glm::vec3 *normals, unsigned int vertexCount);
 
@@ -61,7 +63,7 @@ namespace CGE::Loader
         /**
          * Add an existing mesh to the current mesh
          * @param subMeshData The existing mesh data
-         * @return The last index of the added mesh in the current mesh (vertexCount - 1)
+         * @return The first vertex index
          */
         unsigned int loadSubMesh(const MeshData &subMeshData);
 
@@ -82,13 +84,18 @@ namespace CGE::Loader
          */
         void rotateVertices(const glm::vec3 &centerOfRotation, const glm::vec3 &angles, unsigned int firstVertex, unsigned int lastVertex = UINT_MAX);
 
+        void transformVertices(std::function<void(glm::vec3 &position, glm::vec2 &texCoords, glm::vec3 &normal)> transformation,
+                               unsigned int firstVertex, unsigned int lastVertex = UINT_MAX);
+
         /**
-         *
-         * @param firstIndex
-         * @param lastIndex
-         * @param scalarToIncrement
+         * Increment all indices in a range by a scalar
+         * @param scalarToIncrement Scalar to increment to the indices
+         * @param firstIndex Starting index
+         * @param lastIndex End index
          */
         void incrementIndices(unsigned int scalarToIncrement, unsigned int firstIndex, unsigned int lastIndex = UINT_MAX);
+
+        void invertIndices(unsigned int firstIndex, unsigned int lastIndex = UINT_MAX);
 
         /**
          * Get the number of vertex in the mesh

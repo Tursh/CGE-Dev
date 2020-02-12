@@ -28,7 +28,7 @@ namespace CGE::Utils
         DebugBreak();}
 #else //ifndef __MINGW32__
 #define logError(msg) {std::cout << "\033[1;31m[ERROR] " << msg << \
-        " - File: " << __FILE__ << " - Line: " << __LINE__ << "\033[0m" << std::endl;\
+        " - File: " << __FILE__ << " - function: " << __FUNCTION__ << " - Line: " << __LINE__ << "\033[0m" << std::endl;\
         CGE::IO::input::ungrabMouse();\
         debugBreak();}
 #endif //ifndef __MINGW32__

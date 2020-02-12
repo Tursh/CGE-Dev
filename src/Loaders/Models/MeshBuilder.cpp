@@ -54,8 +54,10 @@ namespace CGE::Loader
     unsigned int MeshBuilder::loadVertex(const glm::vec3 &position, const glm::vec2 &texCoord, const glm::vec3 &normal)
     {
         positions_.push_back(position);
-        texCoords_.push_back(texCoord);
-        normals_.push_back(normal);
+        if (texCoord != glm::vec2(INT_MAX))
+            texCoords_.push_back(texCoord);
+        if (normal != glm::vec3(INT_MAX))
+            normals_.push_back(normal);
 
         return vertexCount() - 1;
     }
@@ -131,13 +133,13 @@ namespace CGE::Loader
     void MeshBuilder::translateVertices(const glm::vec3 &movement, unsigned int firstVertex, unsigned int lastVertex)
     {
         if (lastVertex == UINT_MAX)
-            lastVertex = vertexCount() - 1;
+            lastVertex = vertexCount();
 #ifndef NDEBUG
-        else if (vertexCount() <= lastVertex)
+        else if (vertexCount() < lastVertex)
         logError("You can't translate nonexistent vertices -> lastVertex: " << lastVertex << " vertexCount: "
                                                                             << vertexCount());
 #endif
-        for (unsigned int i = firstVertex; i <= lastVertex; ++i)
+        for (unsigned int i = firstVertex; i < lastVertex; ++i)
             positions_[i] += movement;
     }
 
@@ -146,18 +148,44 @@ namespace CGE::Loader
                                 unsigned int lastVertex)
     {
         if (lastVertex == UINT_MAX)
-            lastVertex = vertexCount() - 1;
+            lastVertex = vertexCount();
 #ifndef NDEBUG
-        else if (vertexCount() <= lastVertex)
+        else if (vertexCount() < lastVertex)
         logError("You can't rotate nonexistent vertices -> lastVertex: " << lastVertex << " vertexCount: "
                                                                          << vertexCount());
 #endif
         glm::quat quaternion(angles);
 
-        for (unsigned int i = firstVertex; i <= lastVertex; ++i)
+        for (; firstVertex < lastVertex; ++firstVertex)
         {
-            positions_[i] = quaternion * (positions_[i] - centerOfRotation) + centerOfRotation;
+            positions_[firstVertex] = quaternion * (positions_[firstVertex] - centerOfRotation) + centerOfRotation;
         }
+    }
+
+    glm::vec2 unused2Vector(INT_MAX);
+    glm::vec3 unused3Vector(INT_MAX);
+
+    void MeshBuilder::transformVertices(
+            std::function<void(glm::vec3 &position, glm::vec2 &texCoords, glm::vec3 &normal)> transformation,
+            unsigned int firstVertex, unsigned int lastVertex)
+    {
+        if (lastVertex == UINT_MAX)
+            lastVertex = vertexCount();
+#ifndef NDEBUG
+        else if (vertexCount() < lastVertex)
+        logError("You can't rotate nonexistent vertices -> lastVertex: " << lastVertex << " vertexCount: "
+                                                                         << vertexCount());
+#endif
+        for (; firstVertex < lastVertex; ++firstVertex)
+            transformation(positions_[firstVertex], texCoords_.empty() ? unused2Vector : texCoords_[firstVertex],
+                           normals_.empty() ? unused3Vector : normals_[firstVertex]);
+
+#ifndef NDEBUG
+        if (unused2Vector != glm::vec2(INT_MAX) && unused3Vector != glm::vec3(INT_MAX))
+        logError(
+                "The given transformation function has used unexisting data -"
+                " Please check documentation for more details");
+#endif
     }
 
     unsigned int MeshBuilder::vertexCount()
@@ -182,9 +210,9 @@ namespace CGE::Loader
     void MeshBuilder::incrementIndices(unsigned int scalarToIncrement, unsigned int firstIndex, unsigned int lastIndex)
     {
         if (lastIndex == UINT_MAX)
-            lastIndex = indexCount() - 1;
+            lastIndex = indexCount();
 #ifndef NDEBUG
-        else if (lastIndex >= indexCount())
+        else if (lastIndex > indexCount())
         logError("You can't increment nonexistent indices -> lastIndex: " << lastIndex << " indexCount: "
                                                                           << indexCount());
 #endif
@@ -193,8 +221,22 @@ namespace CGE::Loader
             indices_[firstIndex] += scalarToIncrement;
     }
 
+
+    void MeshBuilder::invertIndices(unsigned int firstIndex, unsigned int lastIndex)
+    {
+        if (lastIndex == UINT_MAX)
+            lastIndex = indexCount();
+#ifndef NDEBUG
+        else if (lastIndex > indexCount())
+        logError("You can't invert nonexistent indices -> lastIndex: " << lastIndex << " indexCount: "
+                                                                          << indexCount());
+#endif
+        std::reverse(indices_.begin() + firstIndex, indices_.begin() + lastIndex);
+    }
+
     unsigned int
-    MeshBuilder::loadVertices(const glm::vec3*vertices, const glm::vec2*texCoords, const glm::vec3*normals, unsigned int vertexCount)
+    MeshBuilder::loadVertices(const glm::vec3 *vertices, const glm::vec2 *texCoords, const glm::vec3 *normals,
+                              unsigned int vertexCount)
     {
         unsigned int startVertex = this->vertexCount();
 
