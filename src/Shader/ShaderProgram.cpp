@@ -18,13 +18,11 @@ namespace CGE::Shader
         unsigned int vertexShaderID, fragmentShaderID;
         if (isPath)
         {
-            vertexShaderID = compileShader(Utils::readWholeFile(vertexShader), GL_VERTEX_SHADER);
-            fragmentShaderID = compileShader(Utils::readWholeFile(fragmentShader), GL_FRAGMENT_SHADER);
-        } else
-        {
-            vertexShaderID = compileShader(vertexShader, GL_VERTEX_SHADER);
-            fragmentShaderID = compileShader(fragmentShader, GL_FRAGMENT_SHADER);
+            vertexShader = Utils::readWholeFile(vertexShader);
+            fragmentShader = Utils::readWholeFile(fragmentShader);
         }
+        vertexShaderID = compileShader(vertexShader, GL_VERTEX_SHADER);
+        fragmentShaderID = compileShader(fragmentShader, GL_FRAGMENT_SHADER);
 
         GLCall(glAttachShader(program_id_, vertexShaderID));
         GLCall(glAttachShader(program_id_, fragmentShaderID));

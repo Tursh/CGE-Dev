@@ -10,19 +10,20 @@ namespace CGE::Utils
     const char *readWholeFile(const char *filePath)
     {
         //read the file
-        std::ifstream stream(filePath, std::ifstream::in);
-        std::string line;
-        std::ostringstream buffer;
-        while (getline(stream, line))
-            buffer << line << '\n';
-        //Copy file to a char pointer
-        char *file;
-        strcpy(file, buffer.str().c_str());
-        //Close the buffer
-        stream.close();
+        FILE *f = fopen(filePath, "r");
+
         //Check if the file isn't empty
-        if (file == nullptr)
+        if (f == nullptr)
         logError("Failed to open " << filePath);
+
+        fseek(f, 0, SEEK_END);
+        long fsize = ftell(f);
+        fseek(f, 0, SEEK_SET);
+
+        char *file = new char[fsize + 1];
+        fread(file, 1, fsize, f);
+        fclose(f);
+
         return file;
     }
 
