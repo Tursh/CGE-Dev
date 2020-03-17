@@ -217,19 +217,6 @@ namespace CGE::Loader
         if (!meshData.isValid())
         logError("This mesh is invalid!");
 #endif
-        //Copy vertices to loader memory
-        float *positionData = new float[meshData.positions.size_];
-        std::copy(meshData.positions.data_, meshData.positions.data_ + meshData.positions.size_, positionData);
-        meshData.positions.data_ = positionData;
-
-        float *texCoordsData = new float[meshData.textureCoordinates.size_];
-        std::copy(meshData.textureCoordinates.data_,
-                  meshData.textureCoordinates.data_ + meshData.textureCoordinates.size_, texCoordsData);
-        meshData.textureCoordinates.data_ = texCoordsData;
-
-        unsigned int *indicesData = new unsigned int[meshData.indices.size_];
-        std::copy(meshData.indices.data_, meshData.indices.data_ + meshData.indices.size_, indicesData);
-        meshData.indices.data_ = indicesData;
 
         std::tuple<SharedMesh &, MeshData> meshWithPointer = {sharedPtr, meshData};
 
@@ -241,12 +228,14 @@ namespace CGE::Loader
 
     void loadMeshes()
     {
-        unsigned int size = modelsToLoad.size();
-        if (size == 0)
+        if (modelsToLoad.empty())
         {
-            loadingModel = true;
-            modelsToLoad.swap(modelsExtraBuffer);
-            loadingModel = false;
+            if (!modelsExtraBuffer.empty())
+            {
+                loadingModel = true;
+                modelsToLoad.swap(modelsExtraBuffer);
+                loadingModel = false;
+            }
             return;
         }
 
@@ -260,6 +249,7 @@ namespace CGE::Loader
             meshData.destroy();
         }
         modelsToLoad.clear();
+
         loadingModel = true;
         modelsToLoad.swap(modelsExtraBuffer);
         loadingModel = false;
@@ -374,6 +364,7 @@ namespace CGE::Loader
 
     template
     class Data<unsigned int>;
+
     template
     class Data<float>;
 }
