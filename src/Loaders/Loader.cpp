@@ -6,7 +6,7 @@ Author: Raphael Tremblay
 #include <GL/glew.h>    //GL*
 
 #include <vector>        //std::vector
-#include <Loader/Models/Mesh.h>
+#include <Loader/Meshes/Mesh.h>
 #include <Utils/Log.h>
 #include <Loader/Loader.h>
 #include <mutex>
@@ -209,7 +209,7 @@ namespace CGE::Loader
 
     std::vector<std::tuple<SharedMesh &, MeshData>> modelsExtraBuffer;
     std::vector<std::tuple<SharedMesh &, MeshData>> modelsToLoad;
-    bool loadingModel = false;
+    bool loadingMesh = false;
 
     void DataToVAO(SharedMesh &sharedPtr, MeshData meshData)
     {
@@ -220,7 +220,7 @@ namespace CGE::Loader
 
         std::tuple<SharedMesh &, MeshData> meshWithPointer = {sharedPtr, meshData};
 
-        while (loadingModel)
+        while (loadingMesh)
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
         modelsExtraBuffer.push_back(meshWithPointer);
@@ -232,9 +232,9 @@ namespace CGE::Loader
         {
             if (!modelsExtraBuffer.empty())
             {
-                loadingModel = true;
+                loadingMesh = true;
                 modelsToLoad.swap(modelsExtraBuffer);
-                loadingModel = false;
+                loadingMesh = false;
             }
             return;
         }
@@ -250,14 +250,14 @@ namespace CGE::Loader
         }
         modelsToLoad.clear();
 
-        loadingModel = true;
+        loadingMesh = true;
         modelsToLoad.swap(modelsExtraBuffer);
-        loadingModel = false;
+        loadingMesh = false;
     }
 
 
 
-    //std::shared_ptr<AnimatedModel>
+    //std::shared_ptr<AnimatedMesh>
     //Loader::DataToVAO(const Data<float> &positions, const Data<float> &texCoords, const Data<float> &normals,
     //                  const Data<unsigned int> &indices, const Data<unsigned int> &jointIDs,
     //                  const Data<float> &weights)
@@ -273,7 +273,7 @@ namespace CGE::Loader
     //    GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
     //    const std::vector<unsigned int> VBOs = buffers;
     //    buffers.clear();
-    //    return std::make_shared<AnimatedModel>(VAO, VBOs, indices.size_);
+    //    return std::make_shared<AnimatedMesh>(VAO, VBOs, indices.size_);
     //}
 
     //template<typename T>

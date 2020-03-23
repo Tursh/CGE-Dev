@@ -10,7 +10,7 @@
 
 namespace CGE::Loader
 {
-    class TexturedModel
+    class TexturedMesh
     {
     protected:
         bool threeDimension_;
@@ -18,7 +18,7 @@ namespace CGE::Loader
         SharedMesh mesh_;
 
     public:
-        TexturedModel(SharedMesh mesh, SharedTexture texture, bool threeDimension);
+        TexturedMesh(SharedMesh mesh, SharedTexture texture, bool threeDimension);
 
         virtual void render();
 
@@ -31,12 +31,15 @@ namespace CGE::Loader
         /**
          * @return the 3D size of the model
          */
-        const glm::vec3 &getModelSize();
+        const glm::vec3 &getMeshSize();
 
-        bool isThreeDimension() const;
+        /**
+         * @return Is the textured mesh in 3 dimension
+         */
+        [[nodiscard]]const bool &isThreeDimension() const;
 
     };
 
-    typedef std::shared_ptr<TexturedModel> SharedTexModel;
+    typedef std::shared_ptr<TexturedMesh> SharedTexMesh;
 
 }

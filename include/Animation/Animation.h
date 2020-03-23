@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include <Utils/Log.h>
-
 namespace CGE::Animations
 {
 #define ANIMATION_PATH "res/graphics/animations/"

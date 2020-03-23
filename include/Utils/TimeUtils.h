@@ -70,7 +70,7 @@ namespace CGE::Utils
 		 * @param TPSClockID The clock ID
 		 * @param wantedTPS The desired TPS
 		 */
-		static void init(unsigned int TPSClockID = 0, float wantedTPS = 1 / 60.0f);
+		static void init(unsigned int TPSClockID = 0, float wantedTPS = 60.0f);
 		
 		/**
 		 * Terminate the TPS clock at TPSClockID

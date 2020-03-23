@@ -81,15 +81,15 @@ add_library(CGE ${LIBRARY_TYPE}
         src/Utils/GLDebug.cpp
         src/Utils/TimeUtils.cpp
         src/Engine.cpp
-        src/Shader/ModelShader/BasicShader.cpp
+        src/Shader/MeshShader/BasicShader.cpp
         src/extern/stb_image.c
         src/View/Camera.cpp
         src/Loaders/FileLoader/DAELoader.cpp
-        src/Loaders/Models/Mesh.cpp
-        src/Loaders/Models/TexturedModel.cpp
+        src/Loaders/Meshes/Mesh.cpp
+        src/Loaders/Meshes/TexturedMesh.cpp
         src/Animation/TwoDAnimation.cpp
-        src/Animation/ModelAnimation.cpp
-        src/Loaders/Models/TwoDAnimatedModel.cpp
+        src/Animation/MeshAnimation.cpp
+        src/Loaders/Meshes/TwoDAnimatedMesh.cpp
         src/Animation/Animator.cpp
         src/Utils/XMLElementArrayLoader.cpp
         src/Entities/Entity.cpp
@@ -97,4 +97,4 @@ add_library(CGE ${LIBRARY_TYPE}
         src/Utils/PerlinNoice.cpp
         src/Physics/Hitbox.cpp
         src/Utils/ThreadProcess.cpp
-        src/Loaders/Models/MeshBuilder.cpp)
+        src/Loaders/Meshes/MeshBuilder.cpp)

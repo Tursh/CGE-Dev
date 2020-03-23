@@ -5,20 +5,20 @@
 #pragma once
 
 #include <Animation/TwoDAnimation.h>
-#include "TexturedModel.h"
+#include "TexturedMesh.h"
 
 namespace CGE::Loader
 {
 
-    class TwoDAnimatedModel : public TexturedModel
+    class TwoDAnimatedMesh : public TexturedMesh
     {
         float sizeScale_;
         Animations::TwoDAnimation *animation_;
     public:
 
-        TwoDAnimatedModel(TexturedModel texturedModel, float size, Animations::TwoDAnimation *animation);
+        TwoDAnimatedMesh(TexturedMesh texturedMesh, float size, Animations::TwoDAnimation *animation);
 
-        ~TwoDAnimatedModel();
+        ~TwoDAnimatedMesh();
 
         glm::vec2 getTextureSize() override ;
 

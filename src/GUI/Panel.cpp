@@ -17,7 +17,7 @@ namespace CGE::GUI
     Panel::Panel(const glm::vec2 position, const glm::vec2 dimension, unsigned int type,
                  std::function<void(int key, int usage)> keyCallback, bool inGamePanel)
             : GUIComponent(PANEL, position, dimension,
-                           (type) ? Loader::resManager::getTexModel(type) : nullptr),
+                           (type) ? Loader::resManager::getTexMesh(type) : nullptr),
               type_(type),
               keyCallback(std::move(keyCallback))
     {

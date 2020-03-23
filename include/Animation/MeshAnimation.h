@@ -7,7 +7,7 @@
 namespace CGE::Animations
 {
 
-    class ModelAnimation
+    class MeshAnimation
     {
 
         //TODO DAE Loader

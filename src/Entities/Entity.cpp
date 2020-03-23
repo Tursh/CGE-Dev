@@ -16,7 +16,7 @@ namespace CGE::Entities
 {
     unsigned int futureID = 1;
 
-    Entity::Entity(unsigned int texModelID, glm::vec3 position,
+    Entity::Entity(unsigned int texMeshID, glm::vec3 position,
                    glm::vec3 rotation,
                    bool visible)
             : ID_(futureID),
@@ -24,16 +24,16 @@ namespace CGE::Entities
               op_(position),
               ar_(rotation),
               or_(rotation),
-              texModel_(CGE::Loader::resManager::getTexModel(texModelID)),
+              texMesh_(CGE::Loader::resManager::getTexMesh(texMeshID)),
               visible_(visible)
     {
         //addForce(INT_MAX, {0, -0.04f, 0});
         ++futureID;
     }
 
-    Entity::Entity(std::shared_ptr<Loader::TexturedModel> texModel, glm::vec3 position, glm::vec3 rotation,
+    Entity::Entity(std::shared_ptr<Loader::TexturedMesh> texMesh, glm::vec3 position, glm::vec3 rotation,
                    bool visible)
-            : texModel_(std::move(texModel)),
+            : texMesh_(std::move(texMesh)),
               ID_(futureID),
               ap_(position),
               op_(position),
@@ -67,9 +67,9 @@ namespace CGE::Entities
         matrix = glm::rotate(matrix, rotation.y, {0, 1, 0});
         matrix = glm::rotate(matrix, rotation.z, {0, 0, 1});
 
-        if (!texModel_->isThreeDimension())
+        if (!texMesh_->isThreeDimension())
         {
-            glm::vec2 modelSize = texModel_->getTextureSize();
+            glm::vec2 modelSize = texMesh_->getTextureSize();
             matrix = glm::scale(matrix, {modelSize.x, modelSize.y, 1});
         }
 
@@ -132,7 +132,7 @@ namespace CGE::Entities
     void Entity::render()
     {
         if (visible_)
-            texModel_->render();
+            texMesh_->render();
     }
 
     void Entity::addForce(int duration, glm::vec3 Size)
@@ -160,9 +160,9 @@ namespace CGE::Entities
 
     void Entity::setSpeed(const glm::vec3 &speed) { as_ = speed; }
 
-    const Loader::SharedTexModel &Entity::getTexModel() const { return texModel_; }
+    const Loader::SharedTexMesh &Entity::getTexMesh() const { return texMesh_; }
 
-    void Entity::setTexModel(const Loader::SharedTexModel &texModel) { texModel_ = texModel; }
+    void Entity::setTexMesh(const std::shared_ptr<Loader::TexturedMesh> &texMesh) { texMesh_ = texMesh; }
 
     void Entity::setCollisionFunc(const std::function<glm::vec3(Entity *)> &collisionFunc)
     {
@@ -171,7 +171,7 @@ namespace CGE::Entities
 
     static const glm::vec3 zero(0);
 
-    const glm::vec3 &Entity::getSize() { return texModel_ != nullptr ? texModel_->getModelSize() : zero; }
+    const glm::vec3 &Entity::getSize() { return texMesh_ != nullptr ? texMesh_->getMeshSize() : zero; }
 
     Hitbox Entity::getHitbox()
     {

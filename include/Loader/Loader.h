@@ -30,7 +30,7 @@ namespace CGE::Loader
         /**< array's size*/
         unsigned int size_ = 0;
         /**< data usage*/
-        GLenum usage_;
+        GLenum usage_{};
 
         /*
         Data constructor
@@ -86,19 +86,19 @@ namespace CGE::Loader
          * Is data valid
          * @return If there is data stored in the wrapper
          */
-        bool isValid() const;
+        [[nodiscard]] bool isValid() const;
 
         /**
          * Pointer at the start of the data
          * @return data_
          */
-        const T* first() const;
+        [[nodiscard]] const T* first() const;
 
         /**
          * Pointer at the end of the data
          * @return data_ + size_;
          */
-        const T* last() const;
+        [[nodiscard]] const T* last() const;
     };
 
     typedef std::shared_ptr<Mesh> SharedMesh;
@@ -114,7 +114,7 @@ namespace CGE::Loader
         /**
          * Check if the mesh is valid to be loaded
          */
-        bool isValid() const;
+        [[nodiscard]] bool isValid() const;
 
         /**
          * Delete all data
@@ -171,7 +171,7 @@ namespace CGE::Loader
 /*
  * Load Animated model to VAO
  */
-//std::shared_ptr<AnimatedModel> DataToVAO(const Data<float> &positions,
+//std::shared_ptr<AnimatedMesh> DataToVAO(const Data<float> &positions,
 //                                         const Data<float> &texCoords,
 //                                         const Data<float> &normals,
 //                                         const Data<unsigned int> &indices,
@@ -182,7 +182,7 @@ namespace CGE::Loader
  * Load Collada files to 3D Mesh
  * filePath: path to the file from the project folder
  */
-//std::shared_ptr<AnimatedModel> loadDAEFile(const char *filePath);
+//std::shared_ptr<AnimatedMesh> loadDAEFile(const char *filePath);
 
 
 

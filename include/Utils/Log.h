@@ -1,13 +1,9 @@
 #pragma once
 
+#include <IO/Input.h>
 #include <iostream>
 #include "DebugBreak.h"
 #include "ConsoleColor.h"
-
-namespace CGE::IO::input
-{
-    void ungrabMouse();
-}
 
 namespace CGE::Utils
 {

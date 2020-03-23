@@ -1,12 +1,12 @@
 #include <map>
 
+#include <Utils/Log.h>
 #include <GLFW/glfw3.h>
 #include <cmath>
 #include <Utils/TimeUtils.h>
 #include <thread>
 #include <unordered_map>
 
-#include "Utils/Log.h"
 
 //Constants
 static const unsigned int
@@ -48,10 +48,12 @@ namespace CGE::Utils
                 const unsigned int days = (hours / HOURS_PER_DAYS);
                 return std::to_string(days) + " days " + std::to_string(hours)
                        + ":" + s_minutes + ":" + s_seconds;
-            } else
+            }
+            else
                 return std::to_string(hours) + ":" + s_minutes + ":" + s_seconds;
 
-        } else
+        }
+        else
             return s_minutes + ":" + s_seconds;
     }
 
@@ -110,7 +112,8 @@ namespace CGE::Utils
         if (chronos.find(chronoID) == chronos.end())
         {
             logError("An inexisting chrono can't be stopped! ID: " << chronoID);
-        } else
+        }
+        else
 #endif
             chronos[chronoID]->stop();
     }
@@ -123,7 +126,8 @@ namespace CGE::Utils
         {
             logError("An inexisting chrono can't be stopped! ID: " << chronoID);
             return 0.0;
-        } else
+        }
+        else
 #endif // DEBUG
             return chronos[chronoID]->getTime();
     }
@@ -135,7 +139,8 @@ namespace CGE::Utils
         if (chronos.find(chronoID) == chronos.end())
         {
             logError("An inexisting chrono can't be stopped! ID: " << chronoID);
-        } else
+        }
+        else
 #endif
             delete chronos[chronoID];
         chronos.erase(chronos.find(chronoID));
@@ -205,7 +210,7 @@ namespace CGE::Utils
 
     bool TPSClock::shouldTick(unsigned int TPSClockID, bool waitForNextTick)
     {
-        if(TPSClocks.empty())
+        if (TPSClocks.empty())
         {
             logWarning("The TPS clock with ID: " << TPSClockID << "does not exist");
             return false;
@@ -213,14 +218,16 @@ namespace CGE::Utils
         TPSClock *tpsClock = TPSClocks[TPSClockID];
         double deltaTime = glfwGetTime() - tpsClock->lastTick;
         bool shouldTick = deltaTime >= tpsClock->tickCooldown;
+
         if (shouldTick)
         {
             tpsClock->lastTick += tpsClock->tickCooldown;
             tpsClock->addTick();
         }
+
         if (waitForNextTick && deltaTime > tpsClock->tickCooldown / 10)
-            std::this_thread::__sleep_for(std::chrono::seconds(0),
-                                          std::chrono::milliseconds((int) (100 * tpsClock->tickCooldown)));
+            std::this_thread::sleep_for(std::chrono::milliseconds((int) (100 * tpsClock->tickCooldown)));
+
         return shouldTick;
     }
 
@@ -252,7 +259,7 @@ namespace CGE::Utils
     TPSClock::TPSClock(unsigned int ID, float wantedTPS)
     {
         double currentTime = glfwGetTime();
-        tickCooldown = wantedTPS;
+        tickCooldown = 1.0f / wantedTPS;
         tickCount = 0;
         lastTickCount = 0;
         lastTPS = 0;

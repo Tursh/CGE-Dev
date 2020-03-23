@@ -10,6 +10,7 @@
 #include <iterator>
 #include <Utils/XMLElementArrayLoader.h>
 #include <Animation/Animator.h>
+#include <Utils/Log.h>
 
 namespace CGE::Animations
 {

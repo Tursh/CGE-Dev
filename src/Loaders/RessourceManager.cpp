@@ -2,6 +2,7 @@
 
 #include "Loader/RessourceManager.h"
 
+#include <Utils/Log.h>
 #include <map>
 #include <GL/glew.h>
 #include <Utils/GLDebug.h>
@@ -12,34 +13,34 @@ namespace CGE::Loader
 
     //Index (graphics.index)
     // <ID, pair<model ID, texture ID>
-    std::map<unsigned int, std::pair<unsigned int, unsigned int>> texModelIndex;
+    static std::map<unsigned int, std::pair<unsigned int, unsigned int>> texMeshIndex;
     // <ID, path>
-    std::map<unsigned int, char *> modelIndex;
+    static std::map<unsigned int, char *> modelIndex;
     // <ID, <path, atlas size>>
-    std::map<unsigned int, std::tuple<char *, glm::ivec2>> texIndex;
+    static std::map<unsigned int, std::tuple<char *, glm::ivec2>> texIndex;
     // <ID, .anim path>
-    std::map<unsigned int, char *> animationIndex;
+    static std::map<unsigned int, char *> animationIndex;
 
-    const Data<float> *SQUARE_POSITION;
-    const Data<float> *SQUARE_TEX_COORDS;
-    const Data<unsigned int> *SQUARE_INDICES;
+    static const Data<float> *SQUARE_POSITION;
+    static const Data<float> *SQUARE_TEX_COORDS;
+    static const Data<unsigned int> *SQUARE_INDICES;
 
     //Square data
-    const float squareRawPosition[4 * 2] =
+    static const float squareRawPosition[4 * 2] =
             {-1.0f, -1.0f, //0
              -1.0f, 1.0f, //1
              1.0f, 1.0f, //2
              1.0f, -1.0f //3
             };
 
-    const float squareRawTexCoords[4 * 2] =
+    static const float squareRawTexCoords[4 * 2] =
             {0.0f, 0.0f, //0
              0.0f, 1.0f, //1
              1.0f, 1.0f, //2
              1.0f, 0.0f //3
             };
 
-    const unsigned int squareRawIndices[2 * 3] =
+    static const unsigned int squareRawIndices[2 * 3] =
             {3, 0, 1, 1, 2, 3};
 
     void resManager::init()
@@ -80,14 +81,14 @@ namespace CGE::Loader
                 char line[100];
                 fgets(line, 100, file);
             }
-                //Load TexModel
+                //Load TexMesh
             else if (head == 'R')
             {
                 //store the ID and the his info
                 unsigned int ID;
                 std::pair<unsigned int, unsigned int> info;
                 fscanf(file, "%u %u %u\n", &ID, &info.first, &info.second);
-                texModelIndex[ID] = info;
+                texMeshIndex[ID] = info;
             }
                 //Load Mesh
             else if (head == 'M')
@@ -142,42 +143,42 @@ namespace CGE::Loader
     }
 
     //Buffers <ID, Mesh/Texture>
-    std::map<unsigned int, std::weak_ptr<TexturedModel>> texModelBuf;
+    std::map<unsigned int, std::weak_ptr<TexturedMesh>> texMeshBuf;
     std::map<unsigned int, std::weak_ptr<Mesh>> modelBuf;
     std::map<unsigned int, std::weak_ptr<Texture>> texBuf;
-    std::map<unsigned int, std::weak_ptr<TwoDAnimatedModel>> twoDAniModelBuf;
+    std::map<unsigned int, std::weak_ptr<TwoDAnimatedMesh>> twoDAniMeshBuf;
     std::map<unsigned int, std::weak_ptr<Texture>> twoDAniBuf;
 
     //Check if textured model got already loaded and return it
-    SharedTexModel resManager::getTexModel(unsigned int ID)
+    SharedTexMesh resManager::getTexMesh(unsigned int ID)
     {
 #ifndef NDEBUG
-        if (texModelIndex.find(ID) == texModelIndex.end())
-        logError("The textured model: " << ID << " does not exist!");
+        if (texMeshIndex.find(ID) == texMeshIndex.end())
+        logError("The textured model: " << ID << " does not exist!")
 #endif
-        SharedTexModel texModel;
+        SharedTexMesh texMesh;
         start:
-        if (texModelBuf.find(ID) == texModelBuf.end())
+        if (texMeshBuf.find(ID) == texMeshBuf.end())
         {
             //Get Mesh and Texture IDs
-            std::pair<unsigned int, unsigned int> &pair = texModelIndex[ID];
-            texModel = std::make_shared<TexturedModel>(getModel(pair.first), getTexture(pair.second), pair.first);
-            texModelBuf[ID] = texModel;
+            std::pair<unsigned int, unsigned int> &pair = texMeshIndex[ID];
+            texMesh = std::make_shared<TexturedMesh>(getMesh(pair.first), getTexture(pair.second), pair.first);
+            texMeshBuf[ID] = texMesh;
         } else
         {
-            std::weak_ptr buf = texModelBuf[ID];
+            std::weak_ptr buf = texMeshBuf[ID];
             if (buf.expired())
             {
-                texModelBuf.erase(ID);
+                texMeshBuf.erase(ID);
                 goto start;
             }
-            texModel = buf.lock();
+            texMesh = buf.lock();
         }
-        return texModel;
+        return texMesh;
     }
 
     //Check if model got already loaded and return it
-    SharedMesh resManager::getModel(unsigned int ID)
+    SharedMesh resManager::getMesh(unsigned int ID)
     {
         SharedMesh model;
         start:
@@ -188,7 +189,7 @@ namespace CGE::Loader
 #ifndef NDEBUG
             //If on debug, check if the model is in index
             if (modelIndex[ID] == nullptr && ID != 0)
-            logError("The model with the ID: " << ID << " does not exist.");
+            logError("The model with the ID: " << ID << " does not exist.")
 #endif //NDEBUG
             //If 0, we want the square model
             //logInfo("Mesh with ID: " << ID << "got loaded. ");
@@ -222,7 +223,7 @@ namespace CGE::Loader
             //If on debug, check if the texture is in index
             if (std::get<0>(texInfo) == nullptr)
             {
-                logError("The texture with the ID: " << ID << " does not exist.");
+                logError("The texture with the ID: " << ID << " does not exist.")
             }
 #endif
             //If it fail load it from png file
@@ -254,7 +255,7 @@ namespace CGE::Loader
             logInfo("delete texture ID: " << texture);
 #endif
             if (texture != 0xffffffff)
-            GLCall(glDeleteTextures(1, &texture));
+            GLCall(glDeleteTextures(1, &texture))
         }
         textureToClear.clear();
         modelToClear.swap(modelToClearExtraBuffer);
@@ -263,12 +264,12 @@ namespace CGE::Loader
             auto &VAO = std::get<0>(model);
             auto &VBOs = std::get<1>(model);
             //Delete VAO
-            GLCall(glDeleteVertexArrays(1, &VAO));
+            GLCall(glDeleteVertexArrays(1, &VAO))
 
             //Delete VBOs
             for (unsigned int VBO : VBOs)
             {
-                GLCall(glDeleteBuffers(1, &VBO));
+                GLCall(glDeleteBuffers(1, &VBO))
             }
         }
         modelToClear.clear();
@@ -280,7 +281,7 @@ namespace CGE::Loader
         textureToClear.push_back(texture);
     }
 
-    void trashModel(const std::tuple<unsigned int, std::vector<unsigned int>> &model)
+    void trashMesh(const std::tuple<unsigned int, std::vector<unsigned int>> &model)
     {
         modelToClearExtraBuffer.push_back(model);
     }

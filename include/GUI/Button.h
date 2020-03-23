@@ -2,8 +2,8 @@
 
 #include <string>
 #include <glm/vec2.hpp>
-#include <Loader/Models/TexturedModel.h>
-#include <Loader/Models/TwoDAnimatedModel.h>
+#include <Loader/Meshes/TexturedMesh.h>
+#include <Loader/Meshes/TwoDAnimatedMesh.h>
 #include <functional>
 #include <ostream>
 

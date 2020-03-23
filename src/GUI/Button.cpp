@@ -17,7 +17,7 @@ namespace CGE::GUI
     Button::Button(const unsigned int type, const glm::vec2 position, const glm::vec2 dimension,
                    std::string text, std::function<void(void)> funcWhenPressed, char relativeToParent)
             : GUIComponent(BUTTON, position, dimension,
-                           Loader::resManager::getTexModel(type), relativeToParent),
+                           Loader::resManager::getTexMesh(type), relativeToParent),
               type_(type), mode_(RELEASED),
               text_(std::move(text)), textPosition_(glm::vec2()), textSize_(1),
               press(std::move(funcWhenPressed))
@@ -40,7 +40,7 @@ namespace CGE::GUI
         //Get button
         shader->start();
         prepareRender(shader);
-        ((Loader::TwoDAnimatedModel *) texModel_.get())->render(mode_);
+        ((Loader::TwoDAnimatedMesh *) texMesh_.get())->render(mode_);
         shader->stop();
         //Render text
         CGE::Text::textRenderer::renderText(text_, textPosition_.x, textPosition_.y,

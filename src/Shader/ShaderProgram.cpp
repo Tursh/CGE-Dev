@@ -13,7 +13,7 @@ namespace CGE::Shader
 {
 
     ShaderProgram::ShaderProgram(const char *vertexShader, const char *fragmentShader, bool isPath)
-            : program_id_(glCreateProgram())
+            : programId_(glCreateProgram())
     {
         unsigned int vertexShaderID, fragmentShaderID;
         if (isPath)
@@ -24,10 +24,10 @@ namespace CGE::Shader
         vertexShaderID = compileShader(vertexShader, GL_VERTEX_SHADER);
         fragmentShaderID = compileShader(fragmentShader, GL_FRAGMENT_SHADER);
 
-        GLCall(glAttachShader(program_id_, vertexShaderID));
-        GLCall(glAttachShader(program_id_, fragmentShaderID));
-        GLCall(glLinkProgram(program_id_));
-        GLCall(glValidateProgram(program_id_));
+        GLCall(glAttachShader(programId_, vertexShaderID));
+        GLCall(glAttachShader(programId_, fragmentShaderID));
+        GLCall(glLinkProgram(programId_));
+        GLCall(glValidateProgram(programId_));
 
         GLCall(glDeleteShader(vertexShaderID));
         GLCall(glDeleteShader(fragmentShaderID));
@@ -35,7 +35,7 @@ namespace CGE::Shader
 
     void ShaderProgram::start()
     {
-        GLCall(glUseProgram(program_id_));
+        GLCall(glUseProgram(programId_));
     }
 
     void ShaderProgram::stop()
@@ -45,13 +45,13 @@ namespace CGE::Shader
 
     void ShaderProgram::destroy()
     {
-        GLCall(glDeleteProgram(program_id_));
+        GLCall(glDeleteProgram(programId_));
     }
 
     unsigned int ShaderProgram::getUniformLocation(const char *uniformName)
     {
         unsigned int location;
-        GLCall(location = glGetUniformLocation(program_id_, uniformName));
+        GLCall(location = glGetUniformLocation(programId_, uniformName));
         if (location == 0xffffffff)
         logError(uniformName << " is not a uniform");
         return location;
@@ -59,27 +59,42 @@ namespace CGE::Shader
 
     void ShaderProgram::loadFloat(const unsigned int &location, const float &value)
     {
+#ifndef NDEBUG
+        if(!isBeingUsed())
+            logError("You try to load a uniform without starting the shader");
+#endif
         GLCall(glUniform1f(location, value));
     }
 
     void ShaderProgram::loadVec3(const unsigned int &location, const glm::vec3 &value)
     {
+#ifndef NDEBUG
+        if(!isBeingUsed())
+        logError("You try to load a uniform without starting the shader");
+#endif
         GLCall(glUniform3fv(location, 1, glm::value_ptr(value)));
     }
 
     void ShaderProgram::loadVec4(const unsigned int &location, const glm::vec4 &value)
     {
+#ifndef NDEBUG
+        if(!isBeingUsed())
+        logError("You try to load a uniform without starting the shader");
+#endif
         GLCall(glUniform4fv(location, 1, glm::value_ptr(value)));
     }
 
     void ShaderProgram::loadMat4(const unsigned int &location, const glm::mat4 &value)
     {
+#ifndef NDEBUG
+        if(!isBeingUsed())
+        logError("You try to load a uniform without starting the shader");
+#endif
         GLCall(glUniformMatrix4fv(location, 1, false, glm::value_ptr(value)));
     }
 
     unsigned int ShaderProgram::compileShader(const char *shader, unsigned int type)
     {
-
         //Compile shader
         unsigned int id = glCreateShader(type);
         //Load the source
@@ -108,6 +123,11 @@ namespace CGE::Shader
         }
 
         return id;
+    }
+
+    bool ShaderProgram::isBeingUsed()
+    {
+        return glIsProgram(programId_);
     }
 
 }

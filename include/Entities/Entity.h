@@ -7,7 +7,7 @@
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 #include <Loader/Texture.h>
-#include <Loader/Models/TexturedModel.h>
+#include <Loader/Meshes/TexturedMesh.h>
 #include <Physics/Hitbox.h>
 
 namespace CGE::Entities
@@ -30,31 +30,31 @@ namespace CGE::Entities
     protected:
         std::vector<std::tuple<int, glm::vec3>> forces_;       /**< List of forces applied on the entity */
         unsigned int ID_;                                      /**< Unique ID */
-        Loader::SharedTexModel texModel_;                      /**< Textured model */
+        Loader::SharedTexMesh texMesh_;                      /**< Textured model */
         bool visible_;                                         /**< Is visible */
         std::function<glm::vec3(Entity *)> checkCollision_;    /**< Collision check function */
 
     public:
         /**
          * Base Constructor
-         * @param texModelID            Textured model ID
+         * @param texMeshID            Textured model ID
          * @param position              The 3D position of the entity
          * @param rotation              The 3D rotation of the entity (Pitch, Yaw, Roll)
          * @param visible               Is visible
          */
-        explicit Entity(unsigned int texModelID,
+        explicit Entity(unsigned int texMeshID,
                         glm::vec3 position = {0, 0, 0},
                         glm::vec3 rotation = {0, 0, 0},
                         bool visible = true);
 
         /**
          * Constructor with an already existing textured model
-         * @param texModel              Textured Mesh
+         * @param texMesh              Textured Mesh
          * @param position              The 3D position of the entity
          * @param rotation              The 3D rotation of the entity (Pitch, Yaw, Roll)
          * @param visible               Is visible
          */
-        explicit Entity(std::shared_ptr<Loader::TexturedModel> texModel,
+        explicit Entity(std::shared_ptr<Loader::TexturedMesh> texMeshID,
                         glm::vec3 position = glm::vec3(0),
                         glm::vec3 rotation = glm::vec3(0),
                         bool visible = true);
@@ -113,9 +113,9 @@ namespace CGE::Entities
 		Hitbox getHitbox();
         
 		
-        void setTexModel(const std::shared_ptr<Loader::TexturedModel> &texModel);
+        void setTexMesh(const std::shared_ptr<Loader::TexturedMesh> &texMesh);
 
-        const Loader::SharedTexModel &getTexModel() const;
+        const Loader::SharedTexMesh &getTexMesh() const;
 
         void setVisible(bool visible);
 

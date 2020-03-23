@@ -1,16 +1,16 @@
 ﻿#include <GUI/GUIComponent.h>
+#include <IO/Input.h>
 #include <GUI/GUIManager.h>
 #include <glm/ext/matrix_transform.hpp>
-#include <IO/Input.h>
 #include <IO/Window.h>
 
 namespace CGE::GUI
 {
 
     GUIComponent::GUIComponent(ComponentType type, const glm::vec2 &position,
-                               const glm::vec2 &dimension, std::shared_ptr<Loader::TexturedModel> texModel,
+                               const glm::vec2 &dimension, std::shared_ptr<Loader::TexturedMesh> texMesh,
                                char relativeToParent)
-            : type_(type), parent_(nullptr), texModel_(texModel), rawPosition_(position),
+            : type_(type), parent_(nullptr), texMesh_(texMesh), rawPosition_(position),
               rawDimension_(dimension), relativeToParent_(relativeToParent)
     {
         setPosition(position);
@@ -73,7 +73,7 @@ namespace CGE::GUI
             return;
         shader->start();
         prepareRender(shader);
-        texModel_->render();
+        texMesh_->render();
         shader->stop();
     }
 

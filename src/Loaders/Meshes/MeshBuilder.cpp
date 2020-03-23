@@ -8,7 +8,7 @@
 #include <Utils/GLDebug.h>
 #include <algorithm>
 #include <Utils/Log.h>
-#include "Loader/Models/MeshBuilder.h"
+#include "Loader/Meshes/MeshBuilder.h"
 #include <Loader/Loader.h>
 #include <glm/gtc/quaternion.hpp>
 

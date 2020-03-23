@@ -4,7 +4,7 @@
 
 namespace CGE::Loader
 {
-    //std::shared_ptr<AnimatedModel> loadDAEFile(const char *filePath)
+    //std::shared_ptr<AnimatedMesh> loadDAEFile(const char *filePath)
     //{
     //    tinyxml2::XMLDocument doc;
     //    tinyxml2::XMLError success = doc.LoadFile(filePath);

@@ -2,7 +2,7 @@
 // Created by tursh on 1/23/19.
 //
 
-#include <Loader/Models/Mesh.h>
+#include <Loader/Meshes/Mesh.h>
 #include <GL/glew.h>
 #include <Utils/GLDebug.h>
 #include <Utils/Log.h>
@@ -21,12 +21,12 @@ namespace CGE::Loader
             : VAO(VAO), VBOs(std::move(VBOs)), vertexCount(vertexCount), size(size)
     {}
 
-    void trashModel(const std::tuple<unsigned int, std::vector<unsigned int>> &model);
+    void trashMesh(const std::tuple<unsigned int, std::vector<unsigned int>> &model);
 
     /*Delete model (VAO and VBOs too)*/
     Mesh::~Mesh()
     {
-        trashModel(std::make_tuple(VAO, VBOs));
+        trashMesh(std::make_tuple(VAO, VBOs));
     }
 
     /*Bind model*/

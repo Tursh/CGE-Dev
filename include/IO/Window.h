@@ -12,57 +12,107 @@ namespace CGE::IO
     //Create a dynamic window
     class Window
     {
-        unsigned int width,
-                height,
-                ID;
+        /**
+         * Window parameters
+         */
+        unsigned int width_, height_, ID_;
 
-        glm::mat4 projectionMatrix;
+        /**
+         * Projection matrix parameters
+         */
+        float FOV_ = 45.0f, zNear_ = 0.001f, zFar_ = 1000.0f;
 
-        //Projection matrix info
-        float FOV = 45.0f, zNear = 0.000001f, zFar = 100.0f;
+        /**
+         * The projection matrix that all shaders refer to
+         */
+        glm::mat4 projectionMatrix_;
 
-        //The window pointer
+        /**
+         * The GLFW window
+         */
         GLFWwindow *glfwWindow_;
 
     public:
 
-        //Look for inputs changes and swap the drawing buffer
+        /**
+         * Look for inputs changes, swap the drawing buffers and manage GPU resources
+         */
         void update() const;
 
+        /**
+         * @return Should the display close
+         */
         bool shouldClose();
 
-        //Create the window taking the name, default width and height
-        Window(const char *name, unsigned int width, unsigned int, bool resizable = true);
+        /**
+         * Create the window taking the name, default width and height
+         * @param name The window name
+         * @param width Window width
+         * @param height Window height
+         * @param resizable Will the window be resizable
+         */
+        Window(const char *name, unsigned int width, unsigned int height, bool resizable = true);
 
-        //Destroy the window
+        /**
+         * Destroy the window
+         */
         ~Window();
 
+        /**
+         * Change the window width and/or height
+         * @param dimension Dimension vector (x = Width, y = Height)
+         */
         void setDimension(glm::ivec2 dimension);
 
-        unsigned int getWidth() const;
+        /**
+         * @return Current window width
+         */
+        [[nodiscard]] const unsigned int &getWidth() const;
 
-        unsigned int getHeight() const;
+        /**
+         * @return Current window height
+         */
+        [[nodiscard]] const unsigned int &getHeight() const;
 
-        unsigned int getID() const;
+        /**
+         * @return Window ID
+         */
+        [[nodiscard]] const unsigned int &getID() const;
 
-        void createProjectionMatrix(float FOV, float zNear = 0.000001f, float zFar = 100.0f);
+        /**
+         * Change FOV, zNear or zFar
+         * @param FOV Field of view (In degree)
+         * @param zNear Nearest z the camera can see
+         * @param zFar Farthest z the camera can see (View Distance)
+         */
+        void modifyProjectionMatrix(float FOV, float zNear = 0.000001f, float zFar = 100.0f);
 
-        const glm::mat4 &getProjectionMatrix() const;
+        /**
+         * @return The projection matrix reference to use in your shader program
+         */
+        [[nodiscard]] const glm::mat4 &getProjectionMatrix() const;
 
-        GLFWwindow *getGlfwWindow() const;
+        /**
+         * @return The GLFW window that this window refers to
+         */
+        [[nodiscard]] GLFWwindow *getGLFWWindow() const;
     };
 
-    //Get the display by ID (The first display ID is 0)
+    /**
+     * Get the window by ID (The first display ID is 0)
+     * @param ID The window ID
+     * @return The window pointer assigned to this ID
+     */
     Window *getWindow(unsigned int ID = 0);
 
     /**
-     *
-     * @param callback
+     * Set a custom resize callback
+     * @param callback Your callback function
      */
-    void setWindowResizeCallback(std::function<void(int, int)> callback);
+    void setWindowResizeCallback(const std::function<void(int, int)>& callback);
 
     /**
-     * Remove all the added window resize callback functions
+     * Remove all the added custom resize callback functions
      */
     void removeWindowResizeCallback();
 
