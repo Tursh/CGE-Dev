@@ -15,7 +15,8 @@ namespace CGE::Utils
 #ifdef __MINGW32__
 #define logWarning(msg) std::cout << yellow << "[WARNING] " << msg << white << std::endl
 #else
-#define logWarning(msg) std::cout << "\033[33m[WARNING] " << msg << "\033[0m" << std::endl
+#define logWarning(msg) std::cout << "\033[93m[WARNING] " << msg << \
+        " - " << __FILE__ << ": " << __LINE__ << "\033[0m" << std::endl;
 #endif
 // Print error on the console
 #ifndef NDEBUG

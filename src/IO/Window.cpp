@@ -7,7 +7,7 @@
 #include <Utils/TimeUtils.h>
 #include <map>
 #include <glm/ext/matrix_clip_space.hpp>
-#include <Text/TextRenderer.h>
+#include <GUI/Text/TextRenderer.h>
 #include <Loader/RessourceManager.h>
 
 namespace CGE::IO
@@ -28,9 +28,12 @@ namespace CGE::IO
         return windows[ID];
     }
 
+
     //Window resize callback reference (Definition at the EOF)
     static void windowResizeCallback(GLFWwindow *win, int width, int height);
 
+
+    //-------------- Window Methods ----------------//
 
     Window::Window(const char *name, unsigned int width,
                    unsigned int height, bool resizable)
@@ -54,7 +57,7 @@ namespace CGE::IO
         //Make the window context current
         glfwMakeContextCurrent(glfwWindow_);
         //Set the max fps to 60 (vsync)
-        glfwSwapInterval(1);
+        glfwSwapInterval(0);
         //set the color that the screen clear after draw
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         //Set the callback for when the user change the window size
@@ -147,7 +150,7 @@ namespace CGE::IO
             callback(width, height);
         glm::ivec2 newDimension(width, height);
         GUI::GUIManager::resetWindowDimension(newDimension);
-        Text::textRenderer::resetWindowDimension(newDimension);
+        GUI::Text::TextRenderer::resetWindowDimension(newDimension);
         glViewport(0, 0, width, height);
         for (auto &pairedWindow : windows)
         {

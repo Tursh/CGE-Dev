@@ -42,7 +42,7 @@ namespace CGE::Loader
          * @param normal Vertex normal
          * @return Vertex index
          */
-        unsigned int loadVertex(const glm::vec3 &position, const glm::vec2 &texCoord = glm::vec2(INT_MAX), const glm::vec3 &normal = glm::vec3(INT_MAX));
+        unsigned int loadVertex(const glm::vec3 &position, const glm::vec2 &texCoord = glm::vec2(FLT_MAX), const glm::vec3 &normal = glm::vec3(FLT_MAX));
 
         /**
          * Load vertex to model (Need to load your indices to use them)

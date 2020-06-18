@@ -54,9 +54,9 @@ namespace CGE::Loader
     unsigned int MeshBuilder::loadVertex(const glm::vec3 &position, const glm::vec2 &texCoord, const glm::vec3 &normal)
     {
         positions_.push_back(position);
-        if (texCoord != glm::vec2(INT_MAX))
+        if (texCoord != glm::vec2(FLT_MAX))
             texCoords_.push_back(texCoord);
-        if (normal != glm::vec3(INT_MAX))
+        if (normal != glm::vec3(FLT_MAX))
             normals_.push_back(normal);
 
         return vertexCount() - 1;
@@ -162,8 +162,8 @@ namespace CGE::Loader
         }
     }
 
-    glm::vec2 unused2Vector(INT_MAX);
-    glm::vec3 unused3Vector(INT_MAX);
+    glm::vec2 unused2Vector(FLT_MAX);
+    glm::vec3 unused3Vector(FLT_MAX);
 
     void MeshBuilder::transformVertices(
             std::function<void(glm::vec3 &position, glm::vec2 &texCoords, glm::vec3 &normal)> transformation,
@@ -181,7 +181,7 @@ namespace CGE::Loader
                            normals_.empty() ? unused3Vector : normals_[firstVertex]);
 
 #ifndef NDEBUG
-        if (unused2Vector != glm::vec2(INT_MAX) && unused3Vector != glm::vec3(INT_MAX))
+        if (unused2Vector != glm::vec2(FLT_MAX) && unused3Vector != glm::vec3(FLT_MAX))
         logError(
                 "The given transformation function has used unexisting data -"
                 " Please check documentation for more details");

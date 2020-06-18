@@ -4,7 +4,7 @@
 #include <GUI/Button.h>
 #include <IO/Window.h>
 #include <IO/Input.h>
-#include <Text/TextRenderer.h>
+#include <GUI/Text/TextRenderer.h>
 #include <GUI/GUIManager.h>
 #include <GLFW/glfw3.h>
 #include <glm/detail/type_vec2.hpp>
@@ -43,9 +43,9 @@ namespace CGE::GUI
         ((Loader::TwoDAnimatedMesh *) texMesh_.get())->render(mode_);
         shader->stop();
         //Render text
-        CGE::Text::textRenderer::renderText(text_, textPosition_.x, textPosition_.y,
-                                            textSize_,
-                                            {1, 1, 1});
+        CGE::GUI::Text::TextRenderer::renderText(text_, textPosition_,
+                                                 textSize_,
+                                                 {1, 1, 1});
     }
 
     void Button::checkEvent()
@@ -84,7 +84,7 @@ namespace CGE::GUI
         CGE::IO::Window *display = CGE::IO::getWindow();
         for (textSize_ = MIN_TEXT_SIZE;
              dimension_.x * 0.75f >
-             static_cast<float>(Text::textRenderer::getStringLength(text_, textSize_))
+             static_cast<float>(Text::TextRenderer::getStringLength(text_, textSize_))
              && dimension_.y * 0.85f > textSize_ * 120 / display->getHeight(); textSize_ += 0.001f);
         textPosition_ = position_;
         textPosition_.y -= textSize_ / 20;

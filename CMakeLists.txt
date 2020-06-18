@@ -75,8 +75,8 @@ add_library(CGE ${LIBRARY_TYPE}
         src/Loaders/Texture.cpp
         src/Shader/ShaderProgram.cpp
         src/State/StateManager.cpp
-        src/Text/TextRenderer.cpp
-        src/Text/TextShader.cpp
+        src/GUI/Text/TextRenderer.cpp
+        src/GUI/Text/TextShader.cpp
         src/Utils/FileManager.cpp
         src/Utils/GLDebug.cpp
         src/Utils/TimeUtils.cpp

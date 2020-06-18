@@ -14,13 +14,24 @@ namespace CGE::Utils
         // The permutation vector
         std::vector<int> p;
     public:
-        // Initialize with the reference values for the permutation vector
+        /**
+         * Initialize with the reference values for the permutation vector
+         */
         PerlinNoise();
 
-        // Generate a new permutation vector based on the value of seed
+        /**
+         * Generate a new permutation vector based on the value of seed
+         * @param seed Randomizer seed
+         */
         PerlinNoise(unsigned int seed);
 
-        // Get a noise value, for 2D images z can have any value
+        /**
+         * Get a noise value, for 2D images z can have any value
+         * @param x
+         * @param y
+         * @param z
+         * @return
+         */
         double noise(double x, double y, double z);
 
     private:

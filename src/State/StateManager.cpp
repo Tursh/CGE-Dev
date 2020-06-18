@@ -3,7 +3,7 @@
 
 #include "State/State.h"
 
-namespace CGE::State::stateManager
+namespace CGE::State::StateManager
 {
     State *currentState;
 

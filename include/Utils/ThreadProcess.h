@@ -25,7 +25,7 @@ namespace CGE::Utils
 		bool running_ = false;
 		
 		/**
-		 * Main thread function
+		 * Main thread function to override
 		 */
 		virtual void run() = 0;
 		
