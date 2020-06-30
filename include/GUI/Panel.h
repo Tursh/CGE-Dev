@@ -5,6 +5,9 @@
 #include "GUIComponent.h"
 #include "Button.h"
 
+/**
+ * @brief GUI system (Text, Button, Panel...)
+ */
 namespace CGE::GUI
 {
     class Button;

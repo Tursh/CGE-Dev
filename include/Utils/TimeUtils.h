@@ -7,7 +7,10 @@ namespace CGE::Utils
 	
 	std::string timeToString(double time, unsigned int microsecondPrecision,
 							 bool showHours = false);
-	
+
+	/**
+	 * @brief Chronometers can be started, stopped, reset and destroyed
+	 */
 	struct Chrono
 	{
 		/**
@@ -21,6 +24,12 @@ namespace CGE::Utils
     	 * @param chronoID The ID of the chrono
     	 */
 		static void stop(unsigned int chronoID);
+
+		/**
+		 * Reset the chrono to 00:00
+		 * @param chronoID The id of the chrono
+		 */
+		static void clear(unsigned int chronoID);
 
 		/**
     	 * Get the time on the chrono at chronoID

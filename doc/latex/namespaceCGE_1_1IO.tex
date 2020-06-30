@@ -1,0 +1,72 @@
+\hypertarget{namespaceCGE_1_1IO}{}\doxysection{C\+GE\+::IO Namespace Reference}
+\label{namespaceCGE_1_1IO}\index{CGE::IO@{CGE::IO}}
+
+
+\mbox{\hyperlink{namespaceCGE_1_1IO}{IO}} functions (\mbox{\hyperlink{classCGE_1_1IO_1_1Window}{Window}} and input)  
+
+
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input}{input}}
+\begin{DoxyCompactList}\small\item\em Input functions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classCGE_1_1IO_1_1Window}{Window}}
+\begin{DoxyCompactList}\small\item\em A dynamic window using G\+L\+FW. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCGE_1_1IO_1_1Window}{Window}} $\ast$ \mbox{\hyperlink{namespaceCGE_1_1IO_a7c8fe8c6f2d4e0e03d86b3fa3515fa17}{get\+Window}} (unsigned int ID=0)
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1IO_a1cb448b9fd2e5d9cd66499c673ca30ca}{set\+Window\+Resize\+Callback}} (const std\+::function$<$ void(int, int)$>$ \&callback)
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1IO_aa31cb5a27612913b5e75282c84d7422b}{remove\+Window\+Resize\+Callback}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceCGE_1_1IO_a43c54c42927c4e354b22ffaf52f794e5}\label{namespaceCGE_1_1IO_a43c54c42927c4e354b22ffaf52f794e5}} 
+const unsigned int {\bfseries D\+E\+F\+A\+U\+L\+T\+\_\+\+W\+I\+D\+TH}
+\item 
+\mbox{\Hypertarget{namespaceCGE_1_1IO_abf56da28730692274cfede64f0ef48eb}\label{namespaceCGE_1_1IO_abf56da28730692274cfede64f0ef48eb}} 
+const unsigned int {\bfseries D\+E\+F\+A\+U\+L\+T\+\_\+\+H\+E\+I\+G\+HT}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{namespaceCGE_1_1IO}{IO}} functions (\mbox{\hyperlink{classCGE_1_1IO_1_1Window}{Window}} and input) 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceCGE_1_1IO_a7c8fe8c6f2d4e0e03d86b3fa3515fa17}\label{namespaceCGE_1_1IO_a7c8fe8c6f2d4e0e03d86b3fa3515fa17}} 
+\index{CGE::IO@{CGE::IO}!getWindow@{getWindow}}
+\index{getWindow@{getWindow}!CGE::IO@{CGE::IO}}
+\doxysubsubsection{\texorpdfstring{getWindow()}{getWindow()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCGE_1_1IO_1_1Window}{Window}}$\ast$ C\+G\+E\+::\+I\+O\+::get\+Window (\begin{DoxyParamCaption}\item[{unsigned int}]{ID = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+Get the window by ID (The first display ID is 0) 
+\begin{DoxyParams}{Parameters}
+{\em ID} & The window ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The window pointer assigned to this ID 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1IO_aa31cb5a27612913b5e75282c84d7422b}\label{namespaceCGE_1_1IO_aa31cb5a27612913b5e75282c84d7422b}} 
+\index{CGE::IO@{CGE::IO}!removeWindowResizeCallback@{removeWindowResizeCallback}}
+\index{removeWindowResizeCallback@{removeWindowResizeCallback}!CGE::IO@{CGE::IO}}
+\doxysubsubsection{\texorpdfstring{removeWindowResizeCallback()}{removeWindowResizeCallback()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+I\+O\+::remove\+Window\+Resize\+Callback (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Remove all the added custom resize callback functions \mbox{\Hypertarget{namespaceCGE_1_1IO_a1cb448b9fd2e5d9cd66499c673ca30ca}\label{namespaceCGE_1_1IO_a1cb448b9fd2e5d9cd66499c673ca30ca}} 
+\index{CGE::IO@{CGE::IO}!setWindowResizeCallback@{setWindowResizeCallback}}
+\index{setWindowResizeCallback@{setWindowResizeCallback}!CGE::IO@{CGE::IO}}
+\doxysubsubsection{\texorpdfstring{setWindowResizeCallback()}{setWindowResizeCallback()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+I\+O\+::set\+Window\+Resize\+Callback (\begin{DoxyParamCaption}\item[{const std\+::function$<$ void(int, int)$>$ \&}]{callback }\end{DoxyParamCaption})}
+
+Set a custom resize callback 
+\begin{DoxyParams}{Parameters}
+{\em callback} & Your callback function \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,156 @@
+\hypertarget{namespaceCGE_1_1Loader}{}\doxysection{C\+GE\+::Loader Namespace Reference}
+\label{namespaceCGE_1_1Loader}\index{CGE::Loader@{CGE::Loader}}
+
+
+\mbox{\hyperlink{namespaceCGE_1_1Loader}{Loader}} system (\mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh}{Mesh}}, \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture}{Texture}}, Resource Management)  
+
+
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceCGE_1_1Loader_1_1resManager}{res\+Manager}}
+\begin{DoxyCompactList}\small\item\em Resource Manager using your resource index at \char`\"{}res/graphics/graphics.\+index\char`\"{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}
+\item 
+class \mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh}{Mesh}}
+\item 
+struct \mbox{\hyperlink{structCGE_1_1Loader_1_1MeshBuilder}{Mesh\+Builder}}
+\item 
+struct \mbox{\hyperlink{structCGE_1_1Loader_1_1MeshData}{Mesh\+Data}}
+\item 
+class \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture}{Texture}}
+\item 
+class \mbox{\hyperlink{classCGE_1_1Loader_1_1TexturedMesh}{Textured\+Mesh}}
+\item 
+class \mbox{\hyperlink{classCGE_1_1Loader_1_1TwoDAnimatedMesh}{Two\+D\+Animated\+Mesh}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_a34a4439102ba0581dbd667ac45c27522}\label{namespaceCGE_1_1Loader_a34a4439102ba0581dbd667ac45c27522}} 
+typedef std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh}{Mesh}} $>$ {\bfseries Shared\+Mesh}
+\item 
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_a07b74f2c68c448a6d0b94968feef84ee}\label{namespaceCGE_1_1Loader_a07b74f2c68c448a6d0b94968feef84ee}} 
+typedef std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classCGE_1_1Loader_1_1TexturedMesh}{Textured\+Mesh}} $>$ {\bfseries Shared\+Tex\+Mesh}
+\item 
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_a5ac15923972f61b63e37114d76795e87}\label{namespaceCGE_1_1Loader_a5ac15923972f61b63e37114d76795e87}} 
+typedef std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture}{Texture}} $>$ {\bfseries Shared\+Texture}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Shared\+Mesh \mbox{\hyperlink{namespaceCGE_1_1Loader_a675aad1a2f481537acd149b6c963f9a5}{Data\+To\+V\+AO}} (const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&positions, const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&tex\+Coords, const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ unsigned int $>$ \&indices, bool three\+Dimension)
+\item 
+Shared\+Mesh \mbox{\hyperlink{namespaceCGE_1_1Loader_a0e5131601c80e508db9494855ccc86bd}{Data\+To\+V\+AO}} (const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&positions, const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&tex\+Coords, const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&normals, const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ unsigned int $>$ \&indices)
+\item 
+Shared\+Mesh \mbox{\hyperlink{namespaceCGE_1_1Loader_a49d8350d5843f6817ec27a4fc086c8b6}{Data\+To\+V\+AO}} (const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&positions, const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ unsigned int $>$ \&indices, bool three\+Dimension)
+\item 
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_a5a8731cca2a2e12710f057cf605bd503}\label{namespaceCGE_1_1Loader_a5a8731cca2a2e12710f057cf605bd503}} 
+Shared\+Mesh {\bfseries Data\+To\+V\+AO} (const \mbox{\hyperlink{structCGE_1_1Loader_1_1MeshData}{Mesh\+Data}} \&mesh\+Data)
+\item 
+Shared\+Mesh \mbox{\hyperlink{namespaceCGE_1_1Loader_aa94d774c8eaf066441ca25ca946f4840}{load\+O\+B\+J\+File}} (const char $\ast$file\+Path)
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1Loader_a5d0055ba132c1d99f70196d6d1600d1b}{Data\+To\+V\+AO}} (Shared\+Mesh \&shared\+Ptr, \mbox{\hyperlink{structCGE_1_1Loader_1_1MeshData}{Mesh\+Data}} mesh\+Data)
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1Loader_a93e2e468d2e48e88a56d80d7b0ef0bdd}{load\+Meshes}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{namespaceCGE_1_1Loader}{Loader}} system (\mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh}{Mesh}}, \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture}{Texture}}, Resource Management) 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_a0e5131601c80e508db9494855ccc86bd}\label{namespaceCGE_1_1Loader_a0e5131601c80e508db9494855ccc86bd}} 
+\index{CGE::Loader@{CGE::Loader}!DataToVAO@{DataToVAO}}
+\index{DataToVAO@{DataToVAO}!CGE::Loader@{CGE::Loader}}
+\doxysubsubsection{\texorpdfstring{DataToVAO()}{DataToVAO()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Shared\+Mesh C\+G\+E\+::\+Loader\+::\+Data\+To\+V\+AO (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&}]{positions,  }\item[{const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&}]{tex\+Coords,  }\item[{const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&}]{normals,  }\item[{const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ unsigned int $>$ \&}]{indices }\end{DoxyParamCaption})}
+
+Load data to V\+AO and return a model that can be rendered 
+\begin{DoxyParams}{Parameters}
+{\em positions} & \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}} object containing float\mbox{[}\mbox{]} and size\+\_\+ of array \\
+\hline
+{\em tex\+Coords} & \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}} object containing float\mbox{[}\mbox{]} and size\+\_\+ of array \\
+\hline
+{\em normals} & \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}} object containing float\mbox{[}\mbox{]} and size\+\_\+ of array \\
+\hline
+{\em indices} & \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}} object containing unsigned int\mbox{[}\mbox{]} and size\+\_\+ of array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+3D mesh 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_a675aad1a2f481537acd149b6c963f9a5}\label{namespaceCGE_1_1Loader_a675aad1a2f481537acd149b6c963f9a5}} 
+\index{CGE::Loader@{CGE::Loader}!DataToVAO@{DataToVAO}}
+\index{DataToVAO@{DataToVAO}!CGE::Loader@{CGE::Loader}}
+\doxysubsubsection{\texorpdfstring{DataToVAO()}{DataToVAO()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Shared\+Mesh C\+G\+E\+::\+Loader\+::\+Data\+To\+V\+AO (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&}]{positions,  }\item[{const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&}]{tex\+Coords,  }\item[{const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ unsigned int $>$ \&}]{indices,  }\item[{bool}]{three\+Dimension }\end{DoxyParamCaption})}
+
+Load data to V\+AO and return a model that can be rendered 
+\begin{DoxyParams}{Parameters}
+{\em positions\+Data} & object containing float\mbox{[}\mbox{]} and size\+\_\+ of array \\
+\hline
+{\em tex\+Coords\+Data} & object containing float\mbox{[}\mbox{]} and size\+\_\+ of array \\
+\hline
+{\em indices} & \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}} object containing unsigned int\mbox{[}\mbox{]} and size\+\_\+ of array \\
+\hline
+{\em three\+Dimension} & Is object in 3 dimensions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+3D mesh 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_a49d8350d5843f6817ec27a4fc086c8b6}\label{namespaceCGE_1_1Loader_a49d8350d5843f6817ec27a4fc086c8b6}} 
+\index{CGE::Loader@{CGE::Loader}!DataToVAO@{DataToVAO}}
+\index{DataToVAO@{DataToVAO}!CGE::Loader@{CGE::Loader}}
+\doxysubsubsection{\texorpdfstring{DataToVAO()}{DataToVAO()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Shared\+Mesh C\+G\+E\+::\+Loader\+::\+Data\+To\+V\+AO (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&}]{positions,  }\item[{const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ unsigned int $>$ \&}]{indices,  }\item[{bool}]{three\+Dimension }\end{DoxyParamCaption})}
+
+Load data to V\+AO and return a model that can be rendered (Without texture) 
+\begin{DoxyParams}{Parameters}
+{\em positions} & \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}} object containing float\mbox{[}\mbox{]} and size\+\_\+ of array \\
+\hline
+{\em indices} & \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}} object containing unsigned int\mbox{[}\mbox{]} and size\+\_\+ of array \\
+\hline
+{\em three\+Dimension} & Is object in 3 dimensions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+3D mesh without texture coordinates 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_a5d0055ba132c1d99f70196d6d1600d1b}\label{namespaceCGE_1_1Loader_a5d0055ba132c1d99f70196d6d1600d1b}} 
+\index{CGE::Loader@{CGE::Loader}!DataToVAO@{DataToVAO}}
+\index{DataToVAO@{DataToVAO}!CGE::Loader@{CGE::Loader}}
+\doxysubsubsection{\texorpdfstring{DataToVAO()}{DataToVAO()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::\+Data\+To\+V\+AO (\begin{DoxyParamCaption}\item[{Shared\+Mesh \&}]{shared\+Ptr,  }\item[{\mbox{\hyperlink{structCGE_1_1Loader_1_1MeshData}{Mesh\+Data}}}]{mesh\+Data }\end{DoxyParamCaption})}
+
+Load data to mesh on next rendering (If not on rendering thread) 
+\begin{DoxyParams}{Parameters}
+{\em shared\+Ptr} & Pointer where to load the mesh \\
+\hline
+{\em mesh\+Data} & \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}} of the mesh to load \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_a93e2e468d2e48e88a56d80d7b0ef0bdd}\label{namespaceCGE_1_1Loader_a93e2e468d2e48e88a56d80d7b0ef0bdd}} 
+\index{CGE::Loader@{CGE::Loader}!loadMeshes@{loadMeshes}}
+\index{loadMeshes@{loadMeshes}!CGE::Loader@{CGE::Loader}}
+\doxysubsubsection{\texorpdfstring{loadMeshes()}{loadMeshes()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::load\+Meshes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Load buffered meshes (when on rendering thread) This is function is called during the window update \mbox{\Hypertarget{namespaceCGE_1_1Loader_aa94d774c8eaf066441ca25ca946f4840}\label{namespaceCGE_1_1Loader_aa94d774c8eaf066441ca25ca946f4840}} 
+\index{CGE::Loader@{CGE::Loader}!loadOBJFile@{loadOBJFile}}
+\index{loadOBJFile@{loadOBJFile}!CGE::Loader@{CGE::Loader}}
+\doxysubsubsection{\texorpdfstring{loadOBJFile()}{loadOBJFile()}}
+{\footnotesize\ttfamily Shared\+Mesh C\+G\+E\+::\+Loader\+::load\+O\+B\+J\+File (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file\+Path }\end{DoxyParamCaption})}
+
+Load obj file to 3D \mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh}{Mesh}} 
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & Path to the file from the project folder \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+3D mesh 
+\end{DoxyReturn}

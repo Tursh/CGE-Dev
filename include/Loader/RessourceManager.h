@@ -5,6 +5,9 @@
 #include <Loader/Meshes/TexturedMesh.h>
 #include "Texture.h"
 
+/**
+ * @brief Resource Manager using your resource index at "res/graphics/graphics.index"
+ */
 namespace CGE::Loader::resManager
 {
     /**

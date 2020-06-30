@@ -10,6 +10,9 @@
 #include <Loader/Meshes/TexturedMesh.h>
 #include <Physics/Hitbox.h>
 
+/**
+ * @brief Entities system
+ */
 namespace CGE::Entities
 {
     /**
@@ -43,8 +46,8 @@ namespace CGE::Entities
          * @param visible               Is visible
          */
         explicit Entity(unsigned int texMeshID,
-                        glm::vec3 position = {0, 0, 0},
-                        glm::vec3 rotation = {0, 0, 0},
+                        glm::vec3 position = glm::vec3(0),
+                        glm::vec3 rotation = glm::vec3(0),
                         bool visible = true);
 
         /**
@@ -65,6 +68,11 @@ namespace CGE::Entities
          */
         glm::mat4 getTransformationMatrix();
 
+        /**
+         * Move the actual position by the given movement
+         * and replace the old position by the position before the movement
+         * @param movement The given movement
+         */
         void move(glm::vec3 movement);
 
         /**
@@ -80,8 +88,16 @@ namespace CGE::Entities
          */
         void addForce(int duration, glm::vec3 power);
 
+        /**
+         * Called every tick.
+         * Can be overwritten
+         */
         virtual void update();
 
+        /**
+         * Called every render.
+         * Can be overwritten
+         */
         virtual void render();
         
 		/**
@@ -92,34 +108,33 @@ namespace CGE::Entities
   
 		//Getters and Setters
 
-        const unsigned int &getID() const;
+        [[nodiscard]] const unsigned int &getID() const;
 
         void setSpeed(const glm::vec3 &speed);
 
-        const glm::vec3 &getSpeed() const;
+        [[nodiscard]] const glm::vec3 &getSpeed() const;
 
-        const glm::vec3 &getPosition() const;
+        [[nodiscard]] const glm::vec3 &getPosition() const;
 
-        const glm::vec3 &getRotation() const;
+        [[nodiscard]] const glm::vec3 &getRotation() const;
 
         glm::vec3 getRenderPosition();
 
         glm::vec3 getRenderRotation();
 
-        const glm::vec3 &getOldPosition() const;
+        [[nodiscard]] const glm::vec3 &getOldPosition() const;
 
-        const glm::vec3 &getOldRotation() const;
+        [[nodiscard]] const glm::vec3 &getOldRotation() const;
 	
-		Hitbox getHitbox();
-        
-		
+		Physics::Hitbox getHitbox();
+
         void setTexMesh(const std::shared_ptr<Loader::TexturedMesh> &texMesh);
 
-        const Loader::SharedTexMesh &getTexMesh() const;
+        [[nodiscard]] const Loader::SharedTexMesh &getTexMesh() const;
 
         void setVisible(bool visible);
 
-        bool isVisible() const;
+        [[nodiscard]] bool isVisible() const;
         
         virtual const glm::vec3 &getSize();
         

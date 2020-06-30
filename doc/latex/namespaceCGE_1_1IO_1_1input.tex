@@ -1,0 +1,169 @@
+\hypertarget{namespaceCGE_1_1IO_1_1input}{}\doxysection{C\+GE\+::IO\+::input Namespace Reference}
+\label{namespaceCGE_1_1IO_1_1input}\index{CGE::IO::input@{CGE::IO::input}}
+
+
+Input functions.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_a566bf0215412e3e62e87b4a9ec9a2a96}{is\+Key\+Pressed}} (int key)
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_a6e09f03589acb47e3f31f445c30eaa0c}{set\+Your\+Own\+Key\+Call\+Back}} (const std\+::function$<$ void(G\+L\+F\+Wwindow $\ast$, int, int)$>$ \&key\+Callback)
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_a20b29b8f188295acdeadacc951a114e4}{reset\+Key\+Call\+Backs}} ()
+\item 
+bool \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_a143d6eb13db7a616a9b0896cf85afbfe}{is\+Button\+Pressed}} (int button)
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_a4fc959a21e991b34c3b091f909775ab9}{add\+Custom\+Mouse\+Button\+Call\+Back}} (const std\+::function$<$ void(G\+L\+F\+Wwindow $\ast$, int, int)$>$ \&mouse\+Button\+Call\+Back)
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_a3039a884324f100e5b02740e81e65468}{reset\+Mouse\+Button\+Call\+Backs}} ()
+\item 
+glm\+::vec2 \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_a543f1a55cba6e58f9ad859a7c13df2be}{get\+Cursor\+Pos}} (int window\+ID=0, bool center\+Relative=false)
+\item 
+glm\+::vec2 \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_ae15c9b0f3beb9969e511fede46d0aaf7}{get\+Cursor\+Shifting}} (bool in\+Pixel=false)
+\item 
+glm\+::vec2 \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_a13b4ded81ceb0c05e0be8f97aea2ba4c}{get\+Mouse\+Scroll}} ()
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_ab4b57d8a60bc603a3aa765cf9fd895f6}{toggle\+Grab\+Mouse}} ()
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_ab6037c647b9816cae157156ac8459a28}{grab\+Mouse}} ()
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_ad981a974628cf98faa4ebe066cd18205}{ungrab\+Mouse}} ()
+\item 
+bool \mbox{\hyperlink{namespaceCGE_1_1IO_1_1input_ae6ffa560b31e1b9c1709980990678384}{is\+Panel\+Visible}} ()
+\item 
+\mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_a9b50560fb38727d01561836655efe492}\label{namespaceCGE_1_1IO_1_1input_a9b50560fb38727d01561836655efe492}} 
+void {\bfseries add\+Panel} (\mbox{\hyperlink{classCGE_1_1GUI_1_1Panel}{G\+U\+I\+::\+Panel}} $\ast$new\+Panel)
+\item 
+\mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_a21189d620c9a56c94f27f61580bc566e}\label{namespaceCGE_1_1IO_1_1input_a21189d620c9a56c94f27f61580bc566e}} 
+void {\bfseries remove\+Panel} (\mbox{\hyperlink{classCGE_1_1GUI_1_1Panel}{G\+U\+I\+::\+Panel}} $\ast$panel)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Input functions. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_a4fc959a21e991b34c3b091f909775ab9}\label{namespaceCGE_1_1IO_1_1input_a4fc959a21e991b34c3b091f909775ab9}} 
+\index{CGE::IO::input@{CGE::IO::input}!addCustomMouseButtonCallBack@{addCustomMouseButtonCallBack}}
+\index{addCustomMouseButtonCallBack@{addCustomMouseButtonCallBack}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{addCustomMouseButtonCallBack()}{addCustomMouseButtonCallBack()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+I\+O\+::input\+::add\+Custom\+Mouse\+Button\+Call\+Back (\begin{DoxyParamCaption}\item[{const std\+::function$<$ void(G\+L\+F\+Wwindow $\ast$, int, int)$>$ \&}]{mouse\+Button\+Call\+Back }\end{DoxyParamCaption})}
+
+Add your own mouse button callback 
+\begin{DoxyParams}{Parameters}
+{\em key\+Call\+Back} & void keycallback(\+G\+L\+F\+Wwindow $\ast$, int key, int action) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_a543f1a55cba6e58f9ad859a7c13df2be}\label{namespaceCGE_1_1IO_1_1input_a543f1a55cba6e58f9ad859a7c13df2be}} 
+\index{CGE::IO::input@{CGE::IO::input}!getCursorPos@{getCursorPos}}
+\index{getCursorPos@{getCursorPos}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{getCursorPos()}{getCursorPos()}}
+{\footnotesize\ttfamily glm\+::vec2 C\+G\+E\+::\+I\+O\+::input\+::get\+Cursor\+Pos (\begin{DoxyParamCaption}\item[{int}]{window\+ID = {\ttfamily 0},  }\item[{bool}]{center\+Relative = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Get the cursor position relative to the bottom left corner of the window 
+\begin{DoxyParams}{Parameters}
+{\em window\+ID} & The window ID (Default \+: 0 -\/$>$ first window created) \\
+\hline
+{\em center\+Relative} & Makes the position range (-\/1, -\/1) to (1, 1), the center begin (0, 0) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The cursor position 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_ae15c9b0f3beb9969e511fede46d0aaf7}\label{namespaceCGE_1_1IO_1_1input_ae15c9b0f3beb9969e511fede46d0aaf7}} 
+\index{CGE::IO::input@{CGE::IO::input}!getCursorShifting@{getCursorShifting}}
+\index{getCursorShifting@{getCursorShifting}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{getCursorShifting()}{getCursorShifting()}}
+{\footnotesize\ttfamily glm\+::vec2 C\+G\+E\+::\+I\+O\+::input\+::get\+Cursor\+Shifting (\begin{DoxyParamCaption}\item[{bool}]{in\+Pixel = {\ttfamily false} }\end{DoxyParamCaption})}
+
+The movement of the mouse since the last display update \begin{DoxyReturn}{Returns}
+the movement of the cursor 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_a13b4ded81ceb0c05e0be8f97aea2ba4c}\label{namespaceCGE_1_1IO_1_1input_a13b4ded81ceb0c05e0be8f97aea2ba4c}} 
+\index{CGE::IO::input@{CGE::IO::input}!getMouseScroll@{getMouseScroll}}
+\index{getMouseScroll@{getMouseScroll}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{getMouseScroll()}{getMouseScroll()}}
+{\footnotesize\ttfamily glm\+::vec2 C\+G\+E\+::\+I\+O\+::input\+::get\+Mouse\+Scroll (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Mouse scroll since last tick 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_ab6037c647b9816cae157156ac8459a28}\label{namespaceCGE_1_1IO_1_1input_ab6037c647b9816cae157156ac8459a28}} 
+\index{CGE::IO::input@{CGE::IO::input}!grabMouse@{grabMouse}}
+\index{grabMouse@{grabMouse}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{grabMouse()}{grabMouse()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+I\+O\+::input\+::grab\+Mouse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Grab the mouse \mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_a143d6eb13db7a616a9b0896cf85afbfe}\label{namespaceCGE_1_1IO_1_1input_a143d6eb13db7a616a9b0896cf85afbfe}} 
+\index{CGE::IO::input@{CGE::IO::input}!isButtonPressed@{isButtonPressed}}
+\index{isButtonPressed@{isButtonPressed}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{isButtonPressed()}{isButtonPressed()}}
+{\footnotesize\ttfamily bool C\+G\+E\+::\+I\+O\+::input\+::is\+Button\+Pressed (\begin{DoxyParamCaption}\item[{int}]{button }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em button} & button to check (G\+L\+F\+W\+\_\+\+B\+U\+T\+T\+O\+N\+\_\+\+M\+O\+U\+S\+E\+\_\+$<$button$>$) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+if the button on the mouse is pressed 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_a566bf0215412e3e62e87b4a9ec9a2a96}\label{namespaceCGE_1_1IO_1_1input_a566bf0215412e3e62e87b4a9ec9a2a96}} 
+\index{CGE::IO::input@{CGE::IO::input}!isKeyPressed@{isKeyPressed}}
+\index{isKeyPressed@{isKeyPressed}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{isKeyPressed()}{isKeyPressed()}}
+{\footnotesize\ttfamily bool C\+G\+E\+::\+I\+O\+::input\+::is\+Key\+Pressed (\begin{DoxyParamCaption}\item[{int}]{key }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & key to check (G\+L\+F\+W\+\_\+\+K\+E\+Y\+\_\+$<$key$>$) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+if the key is pressed 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_ae6ffa560b31e1b9c1709980990678384}\label{namespaceCGE_1_1IO_1_1input_ae6ffa560b31e1b9c1709980990678384}} 
+\index{CGE::IO::input@{CGE::IO::input}!isPanelVisible@{isPanelVisible}}
+\index{isPanelVisible@{isPanelVisible}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{isPanelVisible()}{isPanelVisible()}}
+{\footnotesize\ttfamily bool C\+G\+E\+::\+I\+O\+::input\+::is\+Panel\+Visible (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Check if there is a visible panel \mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_a20b29b8f188295acdeadacc951a114e4}\label{namespaceCGE_1_1IO_1_1input_a20b29b8f188295acdeadacc951a114e4}} 
+\index{CGE::IO::input@{CGE::IO::input}!resetKeyCallBacks@{resetKeyCallBacks}}
+\index{resetKeyCallBacks@{resetKeyCallBacks}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{resetKeyCallBacks()}{resetKeyCallBacks()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+I\+O\+::input\+::reset\+Key\+Call\+Backs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Remove all custom key callbacks \mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_a3039a884324f100e5b02740e81e65468}\label{namespaceCGE_1_1IO_1_1input_a3039a884324f100e5b02740e81e65468}} 
+\index{CGE::IO::input@{CGE::IO::input}!resetMouseButtonCallBacks@{resetMouseButtonCallBacks}}
+\index{resetMouseButtonCallBacks@{resetMouseButtonCallBacks}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{resetMouseButtonCallBacks()}{resetMouseButtonCallBacks()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+I\+O\+::input\+::reset\+Mouse\+Button\+Call\+Backs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Remove all custom button callbacks \mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_a6e09f03589acb47e3f31f445c30eaa0c}\label{namespaceCGE_1_1IO_1_1input_a6e09f03589acb47e3f31f445c30eaa0c}} 
+\index{CGE::IO::input@{CGE::IO::input}!setYourOwnKeyCallBack@{setYourOwnKeyCallBack}}
+\index{setYourOwnKeyCallBack@{setYourOwnKeyCallBack}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{setYourOwnKeyCallBack()}{setYourOwnKeyCallBack()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+I\+O\+::input\+::set\+Your\+Own\+Key\+Call\+Back (\begin{DoxyParamCaption}\item[{const std\+::function$<$ void(G\+L\+F\+Wwindow $\ast$, int, int)$>$ \&}]{key\+Callback }\end{DoxyParamCaption})}
+
+Set your own Key callback 
+\begin{DoxyParams}{Parameters}
+{\em key\+Call\+Back} & void key\+Callback(\+G\+L\+F\+Wwindow $\ast$, int key, int action) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_ab4b57d8a60bc603a3aa765cf9fd895f6}\label{namespaceCGE_1_1IO_1_1input_ab4b57d8a60bc603a3aa765cf9fd895f6}} 
+\index{CGE::IO::input@{CGE::IO::input}!toggleGrabMouse@{toggleGrabMouse}}
+\index{toggleGrabMouse@{toggleGrabMouse}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{toggleGrabMouse()}{toggleGrabMouse()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+I\+O\+::input\+::toggle\+Grab\+Mouse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Toggle the mouse grabbing \mbox{\Hypertarget{namespaceCGE_1_1IO_1_1input_ad981a974628cf98faa4ebe066cd18205}\label{namespaceCGE_1_1IO_1_1input_ad981a974628cf98faa4ebe066cd18205}} 
+\index{CGE::IO::input@{CGE::IO::input}!ungrabMouse@{ungrabMouse}}
+\index{ungrabMouse@{ungrabMouse}!CGE::IO::input@{CGE::IO::input}}
+\doxysubsubsection{\texorpdfstring{ungrabMouse()}{ungrabMouse()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+I\+O\+::input\+::ungrab\+Mouse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Ungrab the mouse 

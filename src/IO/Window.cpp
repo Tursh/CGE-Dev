@@ -50,7 +50,7 @@ namespace CGE::IO
         if (!glfwWindow_)
         {
             glfwTerminate();
-            logError("GLFW could not create a window")
+            logError("GLFW could not create a window");
             exit(-1);
         }
 

@@ -1,0 +1,68 @@
+\hypertarget{classCGE_1_1Loader_1_1TexturedMesh}{}\doxysection{C\+GE\+::Loader\+::Textured\+Mesh Class Reference}
+\label{classCGE_1_1Loader_1_1TexturedMesh}\index{CGE::Loader::TexturedMesh@{CGE::Loader::TexturedMesh}}
+Inheritance diagram for C\+GE\+::Loader\+::Textured\+Mesh\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCGE_1_1Loader_1_1TexturedMesh}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1TexturedMesh_abfbd89356ac21c873f9ef0f959a1b169}\label{classCGE_1_1Loader_1_1TexturedMesh_abfbd89356ac21c873f9ef0f959a1b169}} 
+{\bfseries Textured\+Mesh} (Shared\+Mesh mesh, Shared\+Texture texture, bool three\+Dimension)
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1TexturedMesh_aa2166cb81b93ac6da4fcb8fac9385350}\label{classCGE_1_1Loader_1_1TexturedMesh_aa2166cb81b93ac6da4fcb8fac9385350}} 
+virtual void {\bfseries render} ()
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1TexturedMesh_a8b8b57d68d695d0175b76455ea6f3233}\label{classCGE_1_1Loader_1_1TexturedMesh_a8b8b57d68d695d0175b76455ea6f3233}} 
+void {\bfseries bind} ()
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1TexturedMesh_a6c97251d640f6654e2fc12bda9ff7046}\label{classCGE_1_1Loader_1_1TexturedMesh_a6c97251d640f6654e2fc12bda9ff7046}} 
+const unsigned int \& {\bfseries indices\+Count} ()
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1TexturedMesh_a837c40c8a56ebcee387a083c50bf8a7b}\label{classCGE_1_1Loader_1_1TexturedMesh_a837c40c8a56ebcee387a083c50bf8a7b}} 
+virtual glm\+::vec2 {\bfseries get\+Texture\+Size} ()
+\item 
+const glm\+::vec3 \& \mbox{\hyperlink{classCGE_1_1Loader_1_1TexturedMesh_a3ff383ae37c01941ca4a2e3bae096f22}{get\+Mesh\+Size}} ()
+\item 
+const bool \& \mbox{\hyperlink{classCGE_1_1Loader_1_1TexturedMesh_a57d536742d340f202f12d745d1dd615e}{is\+Three\+Dimension}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1TexturedMesh_a930d7faff794f5f32318bbbbc6bae216}\label{classCGE_1_1Loader_1_1TexturedMesh_a930d7faff794f5f32318bbbbc6bae216}} 
+bool {\bfseries three\+Dimension\+\_\+}
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1TexturedMesh_a3024210507857f301ee02b0de24acc5d}\label{classCGE_1_1Loader_1_1TexturedMesh_a3024210507857f301ee02b0de24acc5d}} 
+Shared\+Texture {\bfseries texture\+\_\+}
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1TexturedMesh_ad392dce9d39e892f2b483b8697dea477}\label{classCGE_1_1Loader_1_1TexturedMesh_ad392dce9d39e892f2b483b8697dea477}} 
+Shared\+Mesh {\bfseries mesh\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1TexturedMesh_a3ff383ae37c01941ca4a2e3bae096f22}\label{classCGE_1_1Loader_1_1TexturedMesh_a3ff383ae37c01941ca4a2e3bae096f22}} 
+\index{CGE::Loader::TexturedMesh@{CGE::Loader::TexturedMesh}!getMeshSize@{getMeshSize}}
+\index{getMeshSize@{getMeshSize}!CGE::Loader::TexturedMesh@{CGE::Loader::TexturedMesh}}
+\doxysubsubsection{\texorpdfstring{getMeshSize()}{getMeshSize()}}
+{\footnotesize\ttfamily const glm\+::vec3\& C\+G\+E\+::\+Loader\+::\+Textured\+Mesh\+::get\+Mesh\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+the 3D size of the model 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1TexturedMesh_a57d536742d340f202f12d745d1dd615e}\label{classCGE_1_1Loader_1_1TexturedMesh_a57d536742d340f202f12d745d1dd615e}} 
+\index{CGE::Loader::TexturedMesh@{CGE::Loader::TexturedMesh}!isThreeDimension@{isThreeDimension}}
+\index{isThreeDimension@{isThreeDimension}!CGE::Loader::TexturedMesh@{CGE::Loader::TexturedMesh}}
+\doxysubsubsection{\texorpdfstring{isThreeDimension()}{isThreeDimension()}}
+{\footnotesize\ttfamily const bool\& C\+G\+E\+::\+Loader\+::\+Textured\+Mesh\+::is\+Three\+Dimension (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+Is the textured mesh in 3 dimension 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\+Loader/\+Meshes/Textured\+Mesh.\+h\end{DoxyCompactItemize}

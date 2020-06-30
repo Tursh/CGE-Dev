@@ -1,0 +1,133 @@
+\hypertarget{classCGE_1_1Utils_1_1TPSClock}{}\doxysection{C\+GE\+::Utils\+::T\+P\+S\+Clock Class Reference}
+\label{classCGE_1_1Utils_1_1TPSClock}\index{CGE::Utils::TPSClock@{CGE::Utils::TPSClock}}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classCGE_1_1Utils_1_1TPSClock_ad5753cbc7d7044d55b7b200c14fa9de2}{init}} (unsigned int T\+P\+S\+Clock\+ID=0, float wanted\+T\+PS=60.\+0f)
+\item 
+static void \mbox{\hyperlink{classCGE_1_1Utils_1_1TPSClock_a5581794f9be08ba4455eb8949aeb4bbb}{terminate}} (unsigned int T\+P\+S\+Clock\+ID=0)
+\item 
+static void \mbox{\hyperlink{classCGE_1_1Utils_1_1TPSClock_a8fb035be8c6ef45de58077fe46852a34}{reset}} (unsigned int T\+P\+S\+Clock\+ID=0)
+\item 
+static void \mbox{\hyperlink{classCGE_1_1Utils_1_1TPSClock_a38b5c3730b90a2615c7f47f16c55644f}{set\+T\+PS}} (float new\+T\+PS, unsigned int T\+P\+S\+Clock\+ID=0)
+\item 
+static float \mbox{\hyperlink{classCGE_1_1Utils_1_1TPSClock_a7a5e09eccef8df31bc82d76cd8a91aa3}{get\+T\+PS}} (unsigned int T\+P\+S\+Clock\+ID=0)
+\item 
+static int \mbox{\hyperlink{classCGE_1_1Utils_1_1TPSClock_a89466ce7c681cf8bee6c766590bc6e15}{get\+Tick\+Count}} (unsigned int T\+P\+S\+Clock\+ID=0)
+\item 
+static bool \mbox{\hyperlink{classCGE_1_1Utils_1_1TPSClock_a7ef2719e9d9f8cad5be8348479c17ed5}{should\+Tick}} (unsigned int T\+P\+S\+Clock\+ID=0, bool wait\+For\+Next\+Tick=true)
+\item 
+static float \mbox{\hyperlink{classCGE_1_1Utils_1_1TPSClock_a815380f725459fdeb7c02b52e23fcb7b}{get\+Delta}} (unsigned int T\+P\+S\+Clock\+ID=0)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCGE_1_1Utils_1_1TPSClock_a815380f725459fdeb7c02b52e23fcb7b}\label{classCGE_1_1Utils_1_1TPSClock_a815380f725459fdeb7c02b52e23fcb7b}} 
+\index{CGE::Utils::TPSClock@{CGE::Utils::TPSClock}!getDelta@{getDelta}}
+\index{getDelta@{getDelta}!CGE::Utils::TPSClock@{CGE::Utils::TPSClock}}
+\doxysubsubsection{\texorpdfstring{getDelta()}{getDelta()}}
+{\footnotesize\ttfamily static float C\+G\+E\+::\+Utils\+::\+T\+P\+S\+Clock\+::get\+Delta (\begin{DoxyParamCaption}\item[{unsigned int}]{T\+P\+S\+Clock\+ID = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Get the time since last tick 
+\begin{DoxyParams}{Parameters}
+{\em T\+P\+S\+Clock\+ID} & The clock ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The time since last tick 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCGE_1_1Utils_1_1TPSClock_a89466ce7c681cf8bee6c766590bc6e15}\label{classCGE_1_1Utils_1_1TPSClock_a89466ce7c681cf8bee6c766590bc6e15}} 
+\index{CGE::Utils::TPSClock@{CGE::Utils::TPSClock}!getTickCount@{getTickCount}}
+\index{getTickCount@{getTickCount}!CGE::Utils::TPSClock@{CGE::Utils::TPSClock}}
+\doxysubsubsection{\texorpdfstring{getTickCount()}{getTickCount()}}
+{\footnotesize\ttfamily static int C\+G\+E\+::\+Utils\+::\+T\+P\+S\+Clock\+::get\+Tick\+Count (\begin{DoxyParamCaption}\item[{unsigned int}]{T\+P\+S\+Clock\+ID = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+How many time the clock ticked since the start 
+\begin{DoxyParams}{Parameters}
+{\em T\+P\+S\+Clock\+ID} & The clock ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The clock tick count 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCGE_1_1Utils_1_1TPSClock_a7a5e09eccef8df31bc82d76cd8a91aa3}\label{classCGE_1_1Utils_1_1TPSClock_a7a5e09eccef8df31bc82d76cd8a91aa3}} 
+\index{CGE::Utils::TPSClock@{CGE::Utils::TPSClock}!getTPS@{getTPS}}
+\index{getTPS@{getTPS}!CGE::Utils::TPSClock@{CGE::Utils::TPSClock}}
+\doxysubsubsection{\texorpdfstring{getTPS()}{getTPS()}}
+{\footnotesize\ttfamily static float C\+G\+E\+::\+Utils\+::\+T\+P\+S\+Clock\+::get\+T\+PS (\begin{DoxyParamCaption}\item[{unsigned int}]{T\+P\+S\+Clock\+ID = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Get how many tick the clock did for last second 
+\begin{DoxyParams}{Parameters}
+{\em T\+P\+S\+Clock\+ID} & The clock ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Last tick per second of the clock 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCGE_1_1Utils_1_1TPSClock_ad5753cbc7d7044d55b7b200c14fa9de2}\label{classCGE_1_1Utils_1_1TPSClock_ad5753cbc7d7044d55b7b200c14fa9de2}} 
+\index{CGE::Utils::TPSClock@{CGE::Utils::TPSClock}!init@{init}}
+\index{init@{init}!CGE::Utils::TPSClock@{CGE::Utils::TPSClock}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily static void C\+G\+E\+::\+Utils\+::\+T\+P\+S\+Clock\+::init (\begin{DoxyParamCaption}\item[{unsigned int}]{T\+P\+S\+Clock\+ID = {\ttfamily 0},  }\item[{float}]{wanted\+T\+PS = {\ttfamily 60.0f} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Initialize the T\+PS clock at T\+P\+S\+Clock\+ID 
+\begin{DoxyParams}{Parameters}
+{\em T\+P\+S\+Clock\+ID} & The clock ID \\
+\hline
+{\em wanted\+T\+PS} & The desired T\+PS \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCGE_1_1Utils_1_1TPSClock_a8fb035be8c6ef45de58077fe46852a34}\label{classCGE_1_1Utils_1_1TPSClock_a8fb035be8c6ef45de58077fe46852a34}} 
+\index{CGE::Utils::TPSClock@{CGE::Utils::TPSClock}!reset@{reset}}
+\index{reset@{reset}!CGE::Utils::TPSClock@{CGE::Utils::TPSClock}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily static void C\+G\+E\+::\+Utils\+::\+T\+P\+S\+Clock\+::reset (\begin{DoxyParamCaption}\item[{unsigned int}]{T\+P\+S\+Clock\+ID = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Reset the clock 
+\begin{DoxyParams}{Parameters}
+{\em T\+P\+S\+Clock\+ID} & The clock ID \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCGE_1_1Utils_1_1TPSClock_a38b5c3730b90a2615c7f47f16c55644f}\label{classCGE_1_1Utils_1_1TPSClock_a38b5c3730b90a2615c7f47f16c55644f}} 
+\index{CGE::Utils::TPSClock@{CGE::Utils::TPSClock}!setTPS@{setTPS}}
+\index{setTPS@{setTPS}!CGE::Utils::TPSClock@{CGE::Utils::TPSClock}}
+\doxysubsubsection{\texorpdfstring{setTPS()}{setTPS()}}
+{\footnotesize\ttfamily static void C\+G\+E\+::\+Utils\+::\+T\+P\+S\+Clock\+::set\+T\+PS (\begin{DoxyParamCaption}\item[{float}]{new\+T\+PS,  }\item[{unsigned int}]{T\+P\+S\+Clock\+ID = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Set the desired T\+PS 
+\begin{DoxyParams}{Parameters}
+{\em new\+T\+PS} & The desired T\+PS \\
+\hline
+{\em T\+P\+S\+Clock\+ID} & The clock ID \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCGE_1_1Utils_1_1TPSClock_a7ef2719e9d9f8cad5be8348479c17ed5}\label{classCGE_1_1Utils_1_1TPSClock_a7ef2719e9d9f8cad5be8348479c17ed5}} 
+\index{CGE::Utils::TPSClock@{CGE::Utils::TPSClock}!shouldTick@{shouldTick}}
+\index{shouldTick@{shouldTick}!CGE::Utils::TPSClock@{CGE::Utils::TPSClock}}
+\doxysubsubsection{\texorpdfstring{shouldTick()}{shouldTick()}}
+{\footnotesize\ttfamily static bool C\+G\+E\+::\+Utils\+::\+T\+P\+S\+Clock\+::should\+Tick (\begin{DoxyParamCaption}\item[{unsigned int}]{T\+P\+S\+Clock\+ID = {\ttfamily 0},  }\item[{bool}]{wait\+For\+Next\+Tick = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Is it time to tick 
+\begin{DoxyParams}{Parameters}
+{\em T\+P\+S\+Clock\+ID} & The clock ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Is it time to tick 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCGE_1_1Utils_1_1TPSClock_a5581794f9be08ba4455eb8949aeb4bbb}\label{classCGE_1_1Utils_1_1TPSClock_a5581794f9be08ba4455eb8949aeb4bbb}} 
+\index{CGE::Utils::TPSClock@{CGE::Utils::TPSClock}!terminate@{terminate}}
+\index{terminate@{terminate}!CGE::Utils::TPSClock@{CGE::Utils::TPSClock}}
+\doxysubsubsection{\texorpdfstring{terminate()}{terminate()}}
+{\footnotesize\ttfamily static void C\+G\+E\+::\+Utils\+::\+T\+P\+S\+Clock\+::terminate (\begin{DoxyParamCaption}\item[{unsigned int}]{T\+P\+S\+Clock\+ID = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Terminate the T\+PS clock at T\+P\+S\+Clock\+ID 
+\begin{DoxyParams}{Parameters}
+{\em T\+P\+S\+Clock\+ID} & The clock ID \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\+Utils/Time\+Utils.\+h\end{DoxyCompactItemize}

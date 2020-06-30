@@ -13,6 +13,9 @@ Author: Raphael Tremblay
 #include <glm/vec3.hpp>
 #include <glm/vec2.hpp>
 
+/**
+ * @brief Loader system (Mesh, Texture, Resource Management)
+ */
 namespace CGE::Loader
 {
 
@@ -27,8 +30,10 @@ namespace CGE::Loader
     {
         /**< data array*/
         const T *data_{};
+
         /**< array's size*/
         unsigned int size_ = 0;
+
         /**< data usage*/
         GLenum usage_{};
 
@@ -124,48 +129,48 @@ namespace CGE::Loader
         SharedMesh load();
     };
 
-/**
- * Load data to VAO and return a model that can be rendered
- * @param positionsData object containing float[] and size_ of array
- * @param texCoordsData object containing float[] and size_ of array
- * @param indices Data object containing unsigned int[] and size_ of array
- * @param threeDimension Is object in 3 dimensions
- * @return 3D mesh
- */
+    /**
+     * Load data to VAO and return a model that can be rendered
+     * @param positionsData object containing float[] and size_ of array
+     * @param texCoordsData object containing float[] and size_ of array
+     * @param indices Data object containing unsigned int[] and size_ of array
+     * @param threeDimension Is object in 3 dimensions
+     * @return 3D mesh
+     */
     SharedMesh DataToVAO(const Data<float> &positions,
                          const Data<float> &texCoords,
                          const Data<unsigned int> &indices,
                          bool threeDimension);
 
-/**
- * Load data to VAO and return a model that can be rendered
- * @param positions Data object containing float[] and size_ of array
- * @param texCoords Data object containing float[] and size_ of array
- * @param normals Data object containing float[] and size_ of array
- * @param indices Data object containing unsigned int[] and size_ of array
- * @return 3D mesh
- */
+    /**
+     * Load data to VAO and return a model that can be rendered
+     * @param positions Data object containing float[] and size_ of array
+     * @param texCoords Data object containing float[] and size_ of array
+     * @param normals Data object containing float[] and size_ of array
+     * @param indices Data object containing unsigned int[] and size_ of array
+     * @return 3D mesh
+     */
     SharedMesh DataToVAO(const Data<float> &positions,
                          const Data<float> &texCoords,
                          const Data<float> &normals,
                          const Data<unsigned int> &indices);
 
-/**
- * Load data to VAO and return a model that can be rendered (Without texture)
- * @param positions Data object containing float[] and size_ of array
- * @param indices Data object containing unsigned int[] and size_ of array
- * @param threeDimension Is object in 3 dimensions
- * @return 3D mesh without texture coordinates
- */
+    /**
+     * Load data to VAO and return a model that can be rendered (Without texture)
+     * @param positions Data object containing float[] and size_ of array
+     * @param indices Data object containing unsigned int[] and size_ of array
+     * @param threeDimension Is object in 3 dimensions
+     * @return 3D mesh without texture coordinates
+     */
     SharedMesh DataToVAO(const Data<float> &positions, const Data<unsigned int> &indices, bool threeDimension);
 
     SharedMesh DataToVAO(const MeshData &meshData);
 
-/**
- * Load obj file to 3D Mesh
- * @param filePath Path to the file from the project folder
- * @return 3D mesh
- */
+    /**
+     * Load obj file to 3D Mesh
+     * @param filePath Path to the file from the project folder
+     * @return 3D mesh
+     */
     SharedMesh loadOBJFile(const char *filePath);
 
 /*
@@ -186,17 +191,17 @@ namespace CGE::Loader
 
 
 
-/**
- * Load data to mesh on next rendering (If not on rendering thread)
- * @param sharedPtr Pointer where to load the mesh
- * @param meshData Data of the mesh to load
- */
+    /**
+     * Load data to mesh on next rendering (If not on rendering thread)
+     * @param sharedPtr Pointer where to load the mesh
+     * @param meshData Data of the mesh to load
+     */
     void DataToVAO(SharedMesh &sharedPtr, MeshData meshData);
 
-/**
- * Load buffered meshes (when on rendering thread)
- * This is function is called during the window update
- */
+    /**
+     * Load buffered meshes (when on rendering thread)
+     * This is function is called during the window update
+     */
     void loadMeshes();
 
 }
