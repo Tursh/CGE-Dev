@@ -6,11 +6,9 @@
 
 namespace CGE::Loader
 {
-
-    /*
-    Basic Mesh containing the shape of a 2D or 3D model
-    VAO: ID of the VAO
-    */
+    /**
+     * @brief Basic Mesh containing a 2D or 3D model ready to be rendered
+     */
     class Mesh
     {
         const unsigned int VAO;
@@ -19,21 +17,29 @@ namespace CGE::Loader
         const unsigned int vertexCount;
         const glm::vec3 size;
 
-        /*
-        Mesh constructor
-        VAO: VAO ID
-        VBOs: list of VBOs
-        vertexCount: number of indices
-        */
+        /**
+         * Mesh constructor
+         * @param VAO VAO ID
+         * @param VBOs list of VBOs
+         * @param vertexCount  number of indices
+         * @param size 3D size
+         */
         Mesh(unsigned int VAO, std::vector<unsigned int> VBOs, unsigned int vertexCount, glm::vec3 size);
 
-        /*Delete model (VAO and VBOs too)*/
+        /**
+         * Delete model (VAO and VBOs too)
+         */
         ~Mesh();
 
-        /*Bind model*/
+        /**
+         * Bind model to render
+         */
         void bind() const;
 
-        /*Render model*/
+        /**
+         * Render model
+         * @param textured Is the mesh textured
+         */
         void render(bool textured = true) const;
 
         void setTexCoords(unsigned int offset, const Data<float> &data);

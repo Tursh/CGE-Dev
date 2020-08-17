@@ -1,0 +1,65 @@
+\hypertarget{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer}{}\doxysection{C\+GE \+::G\+UI\+::Text\+::Text\+Renderer Namespace Reference}
+\label{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer}\index{CGE ::GUI::Text::TextRenderer@{CGE ::GUI::Text::TextRenderer}}
+
+
+Text rendering functions (Initialization with chosen font, render text...)  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_a2d0af18a6c4e9abed3220c2dacea4813}{init}} (const char $\ast$font\+To\+Use)
+\item 
+void \mbox{\hyperlink{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_aec24bd803c9565b992847a575b6c6b59}{terminate}} ()
+\item 
+\mbox{\Hypertarget{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_aa216e96e4c5e3459622692a54965461d}\label{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_aa216e96e4c5e3459622692a54965461d}} 
+void {\bfseries reset\+Window\+Dimension} (const glm\+::vec2 \&new\+Resolution)
+\item 
+void \mbox{\hyperlink{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_ac94e8fef7cb2d82a1a029a5b527a9867}{render\+Text}} (std\+::string text, glm\+::vec2 position, float scale, const glm\+::vec3 \&color, bool centered=true)
+\item 
+float \mbox{\hyperlink{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_af30708cdbab85d9800a91d4c7ede7cd9}{get\+String\+Length}} (std\+::string string, float size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Text rendering functions (Initialization with chosen font, render text...) 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_af30708cdbab85d9800a91d4c7ede7cd9}\label{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_af30708cdbab85d9800a91d4c7ede7cd9}} 
+\index{CGE ::GUI::Text::TextRenderer@{CGE ::GUI::Text::TextRenderer}!getStringLength@{getStringLength}}
+\index{getStringLength@{getStringLength}!CGE ::GUI::Text::TextRenderer@{CGE ::GUI::Text::TextRenderer}}
+\doxysubsubsection{\texorpdfstring{getStringLength()}{getStringLength()}}
+{\footnotesize\ttfamily float C\+GE \+::G\+U\+I\+::\+Text\+::\+Text\+Renderer\+::get\+String\+Length (\begin{DoxyParamCaption}\item[{std\+::string}]{string,  }\item[{float}]{size }\end{DoxyParamCaption})}
+
+Get the string length in pixels on screen \mbox{\Hypertarget{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_a2d0af18a6c4e9abed3220c2dacea4813}\label{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_a2d0af18a6c4e9abed3220c2dacea4813}} 
+\index{CGE ::GUI::Text::TextRenderer@{CGE ::GUI::Text::TextRenderer}!init@{init}}
+\index{init@{init}!CGE ::GUI::Text::TextRenderer@{CGE ::GUI::Text::TextRenderer}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void C\+GE \+::G\+U\+I\+::\+Text\+::\+Text\+Renderer\+::init (\begin{DoxyParamCaption}\item[{const char $\ast$}]{font\+To\+Use }\end{DoxyParamCaption})}
+
+Initialize the renderer with the chosen font \mbox{\Hypertarget{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_ac94e8fef7cb2d82a1a029a5b527a9867}\label{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_ac94e8fef7cb2d82a1a029a5b527a9867}} 
+\index{CGE ::GUI::Text::TextRenderer@{CGE ::GUI::Text::TextRenderer}!renderText@{renderText}}
+\index{renderText@{renderText}!CGE ::GUI::Text::TextRenderer@{CGE ::GUI::Text::TextRenderer}}
+\doxysubsubsection{\texorpdfstring{renderText()}{renderText()}}
+{\footnotesize\ttfamily void C\+GE \+::G\+U\+I\+::\+Text\+::\+Text\+Renderer\+::render\+Text (\begin{DoxyParamCaption}\item[{std\+::string}]{text,  }\item[{glm\+::vec2}]{position,  }\item[{float}]{scale,  }\item[{const glm\+::vec3 \&}]{color,  }\item[{bool}]{centered = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & Text to render \\
+\hline
+{\em position} & Coordinates on the screen ( (-\/1,-\/1) to (1, 1) ) \\
+\hline
+{\em scale} & Font size \\
+\hline
+{\em color} & Text color (R\+GB) \\
+\hline
+{\em centered} & Centered at position or at the right bottom of the position \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_aec24bd803c9565b992847a575b6c6b59}\label{namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer_aec24bd803c9565b992847a575b6c6b59}} 
+\index{CGE ::GUI::Text::TextRenderer@{CGE ::GUI::Text::TextRenderer}!terminate@{terminate}}
+\index{terminate@{terminate}!CGE ::GUI::Text::TextRenderer@{CGE ::GUI::Text::TextRenderer}}
+\doxysubsubsection{\texorpdfstring{terminate()}{terminate()}}
+{\footnotesize\ttfamily void C\+GE \+::G\+U\+I\+::\+Text\+::\+Text\+Renderer\+::terminate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destroy all the resources used to render text 

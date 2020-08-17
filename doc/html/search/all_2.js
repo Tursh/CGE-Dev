@@ -13,5 +13,6 @@ var searchData=
   ['input_16',['input',['../namespaceCGE_1_1IO_1_1input.html',1,'CGE::IO']]],
   ['io_17',['IO',['../namespaceCGE_1_1IO.html',1,'CGE']]],
   ['loader_18',['Loader',['../namespaceCGE_1_1Loader.html',1,'CGE']]],
-  ['resmanager_19',['resManager',['../namespaceCGE_1_1Loader_1_1resManager.html',1,'CGE::Loader']]]
+  ['resmanager_19',['resManager',['../namespaceCGE_1_1Loader_1_1resManager.html',1,'CGE::Loader']]],
+  ['textrenderer_20',['TextRenderer',['../namespaceCGE_01_1_1GUI_1_1Text_1_1TextRenderer.html',1,'CGE ::GUI::Text']]]
 ];

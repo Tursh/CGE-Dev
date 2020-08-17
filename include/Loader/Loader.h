@@ -22,7 +22,7 @@ namespace CGE::Loader
     class Mesh;
 
     /**
-     * Data wrapper used to load data arrays to a VAO
+     * @brief Data wrapper used to load data arrays to a Mesh
      * @tparam T Data type
      */
     template<typename T>
@@ -108,6 +108,9 @@ namespace CGE::Loader
 
     typedef std::shared_ptr<Mesh> SharedMesh;
 
+    /**
+     * @brief MeshData unite vertices, texture coords, normals, etc to load to a Mesh
+     */
     struct MeshData
     {
         Data<unsigned int> indices;
