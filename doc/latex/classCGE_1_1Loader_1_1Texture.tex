@@ -1,0 +1,106 @@
+\hypertarget{classCGE_1_1Loader_1_1Texture}{}\doxysection{C\+GE\+::Loader\+::Texture Class Reference}
+\label{classCGE_1_1Loader_1_1Texture}\index{CGE::Loader::Texture@{CGE::Loader::Texture}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Texture_a3c36292e71e3ef89301f38de75025bdc}\label{classCGE_1_1Loader_1_1Texture_a3c36292e71e3ef89301f38de75025bdc}} 
+{\bfseries Texture} (glm\+::ivec2 atlas\+Count=glm\+::ivec2(1))
+\item 
+void \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture_a4a41d396db47368132f579416b3a24a9}{bind}} ()
+\item 
+void \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture_a40902b6a825b27a96b3a4ead1cd298b0}{change\+Wrapping}} (G\+Lenum new\+Wrap)
+\item 
+void \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture_a9335557e75922ced728cee97f42362ac}{change\+Filtering}} (G\+Lenum new\+Filter)
+\item 
+void \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture_a12d378e7f4f15d1c21037a56ec28817d}{change\+Tex\+Parameter}} (G\+Lenum target, G\+Lenum pname, G\+Lint param)
+\item 
+void \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture_a0a3d3c1828ded79b3a808b8bb1cf9087}{change\+Tex\+Parameter}} (G\+Lenum target, G\+Lenum pname, G\+Lfloat param)
+\item 
+void \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture_a5e09f6a3829bca3e12efdbc193c11619}{load\+Texture}} (const char $\ast$file\+Path)
+\item 
+glm\+::vec2 \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture_a2d3865f793613793b3b29b4eda7301f3}{get\+Size}} ()
+\item 
+glm\+::vec4 \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture_ab69c8c17640d8f3d91b22e63a4ed7b50}{get\+Texture\+Limits}} (unsigned int atlas\+Index=0)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Texture_a4a41d396db47368132f579416b3a24a9}\label{classCGE_1_1Loader_1_1Texture_a4a41d396db47368132f579416b3a24a9}} 
+\index{CGE::Loader::Texture@{CGE::Loader::Texture}!bind@{bind}}
+\index{bind@{bind}!CGE::Loader::Texture@{CGE::Loader::Texture}}
+\doxysubsubsection{\texorpdfstring{bind()}{bind()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::\+Texture\+::bind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Bind current texture to render \mbox{\Hypertarget{classCGE_1_1Loader_1_1Texture_a9335557e75922ced728cee97f42362ac}\label{classCGE_1_1Loader_1_1Texture_a9335557e75922ced728cee97f42362ac}} 
+\index{CGE::Loader::Texture@{CGE::Loader::Texture}!changeFiltering@{changeFiltering}}
+\index{changeFiltering@{changeFiltering}!CGE::Loader::Texture@{CGE::Loader::Texture}}
+\doxysubsubsection{\texorpdfstring{changeFiltering()}{changeFiltering()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::\+Texture\+::change\+Filtering (\begin{DoxyParamCaption}\item[{G\+Lenum}]{new\+Filter }\end{DoxyParamCaption})}
+
+Change the filtering 
+\begin{DoxyParams}{Parameters}
+{\em new\+Filter} & New Filter (G\+L\+\_\+\+N\+E\+A\+R\+E\+ST or G\+L\+\_\+\+L\+I\+N\+E\+AR) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Texture_a0a3d3c1828ded79b3a808b8bb1cf9087}\label{classCGE_1_1Loader_1_1Texture_a0a3d3c1828ded79b3a808b8bb1cf9087}} 
+\index{CGE::Loader::Texture@{CGE::Loader::Texture}!changeTexParameter@{changeTexParameter}}
+\index{changeTexParameter@{changeTexParameter}!CGE::Loader::Texture@{CGE::Loader::Texture}}
+\doxysubsubsection{\texorpdfstring{changeTexParameter()}{changeTexParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::\+Texture\+::change\+Tex\+Parameter (\begin{DoxyParamCaption}\item[{G\+Lenum}]{target,  }\item[{G\+Lenum}]{pname,  }\item[{G\+Lfloat}]{param }\end{DoxyParamCaption})}
+
+Set texture parameters for more info\+: \href{http://docs.gl/gl3/glTexParameter}{\texttt{ http\+://docs.\+gl/gl3/gl\+Tex\+Parameter}} \mbox{\Hypertarget{classCGE_1_1Loader_1_1Texture_a12d378e7f4f15d1c21037a56ec28817d}\label{classCGE_1_1Loader_1_1Texture_a12d378e7f4f15d1c21037a56ec28817d}} 
+\index{CGE::Loader::Texture@{CGE::Loader::Texture}!changeTexParameter@{changeTexParameter}}
+\index{changeTexParameter@{changeTexParameter}!CGE::Loader::Texture@{CGE::Loader::Texture}}
+\doxysubsubsection{\texorpdfstring{changeTexParameter()}{changeTexParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::\+Texture\+::change\+Tex\+Parameter (\begin{DoxyParamCaption}\item[{G\+Lenum}]{target,  }\item[{G\+Lenum}]{pname,  }\item[{G\+Lint}]{param }\end{DoxyParamCaption})}
+
+Set texture parameters for more info\+: \href{http://docs.gl/gl3/glTexParameter}{\texttt{ http\+://docs.\+gl/gl3/gl\+Tex\+Parameter}} \mbox{\Hypertarget{classCGE_1_1Loader_1_1Texture_a40902b6a825b27a96b3a4ead1cd298b0}\label{classCGE_1_1Loader_1_1Texture_a40902b6a825b27a96b3a4ead1cd298b0}} 
+\index{CGE::Loader::Texture@{CGE::Loader::Texture}!changeWrapping@{changeWrapping}}
+\index{changeWrapping@{changeWrapping}!CGE::Loader::Texture@{CGE::Loader::Texture}}
+\doxysubsubsection{\texorpdfstring{changeWrapping()}{changeWrapping()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::\+Texture\+::change\+Wrapping (\begin{DoxyParamCaption}\item[{G\+Lenum}]{new\+Wrap }\end{DoxyParamCaption})}
+
+Change the wrapping 
+\begin{DoxyParams}{Parameters}
+{\em new\+Wrap} & New wrap (G\+L\+\_\+\+R\+E\+P\+E\+AT, G\+L\+\_\+\+C\+L\+A\+M\+P\+\_\+\+T\+O\+\_\+\+E\+D\+GE or G\+L\+\_\+\+C\+L\+A\+M\+P\+\_\+\+T\+O\+\_\+\+B\+O\+R\+D\+ER) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Texture_a2d3865f793613793b3b29b4eda7301f3}\label{classCGE_1_1Loader_1_1Texture_a2d3865f793613793b3b29b4eda7301f3}} 
+\index{CGE::Loader::Texture@{CGE::Loader::Texture}!getSize@{getSize}}
+\index{getSize@{getSize}!CGE::Loader::Texture@{CGE::Loader::Texture}}
+\doxysubsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily glm\+::vec2 C\+G\+E\+::\+Loader\+::\+Texture\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+The size of the texture in pixels 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Texture_ab69c8c17640d8f3d91b22e63a4ed7b50}\label{classCGE_1_1Loader_1_1Texture_ab69c8c17640d8f3d91b22e63a4ed7b50}} 
+\index{CGE::Loader::Texture@{CGE::Loader::Texture}!getTextureLimits@{getTextureLimits}}
+\index{getTextureLimits@{getTextureLimits}!CGE::Loader::Texture@{CGE::Loader::Texture}}
+\doxysubsubsection{\texorpdfstring{getTextureLimits()}{getTextureLimits()}}
+{\footnotesize\ttfamily glm\+::vec4 C\+G\+E\+::\+Loader\+::\+Texture\+::get\+Texture\+Limits (\begin{DoxyParamCaption}\item[{unsigned int}]{atlas\+Index = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+To get texture atlas texture limit 
+\begin{DoxyParams}{Parameters}
+{\em atlas\+Index} & atlas index counting from left to right and top to bottom \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Coordinates in this order\+: \{x-\/, y-\/, x+, y+\} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Texture_a5e09f6a3829bca3e12efdbc193c11619}\label{classCGE_1_1Loader_1_1Texture_a5e09f6a3829bca3e12efdbc193c11619}} 
+\index{CGE::Loader::Texture@{CGE::Loader::Texture}!loadTexture@{loadTexture}}
+\index{loadTexture@{loadTexture}!CGE::Loader::Texture@{CGE::Loader::Texture}}
+\doxysubsubsection{\texorpdfstring{loadTexture()}{loadTexture()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::\+Texture\+::load\+Texture (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file\+Path }\end{DoxyParamCaption})}
+
+Load texture from file 
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & Path to file from \char`\"{}res/graphics/texture\char`\"{} \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\+Loader/Texture.\+h\end{DoxyCompactItemize}

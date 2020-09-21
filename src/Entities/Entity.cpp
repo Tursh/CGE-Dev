@@ -173,10 +173,10 @@ namespace CGE::Entities
 
     const glm::vec3 &Entity::getSize() { return texMesh_ != nullptr ? texMesh_->getMeshSize() : zero; }
 
-    Hitbox Entity::getHitbox()
+    Physics::Hitbox Entity::getHitbox()
     {
         glm::vec3 size = getSize();
-        return Hitbox(op_.x - size.x / 2, op_.x + size.x / 2, op_.y - size.y / 2, op_.y + size.y / 2,
+        return Physics::Hitbox(op_.x - size.x / 2, op_.x + size.x / 2, op_.y - size.y / 2, op_.y + size.y / 2,
                       op_.z - size.z / 2, op_.z + size.z / 2);
     }
 

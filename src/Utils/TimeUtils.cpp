@@ -60,11 +60,9 @@ namespace CGE::Utils
     class Chronometer
     {
     public:
-        Chronometer(unsigned int ID) // @suppress("Class members should be properly initialized")
-                : ID(ID), beg(0)
-        {
-            time = 0;
-        }
+        explicit Chronometer(unsigned int ID) // @suppress("Class members should be properly initialized")
+                : ID(ID), beg(0), time(0)
+        {}
 
         void start()
         {
@@ -81,7 +79,13 @@ namespace CGE::Utils
             beg = 0;
         }
 
-        double getTime() const
+        void clear()
+        {
+            time = 0;
+            beg = 0;
+        }
+
+        [[nodiscard]] double getTime() const
         {
             if (beg != 0)
                 return time + glfwGetTime() - beg;
@@ -116,6 +120,11 @@ namespace CGE::Utils
         else
 #endif
             chronos[chronoID]->stop();
+    }
+
+    void Chrono::clear(unsigned int chronoID)
+    {
+        chronos[chronoID]->clear();
     }
 
     double Chrono::getTime(unsigned int chronoID)

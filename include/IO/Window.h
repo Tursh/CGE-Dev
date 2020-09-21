@@ -4,12 +4,17 @@
 #include <glm/mat4x4.hpp>
 #include <functional>
 
+/**
+ * @brief IO functions (Window and input)
+ */
 namespace CGE::IO
 {
 
     extern const unsigned int DEFAULT_WIDTH, DEFAULT_HEIGHT;
 
-    //Create a dynamic window
+    /**
+     * @brief A dynamic window using GLFW
+     */
     class Window
     {
         /**

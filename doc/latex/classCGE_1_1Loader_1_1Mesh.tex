@@ -1,0 +1,88 @@
+\hypertarget{classCGE_1_1Loader_1_1Mesh}{}\doxysection{C\+GE\+::Loader\+::Mesh Class Reference}
+\label{classCGE_1_1Loader_1_1Mesh}\index{CGE::Loader::Mesh@{CGE::Loader::Mesh}}
+
+
+Basic \mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh}{Mesh}} containing a 2D or 3D model ready to be rendered.  
+
+
+
+
+{\ttfamily \#include $<$Mesh.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh_aa38a114b0258aa6bedf95863d7a8e7a2}{Mesh}} (unsigned int V\+AO, std\+::vector$<$ unsigned int $>$ V\+B\+Os, unsigned int vertex\+Count, glm\+::vec3 size)
+\item 
+\mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh_a1c5940049d93a3d3a3a56c167662509d}{$\sim$\+Mesh}} ()
+\item 
+void \mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh_a532099e57851d7e35fa8cee164acabdc}{bind}} () const
+\item 
+void \mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh_adeb9588459bd0f882277fe5080e03c29}{render}} (bool textured=true) const
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Mesh_a82aa47f0b2a811e1a8619e82d977c157}\label{classCGE_1_1Loader_1_1Mesh_a82aa47f0b2a811e1a8619e82d977c157}} 
+void {\bfseries set\+Tex\+Coords} (unsigned int offset, const \mbox{\hyperlink{structCGE_1_1Loader_1_1Data}{Data}}$<$ float $>$ \&data)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Mesh_acf7ab64dfbb3ee69289d0470a009c230}\label{classCGE_1_1Loader_1_1Mesh_acf7ab64dfbb3ee69289d0470a009c230}} 
+const unsigned int {\bfseries vertex\+Count}
+\item 
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Mesh_a5a476407846523c3e392ba8e28d989c6}\label{classCGE_1_1Loader_1_1Mesh_a5a476407846523c3e392ba8e28d989c6}} 
+const glm\+::vec3 {\bfseries size}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Basic \mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh}{Mesh}} containing a 2D or 3D model ready to be rendered. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Mesh_aa38a114b0258aa6bedf95863d7a8e7a2}\label{classCGE_1_1Loader_1_1Mesh_aa38a114b0258aa6bedf95863d7a8e7a2}} 
+\index{CGE::Loader::Mesh@{CGE::Loader::Mesh}!Mesh@{Mesh}}
+\index{Mesh@{Mesh}!CGE::Loader::Mesh@{CGE::Loader::Mesh}}
+\doxysubsubsection{\texorpdfstring{Mesh()}{Mesh()}}
+{\footnotesize\ttfamily C\+G\+E\+::\+Loader\+::\+Mesh\+::\+Mesh (\begin{DoxyParamCaption}\item[{unsigned int}]{V\+AO,  }\item[{std\+::vector$<$ unsigned int $>$}]{V\+B\+Os,  }\item[{unsigned int}]{vertex\+Count,  }\item[{glm\+::vec3}]{size }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh}{Mesh}} constructor 
+\begin{DoxyParams}{Parameters}
+{\em V\+AO} & V\+AO ID \\
+\hline
+{\em V\+B\+Os} & list of V\+B\+Os \\
+\hline
+{\em vertex\+Count} & number of indices \\
+\hline
+{\em size} & 3D size \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Mesh_a1c5940049d93a3d3a3a56c167662509d}\label{classCGE_1_1Loader_1_1Mesh_a1c5940049d93a3d3a3a56c167662509d}} 
+\index{CGE::Loader::Mesh@{CGE::Loader::Mesh}!````~Mesh@{$\sim$Mesh}}
+\index{````~Mesh@{$\sim$Mesh}!CGE::Loader::Mesh@{CGE::Loader::Mesh}}
+\doxysubsubsection{\texorpdfstring{$\sim$Mesh()}{~Mesh()}}
+{\footnotesize\ttfamily C\+G\+E\+::\+Loader\+::\+Mesh\+::$\sim$\+Mesh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Delete model (V\+AO and V\+B\+Os too) 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCGE_1_1Loader_1_1Mesh_a532099e57851d7e35fa8cee164acabdc}\label{classCGE_1_1Loader_1_1Mesh_a532099e57851d7e35fa8cee164acabdc}} 
+\index{CGE::Loader::Mesh@{CGE::Loader::Mesh}!bind@{bind}}
+\index{bind@{bind}!CGE::Loader::Mesh@{CGE::Loader::Mesh}}
+\doxysubsubsection{\texorpdfstring{bind()}{bind()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::\+Mesh\+::bind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Bind model to render \mbox{\Hypertarget{classCGE_1_1Loader_1_1Mesh_adeb9588459bd0f882277fe5080e03c29}\label{classCGE_1_1Loader_1_1Mesh_adeb9588459bd0f882277fe5080e03c29}} 
+\index{CGE::Loader::Mesh@{CGE::Loader::Mesh}!render@{render}}
+\index{render@{render}!CGE::Loader::Mesh@{CGE::Loader::Mesh}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::\+Mesh\+::render (\begin{DoxyParamCaption}\item[{bool}]{textured = {\ttfamily true} }\end{DoxyParamCaption}) const}
+
+Render model 
+\begin{DoxyParams}{Parameters}
+{\em textured} & Is the mesh textured \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\+Loader/\+Meshes/Mesh.\+h\end{DoxyCompactItemize}

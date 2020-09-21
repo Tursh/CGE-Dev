@@ -1,0 +1,50 @@
+\hypertarget{classCGE_1_1GUI_1_1Panel}{}\doxysection{C\+GE\+::G\+UI\+::Panel Class Reference}
+\label{classCGE_1_1GUI_1_1Panel}\index{CGE::GUI::Panel@{CGE::GUI::Panel}}
+Inheritance diagram for C\+GE\+::G\+UI\+::Panel\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCGE_1_1GUI_1_1Panel}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCGE_1_1GUI_1_1Panel_a341083c20d373698e72982ebe0b5b944}\label{classCGE_1_1GUI_1_1Panel_a341083c20d373698e72982ebe0b5b944}} 
+{\bfseries Panel} (glm\+::vec2 position, glm\+::vec2 dimension, unsigned int type, std\+::function$<$ void(int key, int usage)$>$ key\+Callback, bool in\+Game\+Panel=false)
+\item 
+\mbox{\Hypertarget{classCGE_1_1GUI_1_1Panel_a14673b560abad31709104e4261a54072}\label{classCGE_1_1GUI_1_1Panel_a14673b560abad31709104e4261a54072}} 
+void {\bfseries add\+Component} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classCGE_1_1GUI_1_1GUIComponent}{G\+U\+I\+Component}} $>$ new\+Component)
+\item 
+\mbox{\Hypertarget{classCGE_1_1GUI_1_1Panel_aab7353d92ae3fca2711648de07064d13}\label{classCGE_1_1GUI_1_1Panel_aab7353d92ae3fca2711648de07064d13}} 
+{\footnotesize template$<$class T , typename ... param\+Type$>$ }\\void {\bfseries create\+Child\+Component} (param\+Type ...params)
+\item 
+\mbox{\Hypertarget{classCGE_1_1GUI_1_1Panel_a50e7c92053aa725dd8beeace7db0b220}\label{classCGE_1_1GUI_1_1Panel_a50e7c92053aa725dd8beeace7db0b220}} 
+void {\bfseries render} (\mbox{\hyperlink{classCGE_1_1GUI_1_1GUIShader}{G\+U\+I\+Shader}} $\ast$shader) override
+\item 
+\mbox{\Hypertarget{classCGE_1_1GUI_1_1Panel_a9d6b7bf0a89512b5ff8561eed4e87ce0}\label{classCGE_1_1GUI_1_1Panel_a9d6b7bf0a89512b5ff8561eed4e87ce0}} 
+virtual void {\bfseries check\+Events} ()
+\item 
+\mbox{\Hypertarget{classCGE_1_1GUI_1_1Panel_a64133b4e09c63929291378410446c706}\label{classCGE_1_1GUI_1_1Panel_a64133b4e09c63929291378410446c706}} 
+void {\bfseries reset\+Display\+Scale} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCGE_1_1GUI_1_1Panel_a658cf03a726864afa8099e4d69d49c83}\label{classCGE_1_1GUI_1_1Panel_a658cf03a726864afa8099e4d69d49c83}} 
+std\+::function$<$ void(int key, int usage)$>$ {\bfseries key\+Callback}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCGE_1_1GUI_1_1Panel_a25e1c6f36ff588057dfaa491891ff0bd}\label{classCGE_1_1GUI_1_1Panel_a25e1c6f36ff588057dfaa491891ff0bd}} 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classCGE_1_1GUI_1_1Button}{Button}} $>$ $>$ {\bfseries buttons\+\_\+}
+\item 
+\mbox{\Hypertarget{classCGE_1_1GUI_1_1Panel_a1e0b28f2114c68ba6346ec1fe2217152}\label{classCGE_1_1GUI_1_1Panel_a1e0b28f2114c68ba6346ec1fe2217152}} 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classCGE_1_1GUI_1_1GUIComponent}{G\+U\+I\+Component}} $>$ $>$ {\bfseries components\+\_\+}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\+G\+U\+I/Panel.\+h\end{DoxyCompactItemize}

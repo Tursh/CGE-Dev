@@ -5,6 +5,9 @@
 #include "glm/ext/vector_float3.hpp"
 #include <glm/mat4x4.hpp>
 
+/**
+ * @brief Text rendering functions (Initialization with chosen font, render text...)
+ */
 namespace CGE ::GUI::Text::TextRenderer
 {
     /**

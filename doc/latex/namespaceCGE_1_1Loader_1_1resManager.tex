@@ -1,0 +1,84 @@
+\hypertarget{namespaceCGE_1_1Loader_1_1resManager}{}\doxysection{C\+GE\+::Loader\+::res\+Manager Namespace Reference}
+\label{namespaceCGE_1_1Loader_1_1resManager}\index{CGE::Loader::resManager@{CGE::Loader::resManager}}
+
+
+Resource Manager using your resource index at \char`\"{}res/graphics/graphics.\+index\char`\"{}.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1Loader_1_1resManager_a674f9cd58ce5e1a16369e1ad27a3efed}{init}} ()
+\item 
+void \mbox{\hyperlink{namespaceCGE_1_1Loader_1_1resManager_aef0ecd4c2e120695835a2928bd36be77}{terminate}} ()
+\item 
+Shared\+Tex\+Mesh \mbox{\hyperlink{namespaceCGE_1_1Loader_1_1resManager_a12ec8fade4f033bd62233f3a49462b3e}{get\+Tex\+Mesh}} (unsigned int ID)
+\item 
+Shared\+Mesh \mbox{\hyperlink{namespaceCGE_1_1Loader_1_1resManager_a7ae10fffd8f4a2869ea713ce4a3488be}{get\+Mesh}} (unsigned int ID)
+\item 
+Shared\+Texture \mbox{\hyperlink{namespaceCGE_1_1Loader_1_1resManager_a54bb5d99b57c9c3ed00f2279f77df1e8}{get\+Texture}} (unsigned int ID)
+\item 
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_1_1resManager_aed55283b0b43ca39cf667ae139a43e68}\label{namespaceCGE_1_1Loader_1_1resManager_aed55283b0b43ca39cf667ae139a43e68}} 
+void {\bfseries scrap} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Resource Manager using your resource index at \char`\"{}res/graphics/graphics.\+index\char`\"{}. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_1_1resManager_a7ae10fffd8f4a2869ea713ce4a3488be}\label{namespaceCGE_1_1Loader_1_1resManager_a7ae10fffd8f4a2869ea713ce4a3488be}} 
+\index{CGE::Loader::resManager@{CGE::Loader::resManager}!getMesh@{getMesh}}
+\index{getMesh@{getMesh}!CGE::Loader::resManager@{CGE::Loader::resManager}}
+\doxysubsubsection{\texorpdfstring{getMesh()}{getMesh()}}
+{\footnotesize\ttfamily Shared\+Mesh C\+G\+E\+::\+Loader\+::res\+Manager\+::get\+Mesh (\begin{DoxyParamCaption}\item[{unsigned int}]{ID }\end{DoxyParamCaption})}
+
+Check if model got already loaded and returns it 
+\begin{DoxyParams}{Parameters}
+{\em ID} & \mbox{\hyperlink{classCGE_1_1Loader_1_1Mesh}{Mesh}} ID (In graphics.\+index -\/$>$ M $<$\+Mesh\+I\+D$>$ $<$Path from res/graphics/meshes/$>$) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The mesh 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_1_1resManager_a12ec8fade4f033bd62233f3a49462b3e}\label{namespaceCGE_1_1Loader_1_1resManager_a12ec8fade4f033bd62233f3a49462b3e}} 
+\index{CGE::Loader::resManager@{CGE::Loader::resManager}!getTexMesh@{getTexMesh}}
+\index{getTexMesh@{getTexMesh}!CGE::Loader::resManager@{CGE::Loader::resManager}}
+\doxysubsubsection{\texorpdfstring{getTexMesh()}{getTexMesh()}}
+{\footnotesize\ttfamily Shared\+Tex\+Mesh C\+G\+E\+::\+Loader\+::res\+Manager\+::get\+Tex\+Mesh (\begin{DoxyParamCaption}\item[{unsigned int}]{ID }\end{DoxyParamCaption})}
+
+Check if mesh and texture got already loaded and returns them 
+\begin{DoxyParams}{Parameters}
+{\em ID} & Tex\+Mesh ID (In graphics.\+index -\/$>$ R $<$\+I\+D$>$ $<$\+Mesh\+I\+D$>$ $<$\+Tex\+I\+D$>$) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The textured model 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_1_1resManager_a54bb5d99b57c9c3ed00f2279f77df1e8}\label{namespaceCGE_1_1Loader_1_1resManager_a54bb5d99b57c9c3ed00f2279f77df1e8}} 
+\index{CGE::Loader::resManager@{CGE::Loader::resManager}!getTexture@{getTexture}}
+\index{getTexture@{getTexture}!CGE::Loader::resManager@{CGE::Loader::resManager}}
+\doxysubsubsection{\texorpdfstring{getTexture()}{getTexture()}}
+{\footnotesize\ttfamily Shared\+Texture C\+G\+E\+::\+Loader\+::res\+Manager\+::get\+Texture (\begin{DoxyParamCaption}\item[{unsigned int}]{ID }\end{DoxyParamCaption})}
+
+Check if texture got already loaded and returns it 
+\begin{DoxyParams}{Parameters}
+{\em ID} & \mbox{\hyperlink{classCGE_1_1Loader_1_1Texture}{Texture}} ID (In graphics.\+index -\/$>$ T $<$\+Tex\+I\+D$>$ $<$Path from res/graphics/textures/$>$ $<$\+Atlas size x$>$ $<$\+Atlas size y$>$) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The texture 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCGE_1_1Loader_1_1resManager_a674f9cd58ce5e1a16369e1ad27a3efed}\label{namespaceCGE_1_1Loader_1_1resManager_a674f9cd58ce5e1a16369e1ad27a3efed}} 
+\index{CGE::Loader::resManager@{CGE::Loader::resManager}!init@{init}}
+\index{init@{init}!CGE::Loader::resManager@{CGE::Loader::resManager}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::res\+Manager\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Initialize the resource manager \mbox{\Hypertarget{namespaceCGE_1_1Loader_1_1resManager_aef0ecd4c2e120695835a2928bd36be77}\label{namespaceCGE_1_1Loader_1_1resManager_aef0ecd4c2e120695835a2928bd36be77}} 
+\index{CGE::Loader::resManager@{CGE::Loader::resManager}!terminate@{terminate}}
+\index{terminate@{terminate}!CGE::Loader::resManager@{CGE::Loader::resManager}}
+\doxysubsubsection{\texorpdfstring{terminate()}{terminate()}}
+{\footnotesize\ttfamily void C\+G\+E\+::\+Loader\+::res\+Manager\+::terminate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Free all resources 

@@ -1,0 +1,83 @@
+\hypertarget{classHitbox}{}\doxysection{Hitbox Class Reference}
+\label{classHitbox}\index{Hitbox@{Hitbox}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classHitbox_aef3449e21d0c43e53701db5fb7fdf661}{Hitbox}} (float x0, float x1, float y0, float y1, float z0, float z1)
+\item 
+\mbox{\hyperlink{classHitbox_aa48855ae559de25f833b583b6c5d2c99}{Hitbox}} (glm\+::vec3 neg\+Border, glm\+::vec3 pos\+Border)
+\item 
+float \mbox{\hyperlink{classHitbox_a2b2afb58e05415d546f0dc863c49cec3}{check\+If\+Collide\+In\+Axis}} (\mbox{\hyperlink{classHitbox}{Hitbox}} moving\+Hitbox, int axis, float movement)
+\item 
+\mbox{\Hypertarget{classHitbox_ae8d70a673b5b3b85e08163adf0d670a4}\label{classHitbox_ae8d70a673b5b3b85e08163adf0d670a4}} 
+\mbox{\hyperlink{classHitbox}{Hitbox}} {\bfseries expand} (float scalar)
+\item 
+\mbox{\Hypertarget{classHitbox_a59be75190c6c833fc984b73376561f9c}\label{classHitbox_a59be75190c6c833fc984b73376561f9c}} 
+const glm\+::vec3 \& {\bfseries get\+Neg\+Border} ()
+\item 
+\mbox{\Hypertarget{classHitbox_a0ac66acb6284b30d8417a4a6b91a8826}\label{classHitbox_a0ac66acb6284b30d8417a4a6b91a8826}} 
+const glm\+::vec3 \& {\bfseries get\+Pos\+Border} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classHitbox_aef3449e21d0c43e53701db5fb7fdf661}\label{classHitbox_aef3449e21d0c43e53701db5fb7fdf661}} 
+\index{Hitbox@{Hitbox}!Hitbox@{Hitbox}}
+\index{Hitbox@{Hitbox}!Hitbox@{Hitbox}}
+\doxysubsubsection{\texorpdfstring{Hitbox()}{Hitbox()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Hitbox\+::\+Hitbox (\begin{DoxyParamCaption}\item[{float}]{x0,  }\item[{float}]{x1,  }\item[{float}]{y0,  }\item[{float}]{y1,  }\item[{float}]{z0,  }\item[{float}]{z1 }\end{DoxyParamCaption})}
+
+Create a hitbox with the delimitation position 
+\begin{DoxyParams}{Parameters}
+{\em x0} & X min \\
+\hline
+{\em x1} & X max \\
+\hline
+{\em y0} & Y min \\
+\hline
+{\em y1} & Y max \\
+\hline
+{\em z0} & Z min \\
+\hline
+{\em z1} & Z max \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classHitbox_aa48855ae559de25f833b583b6c5d2c99}\label{classHitbox_aa48855ae559de25f833b583b6c5d2c99}} 
+\index{Hitbox@{Hitbox}!Hitbox@{Hitbox}}
+\index{Hitbox@{Hitbox}!Hitbox@{Hitbox}}
+\doxysubsubsection{\texorpdfstring{Hitbox()}{Hitbox()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Hitbox\+::\+Hitbox (\begin{DoxyParamCaption}\item[{glm\+::vec3}]{neg\+Border,  }\item[{glm\+::vec3}]{pos\+Border }\end{DoxyParamCaption})}
+
+Create a hitbox with the delimitation position vector 
+\begin{DoxyParams}{Parameters}
+{\em neg\+Border} & negative border \{x0, y0, z0\} \\
+\hline
+{\em pos\+Border} & positive border \{x1, y1, z1\} \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classHitbox_a2b2afb58e05415d546f0dc863c49cec3}\label{classHitbox_a2b2afb58e05415d546f0dc863c49cec3}} 
+\index{Hitbox@{Hitbox}!checkIfCollideInAxis@{checkIfCollideInAxis}}
+\index{checkIfCollideInAxis@{checkIfCollideInAxis}!Hitbox@{Hitbox}}
+\doxysubsubsection{\texorpdfstring{checkIfCollideInAxis()}{checkIfCollideInAxis()}}
+{\footnotesize\ttfamily float Hitbox\+::check\+If\+Collide\+In\+Axis (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classHitbox}{Hitbox}}}]{moving\+Hitbox,  }\item[{int}]{axis,  }\item[{float}]{movement }\end{DoxyParamCaption})}
+
+check if this hitbox is colliding with the hitbox of a moving entity 
+\begin{DoxyParams}{Parameters}
+{\em moving\+Hitbox} & the hitbox of a moving entity \\
+\hline
+{\em axis} & x\+: 0, y\+: 1, z\+: 2 \\
+\hline
+{\em movement} & movement of the moving hitbox in the respective axis \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the movement maximum before colliding 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\+Physics/Hitbox.\+h\end{DoxyCompactItemize}

@@ -4,6 +4,9 @@
 #include <GLFW/glfw3.h>
 #include <glm/ext/vector_float2.hpp>
 
+/**
+ * @brief Input functions
+ */
 namespace CGE::IO::input
 {
 

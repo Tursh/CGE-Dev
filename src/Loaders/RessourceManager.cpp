@@ -255,7 +255,7 @@ namespace CGE::Loader
             logInfo("delete texture ID: " << texture);
 #endif
             if (texture != 0xffffffff)
-            GLCall(glDeleteTextures(1, &texture))
+            GLCall(glDeleteTextures(1, &texture));
         }
         textureToClear.clear();
         modelToClear.swap(modelToClearExtraBuffer);
@@ -264,12 +264,12 @@ namespace CGE::Loader
             auto &VAO = std::get<0>(model);
             auto &VBOs = std::get<1>(model);
             //Delete VAO
-            GLCall(glDeleteVertexArrays(1, &VAO))
+            GLCall(glDeleteVertexArrays(1, &VAO));
 
             //Delete VBOs
             for (unsigned int VBO : VBOs)
             {
-                GLCall(glDeleteBuffers(1, &VBO))
+                GLCall(glDeleteBuffers(1, &VBO));
             }
         }
         modelToClear.clear();
