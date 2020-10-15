@@ -97,4 +97,5 @@ add_library(CGE ${LIBRARY_TYPE}
         src/Utils/PerlinNoice.cpp
         src/Physics/Hitbox.cpp
         src/Utils/ThreadProcess.cpp
-        src/Loaders/Meshes/MeshBuilder.cpp)
+        src/Loaders/Meshes/MeshBuilder.cpp
+        src/Entities/Player.cpp)

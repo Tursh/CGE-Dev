@@ -18,7 +18,7 @@ namespace CGE::Loader
         SharedMesh mesh_;
 
     public:
-        TexturedMesh(SharedMesh mesh, SharedTexture texture, bool threeDimension);
+        TexturedMesh(SharedMesh mesh, SharedTexture texture, bool threeDimension = true);
 
         virtual void render();
 
