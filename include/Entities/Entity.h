@@ -139,6 +139,8 @@ namespace CGE::Entities
         virtual const glm::vec3 &getSize();
         
         bool isOnGround();
+
+		virtual bool shouldDie();
         
     };
 }

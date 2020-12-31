@@ -180,4 +180,9 @@ namespace CGE::Entities
                       op_.z - size.z / 2, op_.z + size.z / 2);
     }
 
+    bool Entity::shouldDie()
+    {
+        return false;
+    }
+
 }
