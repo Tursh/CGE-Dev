@@ -20,24 +20,24 @@ namespace CGE::Entities
      */
     class Entity
     {
-    private:
-        glm::vec3 ap_;                                         /**< Actual position */
-        glm::vec3 op_;                                         /**< Old position */
-        glm::vec3 ar_;                                         /**< Actual rotation */
-        glm::vec3 or_;                                         /**< Old rotation */
-        glm::vec3 as_ = glm::vec3(0);                          /**< Actual speed */
-        glm::vec3 os_ = glm::vec3(0);                          /**< Old speed*/
-        glm::vec3 aa_ = glm::vec3(0);                          /**< Actual acceleration */
-        glm::vec3 oa_ = glm::vec3(0);                          /**< Old acceleration */
-
     protected:
+		glm::vec3 ap_;                                         /**< Actual position */
+		glm::vec3 op_;                                         /**< Old position */
+		glm::vec3 ar_;                                         /**< Actual rotation */
+		glm::vec3 or_;                                         /**< Old rotation */
+		glm::vec3 as_ = glm::vec3(0);                          /**< Actual speed */
+		glm::vec3 os_ = glm::vec3(0);                          /**< Old speed*/
+		glm::vec3 aa_ = glm::vec3(0);                          /**< Actual acceleration */
+		glm::vec3 oa_ = glm::vec3(0);                          /**< Old acceleration */
+
         std::vector<std::tuple<int, glm::vec3>> forces_;       /**< List of forces applied on the entity */
         unsigned int ID_;                                      /**< Unique ID */
         Loader::SharedTexMesh texMesh_;                      /**< Textured model */
         bool visible_;                                         /**< Is visible */
         std::function<glm::vec3(Entity *)> checkCollision_;    /**< Collision check function */
 
-    public:
+
+	public:
         /**
          * Base Constructor
          * @param texMeshID            Textured model ID
