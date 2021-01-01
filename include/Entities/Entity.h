@@ -140,7 +140,7 @@ namespace CGE::Entities
         
         bool isOnGround();
 
-		virtual bool shouldDie();
+	virtual bool shouldDie();
         
     };
 }
