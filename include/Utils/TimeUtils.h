@@ -122,11 +122,16 @@ namespace CGE::Utils
 		static bool shouldTick(unsigned int TPSClockID = 0, bool waitForNextTick = true);
 		
 		/**
-		 * Get the time since last tick
+		 * @param TPSClockID The clock ID
+		 * @return Where you are at inside the tick cooldown
+		 */
+		static float getDelta(unsigned int TPSClockID = 0);
+
+		/**
 		 * @param TPSClockID The clock ID
 		 * @return The time since last tick
 		 */
-		static float getDelta(unsigned int TPSClockID = 0);
+		static float getDeltaTime(unsigned int TPSClockID = 0);
 	
 	private:
 		TPSClock(unsigned int ID, float wantedTPS);
