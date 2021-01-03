@@ -282,4 +282,10 @@ namespace CGE::Utils
         lastTime = currentTime;
         TPSTime = currentTime;
     }
+
+	float TPSClock::getCooldown(unsigned int TPSClockID)
+	{
+		TPSClock *tpsClock = TPSClocks[TPSClockID];
+		return static_cast<float>(tpsClock->tickCooldown);
+	}
 }

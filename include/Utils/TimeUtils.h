@@ -132,6 +132,12 @@ namespace CGE::Utils
 		 * @return The time since last tick
 		 */
 		static float getDeltaTime(unsigned int TPSClockID = 0);
+
+		/**
+		 * @param TPSClockID The clock ID
+		 * @return The time between ticks
+		 */
+		static float getCooldown(unsigned int TPSClockID = 0);
 	
 	private:
 		TPSClock(unsigned int ID, float wantedTPS);
