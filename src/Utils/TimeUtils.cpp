@@ -185,9 +185,15 @@ namespace CGE::Utils
 
     float TPSClock::getDelta(unsigned int TPSClockID)
     {
-        TPSClock *tpsClock = TPSClocks[TPSClockID];
+	    TPSClock *tpsClock = TPSClocks[TPSClockID];
         return static_cast<float>((glfwGetTime() - tpsClock->lastTime) / tpsClock->tickCooldown);
     }
+
+	float TPSClock::getDeltaTime(unsigned int TPSClockID)
+	{
+		TPSClock *tpsClock = TPSClocks[TPSClockID];
+		return static_cast<float>(glfwGetTime() - tpsClock->lastTime);
+	}
 
     void TPSClock::addTick()
     {
