@@ -1,5 +1,4 @@
 #include <memory>
-#include <memory>
 
 #include "Loader/RessourceManager.h"
 

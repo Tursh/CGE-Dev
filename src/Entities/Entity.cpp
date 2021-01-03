@@ -124,7 +124,7 @@ namespace CGE::Entities
         ap_ += as_;
         if (checkCollision_ != nullptr)
         {
-            //ap_ = checkCollision_(this);
+            ap_ = checkCollision_(this);
         }
 
     }
