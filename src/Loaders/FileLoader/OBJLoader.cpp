@@ -119,9 +119,7 @@ namespace CGE::Loader
                 //Look if the 3D model is made of triangles
                 if (matches != 9)
                 {
-                    std::cout
-                            << "[ERROR] The model is not made of triangles, look your configuration when you export.";
-                    std::cin.get();
+                    logError("The model is not made of triangles, look your configuration when you export.");
                     exit(-1);
                 }
 #endif
