@@ -9,6 +9,7 @@
 #include <string>                        //std::string
 #include <vector>                        //std::vector
 #include <cstring>
+#include <sstream>
 
 #include "Loader/Loader.h"                        //loadToVAO
 #include "Utils/Log.h"                        //logError
@@ -69,6 +70,7 @@ namespace CGE::Loader
         std::vector<glm::vec2> in_tex;
         std::vector<glm::vec3> in_norm;
         std::vector<unsigned int> indices;
+        std::string indicesFormat;
         //Data read loop
         while (true)
         {
@@ -107,22 +109,37 @@ namespace CGE::Loader
                 //Load indices
             else if (strcmp(head, "f") == 0)
             {
+
                 //Get data
                 unsigned int ind_pos[3], ind_tex[3], ind_norm[3];
-#ifndef NDEBUG
+
+                //Get the indices obj format "position/texture/normal"
+                if (indicesFormat.empty())
+                {
+                    //Create the format
+                    std::stringstream ss;
+
+                    ss << "%d/" << (!in_tex.empty() ? "%d" : "") << '/' << (!in_norm.empty() ? "%d" : "");
+
+                    std::string format = ss.str();
+
+                    ss << " " << format << " " << format << "\n";
+
+                    indicesFormat = ss.str();
+                }
+
                 int matches =
-#endif
-                        fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &ind_pos[0], &ind_tex[0],
+                        fscanf(file, indicesFormat.c_str(), &ind_pos[0], &ind_tex[0],
                                &ind_norm[0], &ind_pos[1], &ind_tex[1], &ind_norm[1],
                                &ind_pos[2], &ind_tex[2], &ind_norm[2]);
-#ifndef NDEBUG
+
+
                 //Look if the 3D model is made of triangles
                 if (matches != 9)
                 {
                     logError("The model is not made of triangles, look your configuration when you export.");
-                    exit(-1);
+
                 }
-#endif
                 //Process the data
                 for (int i = 0; i < 3; i++)
                     processVertex(ind_pos[i], ind_tex[i], ind_norm[i], vertices, indices,
@@ -133,6 +150,7 @@ namespace CGE::Loader
                 fgets(buffer, 100, file);
             }
         }
+
         //Close obj file
         fclose(file);
 
@@ -157,8 +175,8 @@ namespace CGE::Loader
             norm[i * 3 + 2] = vertex.norm.z;
         }
 
-        //Load to VAO
-        //float[] -> Data objects
+//Load to VAO
+//float[] -> Data objects
         MeshData meshData;
         meshData.positions = Data<float>(pos, (unsigned int) (vertices.size()) * 3);
         meshData.textureCoordinates = Data<float>(tex, (unsigned int) (vertices.size()) * 2);
@@ -219,6 +237,11 @@ namespace CGE::Loader
                 vertices.push_back(newVertex);
             }
         }
+    }
+
+    void getIndices(unsigned int (&ind_pos)[3], unsigned int (&ind_tex)[3], unsigned int (&ind_norm)[3])
+    {
+
     }
 
     template
