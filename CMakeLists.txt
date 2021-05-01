@@ -98,4 +98,5 @@ add_library(CGE ${LIBRARY_TYPE}
         src/Physics/Hitbox.cpp
         src/Utils/ThreadProcess.cpp
         src/Loaders/Meshes/MeshBuilder.cpp
-        src/Entities/Player.cpp)
+        src/Entities/Player.cpp
+        src/Shader/ProjectionMatrix.cpp)

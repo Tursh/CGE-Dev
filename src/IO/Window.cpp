@@ -38,7 +38,7 @@ namespace CGE::IO
     Window::Window(const char *name, unsigned int width,
                    unsigned int height, bool resizable)
             : width_(width), height_(height), ID_(windowsCreated++),
-              projectionMatrix_(glm::perspectiveFov(FOV_, (float)width_, (float)height_, zNear_, zFar_))
+              projectionMatrix_(*this)
     {
         //Set if resizable
         glfwWindowHint(GLFW_RESIZABLE, resizable);
@@ -110,7 +110,7 @@ namespace CGE::IO
         return ID_;
     }
 
-    const glm::mat4 &Window::getProjectionMatrix() const
+    Shader::ProjectionMatrix &Window::getProjectionMatrix()
     {
         return projectionMatrix_;
     }
@@ -124,17 +124,8 @@ namespace CGE::IO
     {
         width_ = dimension.x;
         height_ = dimension.y;
-        projectionMatrix_ = glm::perspectiveFov(FOV_, (float)width_, (float)height_, zNear_, zFar_);
+        projectionMatrix_.recalculate();
     }
-
-    void Window::modifyProjectionMatrix(float FOV, float zNear, float zFar)
-    {
-        this->FOV_ = FOV;
-        this->zNear_ = zNear;
-        this->zFar_ = zFar;
-        projectionMatrix_ = glm::perspectiveFov(FOV_, (float)width_, (float)height_, zNear_, zFar_);
-    }
-
 
     //--------------Resize callback ----------------//
 

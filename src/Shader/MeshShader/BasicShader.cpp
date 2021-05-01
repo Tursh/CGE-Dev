@@ -48,7 +48,7 @@ void main()
 
     BasicShader::BasicShader(unsigned int windowID)
             : ShaderProgram(BASIC_VERTEX_SHADER, BASIC_FRAGMENT_SHADER, false),
-              projectionMatrix_(IO::getWindow(windowID)->getProjectionMatrix())
+              projectionMatrix_(IO::getWindow(windowID)->getProjectionMatrix().getMatrix())
     {
         //Get uniform location
         getAllUniformLocation();
@@ -62,7 +62,7 @@ void main()
 
     BasicShader::BasicShader(const char *vertexShader, const char *fragmentShader, bool isPath, unsigned int windowID)
             : ShaderProgram(
-            vertexShader, fragmentShader, isPath), projectionMatrix_(IO::getWindow(windowID)->getProjectionMatrix())
+            vertexShader, fragmentShader, isPath), projectionMatrix_(IO::getWindow(windowID)->getProjectionMatrix().getMatrix())
     {
         getAllUniformLocation();
         //Load blank matrices to not end with nothing on screen if a matrix is not set.

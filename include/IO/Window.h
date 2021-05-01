@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/mat4x4.hpp>
 #include <functional>
+#include <Shader/ProjectionMatrix.h>
 
 /**
  * @brief IO functions (Window and input)
@@ -22,15 +23,10 @@ namespace CGE::IO
          */
         unsigned int width_, height_, ID_;
 
-        /**
-         * Projection matrix parameters
-         */
-        float FOV_ = 45.0f, zNear_ = 0.001f, zFar_ = 1000.0f;
-
-        /**
-         * The projection matrix that all shaders refer to
-         */
-        glm::mat4 projectionMatrix_;
+		/**
+		 * The projection matrix that all shaders refer to
+		 */
+        Shader::ProjectionMatrix projectionMatrix_;
 
         /**
          * The GLFW window
@@ -85,17 +81,9 @@ namespace CGE::IO
         [[nodiscard]] const unsigned int &getID() const;
 
         /**
-         * Change FOV, zNear or zFar
-         * @param FOV Field of view (In degree)
-         * @param zNear Nearest z the camera can see
-         * @param zFar Farthest z the camera can see (View Distance)
-         */
-        void modifyProjectionMatrix(float FOV, float zNear = 0.000001f, float zFar = 100.0f);
-
-        /**
          * @return The projection matrix reference to use in your shader program
          */
-        [[nodiscard]] const glm::mat4 &getProjectionMatrix() const;
+        [[nodiscard]] Shader::ProjectionMatrix &getProjectionMatrix();
 
         /**
          * @return The GLFW window that this window refers to
