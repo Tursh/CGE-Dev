@@ -141,8 +141,7 @@ namespace CGE::Utils
 	
 	private:
 		TPSClock(unsigned int ID, float wantedTPS);
-		
-		
+
 		void resetDelta();
 		
 		void addTick();

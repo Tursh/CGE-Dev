@@ -8,7 +8,7 @@
 #include <glm/vec3.hpp>
 #include <Loader/Texture.h>
 #include <Loader/Meshes/TexturedMesh.h>
-#include <Physics/Hitbox.h>
+#include <Physics/BoxCollider.h>
 
 /**
  * @brief Entities system
@@ -126,7 +126,7 @@ namespace CGE::Entities
 
         [[nodiscard]] const glm::vec3 &getOldRotation() const;
 	
-		Physics::Hitbox getHitbox();
+		Physics::BoxCollider getBoxCollider();
 
         void setTexMesh(const std::shared_ptr<Loader::TexturedMesh> &texMesh);
 
